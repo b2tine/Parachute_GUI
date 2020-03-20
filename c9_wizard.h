@@ -11,15 +11,28 @@
 #include <QSpacerItem>
 
 
-class C9_Wizard : public QWizard
+
+class C9_Wizard :  public QWizard
+
 {
     Q_OBJECT
+
 
 public:
     C9_Wizard(QWidget *parent = nullptr);
 
+    //void Write();
+
+private slots:
+
+    //void Write();
     //void accept() override;
+
+private:
+
 };
+
+
 
 
 
@@ -29,11 +42,15 @@ class IntroPage : public QWizardPage
 
 public:
     IntroPage(QWidget *parent = nullptr);
+    //void Write();
 
 private:
     QLabel *mainlabel;
 
 };
+
+
+
 
 class FirstPage : public QWizardPage
 {
@@ -41,22 +58,506 @@ class FirstPage : public QWizardPage
 
 public:
     FirstPage(QWidget *parent = nullptr);
+    //void Write();
 
-private:
-    QLabel *mainlabel;
+//private:
+    QLabel *dom_lim_0;
+    QLabel *bounds0;
+    QLabel *dom_lim_1;
+    QLabel *bounds1;
+    QLabel *dom_lim_2;
+    QLabel *bounds2;
+    QLabel *compgrid;
+    QLabel *lowerbound_0;
+    QLabel *upperbound_0;
+    QLabel *lowerbound_1;
+    QLabel *upperbound_1;
+    QLabel *lowerbound_2;
+    QLabel *upperbound_2;
+
+    QLineEdit *first_bounds0;
+    QLineEdit *last_bounds0;
+    QLineEdit *first_bounds1;
+    QLineEdit *last_bounds1;
+    QLineEdit *first_bounds2;
+    QLineEdit *last_bounds2;
+    QLineEdit *grid_coord1;
+    QLineEdit *grid_coord2;
+    QLineEdit *grid_coord3;
+
+    QComboBox *upperbound0;
+    QComboBox *lowerbound0;
+    QComboBox *upperbound1;
+    QComboBox *lowerbound1;
+    QComboBox *upperbound2;
+    QComboBox *lowerbound2;
+
+    QSpacerItem *space1;
+
+
+};
+
+class SecondPage : public QWizardPage
+{
+    Q_OBJECT
+
+public:
+    SecondPage(QWidget *parent = nullptr);
+    //void Write();
+
+//private:
+
+
+    QLabel *max_time_;
+    QLabel *max_step_;
+    QLabel *print_interval_;
+    QLabel *mv_frame_interval_;
+    QLabel *CFL_factor_;
+    QLabel *redistribution_interval_;
+    QLabel *turn_onoff_redist_int_;
+    QLabel *ifluid_;
+    QLabel *projection_;
+    QLabel *advection_order_;
+    QLabel *density_and_visc_;
+    QLabel *gravity_;
+
+
+    QLineEdit *max_time;
+    QLineEdit *max_step;
+    QLineEdit *print_interval;
+    QLineEdit *mv_frame_interval;
+    QLineEdit *CFL_factor;
+    QLineEdit *redistribution_interval;
+    QComboBox *turn_onoff_redist_int;
+    QComboBox *projection;
+    QLineEdit *advection_order;
+    QLineEdit *density_and_visc1;
+    QLineEdit *density_and_visc2;
+    QLineEdit *gravity;
+
+    QSpacerItem *space1;
+
+
+};
+
+class ThirdPage : public QWizardPage
+{
+    Q_OBJECT
+
+public:
+    ThirdPage(QWidget *parent = nullptr);
+
+//private:
+
+
+    QLabel *add_rigbody_;
+    QLabel *num_rigbodies_;
+    QLabel *rig_body1_;
+    QLabel *type_of_rigbody_;
+    QLabel *center_of_rigbody_;
+    QLabel *radius_of_rigbody_;
+    QLabel *preset_motion_;
+    QLabel *dynamic_motion_;
+    QLabel *direction_of_motion_;
+    QLabel *total_mass_;
+    QLabel *init_center_mass_;
+    QLabel *init_center_mass_vel_;
+
+
+    QComboBox *add_rigbody;
+    QLineEdit *num_rigbodies;
+    QComboBox *type_of_rigbody;
+    QLineEdit *center_of_rigbody1;
+    QLineEdit *center_of_rigbody2;
+    QLineEdit *center_of_rigbody3;
+    QLineEdit *radius_of_rigbody1;
+    QLineEdit *radius_of_rigbody2;
+    QLineEdit *radius_of_rigbody3;
+    QComboBox *preset_motion;
+    QComboBox *dynamic_motion;
+    QLineEdit *direction_of_motion1;
+    QLineEdit *direction_of_motion2;
+    QLineEdit *direction_of_motion3;
+    QLineEdit *total_mass;
+    QLineEdit *init_center_mass1;
+    QLineEdit *init_center_mass2;
+    QLineEdit *init_center_mass3;
+    QLineEdit *init_center_mass_vel1;
+    QLineEdit *init_center_mass_vel2;
+    QLineEdit *init_center_mass_vel3;
+
+    QSpacerItem *space1;
+
+};
+
+
+class FourthPage : public QWizardPage
+{
+    Q_OBJECT
+
+public:
+    FourthPage(QWidget *parent = nullptr);
+
+//private:
+
+
+    QLabel *num_canopy_surfaces_;
+    QLabel *canopy_surf_type_;
+    QLabel *canopy_boundary_;
+    QLabel *height_of_plane_;
+    QLabel *circle_center_;
+    QLabel *circle_radius_;
+    QLabel *attach_gores_;
+    QLabel *cut_vent_;
+    QLabel *attach_strings_;
+    QLabel *num_chords_;
+    QLabel *init_pos_load_;
+    QLabel *install_strings_toRGB_;
+    QLabel *body_index_;
+
+    QLineEdit *num_canopy_surfaces;
+    QComboBox *canopy_surf_type;
+    QComboBox *canopy_boundary;
+    QLineEdit *height_of_plane;
+    QLineEdit *circle_center1;
+    QLineEdit *circle_center2;
+    QComboBox *attach_gores;
+    QComboBox *cut_vent;
+    QComboBox *attach_strings;
+    QLineEdit *num_chords;
+    QLineEdit *init_pos_load1;
+    QLineEdit *init_pos_load2;
+    QLineEdit *init_pos_load3;
+    QComboBox *install_strings_toRGB;
+    QLineEdit *body_index;
+    QLineEdit *circle_radius;
+
+    QSpacerItem *space1;
+
+
+
+};
+
+class FifthPage : public QWizardPage
+{
+    Q_OBJECT
+
+public:
+    FifthPage(QWidget *parent = nullptr);
+
+//private:
+
+
+    QLabel *gpu_solver_;
+    QLabel *fluid_solver_;
+    QLabel *use_porosity_;
+    QLabel *viscous_param_;
+    QLabel *inertial_param_;
+    QLabel *smooth_radius_;
+    QLabel *payload_;
+    QLabel *sub_step_num_;
+    QLabel *area_density_;
+
+    QComboBox *gpu_solver;
+    QComboBox *fluid_solver;
+    QComboBox *use_porosity;
+    QLineEdit *viscous_param;
+    QLineEdit *inertial_param;
+    QLineEdit *smooth_radius;
+    QLineEdit *payload;
+    QLineEdit *area_density;
+    QLineEdit *sub_step_num;
+
+
+    QSpacerItem *space1;
+
+
+
+};
+
+class SixthPage : public QWizardPage
+{
+    Q_OBJECT
+
+public:
+    SixthPage(QWidget *parent = nullptr);
+
+//private:
+
+    QLabel *fab_spring_const_;
+    QLabel *fab_damping_const_;
+    QLabel *fab_friction_const_;
+    QLabel *fab_point_mass_;
+    QLabel *fab_thickness_;
+    QLabel *fab_rounding_tol_;
+    QLabel *str_spring_const_;
+    QLabel *str_damping_const_;
+    QLabel *str_friction_const_;
+    QLabel *str_point_mass_;
+    QLabel *str_thickness_;
+    QLabel *str_rounding_tol_;
+
+    QLineEdit *fab_spring_const;
+    QLineEdit *fab_damping_const;
+    QLineEdit *fab_friction_const;
+    QLineEdit *fab_point_mass;
+    QLineEdit *fab_thickness;
+    QLineEdit *fab_rounding_tol;
+    QLineEdit *str_spring_const;
+    QLineEdit *str_damping_const;
+    QLineEdit *str_friction_const;
+    QLineEdit *str_point_mass;
+    QLineEdit *str_thickness;
+    QLineEdit *str_rounding_tol;
+
+    QSpacerItem *space1;
+
+
+};
+
+class SeventhPage : public QWizardPage
+{
+    Q_OBJECT
+
+public:
+    SeventhPage(QWidget *parent = nullptr);
+
+//private:
+
+
+    QLabel *lower_boundary_;
+    QLabel *lower_type_of_dirichlet_;
+    QLabel *velocity_;
+    QLabel *pressure_;
+    QLabel *upper_boundary_;
+    QLabel *upper_type_of_dirichlet_;
+    QLabel *yz_movie_;
+    QLabel *xz_movie_;
+    QLabel *xy_movie_;
+    QLabel *velocity_vector_;
+    QLabel *surface_stress_;
+
+    QComboBox *lower_type_of_dirichlet;
+    QLineEdit *velocity1;
+    QLineEdit *velocity2;
+    QLineEdit *velocity3;
+    QLineEdit *pressure;
+    QComboBox *upper_type_of_dirichlet;
+    QComboBox *yz_movie;
+    QComboBox *xz_movie;
+    QComboBox *xy_movie;
+    QComboBox *velocity_vector;
+    QComboBox *surface_stress;
+
+
+    QSpacerItem *space1;
+
+
+};
+
+
+class DebugPage : public QWizardPage
+{
+    Q_OBJECT
+
+public:
+    DebugPage(QWidget *parent = nullptr);
+
+//private:
+
+
+    QLabel *debug_;
+    QLabel *debug_strings_;
+    QLabel *sample_line_type_;
+    QLabel *sample_line_coord_;
+    QLabel *end_step_;
+
+    QComboBox *debug;
+    QLineEdit *debug_string_space1;
+    QLineEdit *debug_string_space2;
+    QLineEdit *debug_string_space3;
+    QLineEdit *debug_string_space4;
+    QLineEdit *debug_string_space5;
+    QLineEdit *debug_string_space6;
+    QLineEdit *debug_string_space7;
+    QLineEdit *debug_string_space8;
+    QLineEdit *debug_string_space9;
+    QLineEdit *debug_string_space10;
+    QLineEdit *debug_string_space11;
+    QLineEdit *debug_string_space12;
+    QLineEdit *debug_string_space13;
+    QLineEdit *sample_line_type;
+    QLineEdit *sample_line_coord1;
+    QLineEdit *sample_line_coord2;
+    QLineEdit *start_step;
+    QLineEdit *end_step;
+
+    QSpacerItem *space1;
+
 
 };
 
 
 
+/*
+
+class C9_Write :  C9_Wizard//, public IntroPage, public FirstPage, public SecondPage, public ThirdPage,
+        //public FourthPage, public FifthPage, public SixthPage, public SeventhPage, public DebugPage
+{
+    Q_OBJECT
 
 
+public:
+    C9_Write(QWidget *parent = nullptr);
 
 
+private slots:
+
+    void Write();
+    //void accept() override;
+
+private:
+    //QSTRINGS
 
 
+    QString *dom_lim_0_first;
+    QString *dom_lim_0_last;
+
+    QString *dom_lim_1_first;
+    QString *dom_lim_1_last;
+    QString *dom_lim_2_first;
+    QString *dom_lim_2_last;
+
+    QString *compgrid_1;
+    QString *compgrid_2;
+    QString *compgrid_3;
+
+    QString *lowerbound_0;
+    QString *upperbound_0;
+    QString *lowerbound_1;
+    QString *upperbound_1;
+    QString *lowerbound_2;
+    QString *upperbound_2;
+
+    QString *max_time_;
+    QString *max_step_;
+
+    QString *print_interval_;
+    QString *mv_frame_interval_;
+    QString *CFL_factor_;
+    QString *redistribution_interval_ ;
+    QString *turn_onoff_redist_int_ ;
+
+    QString *projection_ ;
+    QString *advection_order_ ;
+    QString *density_and_visc_1 ;
+    QString *density_and_visc_2 ;
+    QString *gravity_ ;
+
+    QString *add_rigbody_;
+    QString *num_rigbodies_;
+    QString *type_of_rigbody_;
+    QString *center_of_rigbody_1 ;
+    QString *center_of_rigbody_2;
+    QString *center_of_rigbody_3;
+    QString *radius_of_rigbody_1 ;
+    QString *radius_of_rigbody_2 ;
+    QString *radius_of_rigbody_3 ;
+    QString *preset_motion_;
+    QString *dynamic_motion_;
+    QString *direction_of_motion_1 ;
+    QString *direction_of_motion_2 ;
+    QString *direction_of_motion_3 ;
+    QString *total_mass_;
+    QString *init_center_mass_1 ;
+    QString *init_center_mass_2 ;
+    QString *init_center_mass_3 ;
+    QString *init_center_mass_vel_1;
+    QString *init_center_mass_vel_2 ;
+    QString *init_center_mass_vel_3 ;
+
+    QString *num_canopy_surfaces_ ;
+    QString *canopy_surf_type_ ;
+    QString *canopy_boundary_;
+    QString *height_of_plane_;
+    QString *circle_center_1 ;
+    QString *circle_center_2 ;
+    QString *circle_radius_ ;
+    QString *attach_gores_;
+    QString *cut_vent_ ;
+    QString *attach_strings_ ;
+    QString *num_chords_ ;
+    QString *init_pos_load_1 ;
+    QString *init_pos_load_2 ;
+    QString *init_pos_load_3 ;
+    QString *install_strings_toRGB_ ;
+    QString *body_index_;
+
+    QString *gpu_solver_;
+    QString *fluid_solver_;
+    QString *use_porosity_;
+    QString *viscous_param_;
+    QString *inertial_param_;
+    QString *smooth_radius_ ;
+
+    QString *payload_ ;
+    QString *sub_step_num_;
+    QString *area_density_;
+
+    QString *fab_spring_const_;
+    QString *fab_damping_const_ ;
+    QString *fab_friction_const_ ;
+    QString *fab_point_mass_ ;
+    QString *fab_thickness_ ;
+    QString *fab_rounding_tol_ ;
+
+    QString *str_spring_const_ ;
+    QString *str_damping_const_ ;
+    QString *str_friction_const_ ;
+    QString *str_point_mass_ ;
+    QString *str_thickness_ ;
+    QString *str_rounding_tol_;
+
+    QString *lower_type_of_dirichlet_ ;
+    QString *velocity_1 ;
+    QString *velocity_2 ;
+    QString *velocity_3 ;
+    QString *pressure_;
+    QString *upper_type_of_dirichlet_ ;
+
+    QString *yz_movie_ ;
+    QString *xz_movie_;
+    QString *xy_movie_ ;
+    QString *velocity_vector_ ;
+    QString *surface_stress_ ;
+
+    QString *debug_ ;
+    QString *debug_string_space1_ ;
+    QString *debug_string_space2_ ;
+    QString *debug_string_space3_ ;
+    QString *debug_string_space4_;
+    QString *debug_string_space5_ ;
+    QString *debug_string_space6_ ;
+    QString *debug_string_space7_ ;
+    QString *debug_string_space8_ ;
+    QString *debug_string_space9_ ;
+    QString *debug_string_space10_;
+    QString *debug_string_space11_ ;
+    QString *debug_string_space12_ ;
+    QString *debug_string_space13_ ;
 
 
+    QString *sample_line_type_ ;
+    QString *sample_line_coord_1 ;
+    QString *sample_line_coord_2 ;
+    QString *start_step_;
+    QString *end_step_ ;
+
+
+};
+
+
+*/
 
 
 
@@ -150,6 +651,7 @@ private:
     QLineEdit *density_and_visc1 = new QLineEdit;
     QLineEdit *density_and_visc2 = new QLineEdit;
     QLineEdit *gravity = new QLineEdit;
+
     QComboBox *add_rigbody = new QComboBox;
     QLineEdit *num_rigbodies = new QLineEdit;
     QComboBox *type_of_rigbody = new QComboBox;
@@ -171,6 +673,7 @@ private:
     QLineEdit *init_center_mass_vel1 = new QLineEdit;
     QLineEdit *init_center_mass_vel2 = new QLineEdit;
     QLineEdit *init_center_mass_vel3 = new QLineEdit;
+
     QLineEdit *num_canopy_surfaces = new QLineEdit;
     QComboBox *canopy_surf_type = new QComboBox;
     QComboBox *canopy_boundary = new QComboBox;
@@ -187,6 +690,7 @@ private:
     QComboBox *install_strings_toRGB = new QComboBox;
     QLineEdit *body_index = new QLineEdit;
     QLineEdit *circle_radius = new QLineEdit;
+
     QComboBox *gpu_solver = new QComboBox;
     QComboBox *fluid_solver = new QComboBox;
     QComboBox *use_porosity = new QComboBox;
@@ -203,7 +707,6 @@ private:
     QLineEdit *fab_point_mass = new QLineEdit;
     QLineEdit *fab_thickness = new QLineEdit;
     QLineEdit *fab_rounding_tol = new QLineEdit;
-
     QLineEdit *str_spring_const = new QLineEdit;
     QLineEdit *str_damping_const = new QLineEdit;
     QLineEdit *str_friction_const = new QLineEdit;
@@ -217,7 +720,6 @@ private:
     QLineEdit *velocity3 = new QLineEdit;
     QLineEdit *pressure = new QLineEdit;
     QComboBox *upper_type_of_dirichlet = new QComboBox;
-
     QComboBox *yz_movie = new QComboBox;
     QComboBox *xz_movie = new QComboBox;
     QComboBox *xy_movie = new QComboBox;
@@ -238,12 +740,12 @@ private:
     QLineEdit *debug_string_space11 = new QLineEdit;
     QLineEdit *debug_string_space12 = new QLineEdit;
     QLineEdit *debug_string_space13 = new QLineEdit;
-
     QLineEdit *sample_line_type = new QLineEdit;
     QLineEdit *sample_line_coord1 = new QLineEdit;
     QLineEdit *sample_line_coord2 = new QLineEdit;
     QLineEdit *start_step = new QLineEdit;
     QLineEdit *end_step = new QLineEdit;
+
 
     //QSTRINGS
 
@@ -633,8 +1135,9 @@ private:
 
 
 
+*/
 
-
+/*
 
 
 private slots:
@@ -668,9 +1171,6 @@ private slots:
 
         *dom_lim_2_first = first_bounds2->displayText();
         *dom_lim_2_last = last_bounds2->displayText();
-
-
-
 
 
         *compgrid_1 = grid_coord1->displayText();
@@ -1041,8 +1541,8 @@ private slots:
 
     }
 
- */
 
+*/
 
 
 #endif // C9_WIZARD_H
