@@ -9,6 +9,20 @@
 #include <QLibraryInfo>
 #include <QHBoxLayout>
 #include <QSpacerItem>
+#include <QTranslator>
+#include <QLocale>
+#include <QLibraryInfo>
+
+
+class IntroPage;
+class FirstPage;
+class SecondPage;
+class ThirdPage;
+class FourthPage;
+class FifthPage;
+class SixthPage;
+class SeventhPage;
+class DebugPage;
 
 
 
@@ -25,14 +39,159 @@ public:
 
 private slots:
 
-    //void Write();
-    //void accept() override;
+    void Write();
+
 
 private:
+    IntroPage* intro;
+    FirstPage* first;
+    SecondPage* second;
+    ThirdPage* third;
+    FourthPage* fourth;
+    FifthPage* fifth;
+    SixthPage* sixth;
+    SeventhPage* seventh;
+    DebugPage* DEBUG;
+
+    //QSTRINGS
+
+
+    QString *dom_lim_0_first;
+    QString *dom_lim_0_last;
+
+    QString *dom_lim_1_first;
+    QString *dom_lim_1_last;
+    QString *dom_lim_2_first;
+    QString *dom_lim_2_last;
+
+    QString *compgrid_1;
+    QString *compgrid_2;
+    QString *compgrid_3;
+
+    QString *lowerbound_0;
+    QString *upperbound_0;
+    QString *lowerbound_1;
+    QString *upperbound_1;
+    QString *lowerbound_2;
+    QString *upperbound_2;
+
+    QString *max_time_;
+    QString *max_step_;
+
+    QString *print_interval_;
+    QString *mv_frame_interval_;
+    QString *CFL_factor_;
+    QString *redistribution_interval_ ;
+    QString *turn_onoff_redist_int_ ;
+
+    QString *projection_ ;
+    QString *advection_order_ ;
+    QString *density_and_visc_1 ;
+    QString *density_and_visc_2 ;
+    QString *gravity_ ;
+
+    QString *add_rigbody_;
+    QString *num_rigbodies_;
+    QString *type_of_rigbody_;
+    QString *center_of_rigbody_1 ;
+    QString *center_of_rigbody_2;
+    QString *center_of_rigbody_3;
+    QString *radius_of_rigbody_1 ;
+    QString *radius_of_rigbody_2 ;
+    QString *radius_of_rigbody_3 ;
+    QString *preset_motion_;
+    QString *dynamic_motion_;
+    QString *direction_of_motion_1 ;
+    QString *direction_of_motion_2 ;
+    QString *direction_of_motion_3 ;
+    QString *total_mass_;
+    QString *init_center_mass_1 ;
+    QString *init_center_mass_2 ;
+    QString *init_center_mass_3 ;
+    QString *init_center_mass_vel_1;
+    QString *init_center_mass_vel_2 ;
+    QString *init_center_mass_vel_3 ;
+
+    QString *num_canopy_surfaces_ ;
+    QString *canopy_surf_type_ ;
+    QString *canopy_boundary_;
+    QString *height_of_plane_;
+    QString *circle_center_1 ;
+    QString *circle_center_2 ;
+    QString *circle_radius_ ;
+    QString *attach_gores_;
+    QString *cut_vent_ ;
+    QString *attach_strings_ ;
+    QString *num_chords_ ;
+    QString *init_pos_load_1 ;
+    QString *init_pos_load_2 ;
+    QString *init_pos_load_3 ;
+    QString *install_strings_toRGB_ ;
+    QString *body_index_;
+
+    QString *gpu_solver_;
+    QString *fluid_solver_;
+    QString *use_porosity_;
+    QString *viscous_param_;
+    QString *inertial_param_;
+    QString *smooth_radius_ ;
+
+    QString *payload_ ;
+    QString *sub_step_num_;
+    QString *area_density_;
+
+    QString *fab_spring_const_;
+    QString *fab_damping_const_ ;
+    QString *fab_friction_const_ ;
+    QString *fab_point_mass_ ;
+    QString *fab_thickness_ ;
+    QString *fab_rounding_tol_ ;
+
+    QString *str_spring_const_ ;
+    QString *str_damping_const_ ;
+    QString *str_friction_const_ ;
+    QString *str_point_mass_ ;
+    QString *str_thickness_ ;
+    QString *str_rounding_tol_;
+
+    QString *lower_type_of_dirichlet_ ;
+    QString *velocity_1 ;
+    QString *velocity_2 ;
+    QString *velocity_3 ;
+    QString *pressure_;
+    QString *upper_type_of_dirichlet_ ;
+
+    QString *yz_movie_ ;
+    QString *xz_movie_;
+    QString *xy_movie_ ;
+    QString *velocity_vector_ ;
+    QString *surface_stress_ ;
+
+    QString *debug_ ;
+    QString *debug_string_space1_ ;
+    QString *debug_string_space2_ ;
+    QString *debug_string_space3_ ;
+    QString *debug_string_space4_;
+    QString *debug_string_space5_ ;
+    QString *debug_string_space6_ ;
+    QString *debug_string_space7_ ;
+    QString *debug_string_space8_ ;
+    QString *debug_string_space9_ ;
+    QString *debug_string_space10_;
+    QString *debug_string_space11_ ;
+    QString *debug_string_space12_ ;
+    QString *debug_string_space13_ ;
+
+
+    QString *sample_line_type_ ;
+    QString *sample_line_coord_1 ;
+    QString *sample_line_coord_2 ;
+    QString *start_step_;
+    QString *end_step_ ;
+
+
 
 };
-
-
 
 
 
@@ -363,6 +522,8 @@ class DebugPage : public QWizardPage
 public:
     DebugPage(QWidget *parent = nullptr);
 
+    //void setVisible(bool visible);
+
 //private:
 
 
@@ -393,6 +554,10 @@ public:
     QLineEdit *end_step;
 
     QSpacerItem *space1;
+
+//private slots:
+
+    //void Write();
 
 
 };

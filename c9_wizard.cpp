@@ -3,18 +3,57 @@
 C9_Wizard::C9_Wizard(QWidget *parent)
     : QWizard(parent)
 {
-    addPage(new IntroPage);
-    addPage(new FirstPage);
-    addPage(new SecondPage);
-    addPage(new ThirdPage);
-    addPage(new FourthPage);
-    addPage(new FifthPage);
-    addPage(new SixthPage);
-    addPage(new SeventhPage);
-    addPage(new DebugPage);
+    intro = new IntroPage;
+    intro->initializePage();
+    addPage(intro);
+
+    first = new FirstPage;
+    first->initializePage();
+    addPage(first);
 
 
-    //connect(this->button(FinishButton),SIGNAL(clicked()), this, SLOT(Write()));
+    second = new SecondPage;
+    second->initializePage();
+    C9_Wizard::addPage(second);
+
+    third = new ThirdPage;
+    third->initializePage();
+    C9_Wizard::addPage(third);
+
+    fourth = new FourthPage;
+    fourth->initializePage();
+    C9_Wizard::addPage(fourth);
+
+    fifth = new FifthPage;
+    fifth->initializePage();
+    C9_Wizard::addPage(fifth);
+
+    sixth = new SixthPage;
+    sixth->initializePage();
+    C9_Wizard::addPage(sixth);
+
+    seventh = new SeventhPage;
+    seventh->initializePage();
+    C9_Wizard::addPage(seventh);
+
+    DEBUG = new DebugPage;
+    DEBUG->initializePage();
+    C9_Wizard::addPage(DEBUG);
+
+
+
+    //addPage(new IntroPage);
+    //addPage(new FirstPage);
+    //addPage(new SecondPage);
+    //addPage(new ThirdPage);
+    //addPage(new FourthPage);
+    //addPage(new FifthPage);
+    //addPage(new SixthPage);
+    //addPage(new SeventhPage);
+    //addPage(new DebugPage);
+
+
+    connect(this->button(FinishButton),SIGNAL(clicked()), this, SLOT(Write()));
 
 
     //setPixmap(QWizard::BannerPixmap, QPixmap(":/images/banner.png"));
@@ -1611,257 +1650,260 @@ DebugPage::DebugPage(QWidget *parent)
 }
 
 
-/*
-void C9_Write::Write()
+
+
+
+
+void C9_Wizard::Write()
 {
 
     dom_lim_0_first = new QString;
-    *dom_lim_0_first = first_bounds0->displayText();
+    *dom_lim_0_first = first->first_bounds0->displayText();
     dom_lim_0_last = new QString;
-    *dom_lim_0_last = last_bounds0->displayText();
+    *dom_lim_0_last = first->last_bounds0->displayText();
 
     dom_lim_1_first = new QString;
-    *dom_lim_1_first = first_bounds1->displayText();
+    *dom_lim_1_first = first->first_bounds1->displayText();
     dom_lim_1_last = new QString;
-    *dom_lim_1_last = last_bounds1->displayText();
+    *dom_lim_1_last = first->last_bounds1->displayText();
     dom_lim_2_first = new QString;
-    *dom_lim_2_first = first_bounds2->displayText();
+    *dom_lim_2_first = first->first_bounds2->displayText();
     dom_lim_2_last = new QString;
-    *dom_lim_2_last = last_bounds2->displayText();
+    *dom_lim_2_last = first->last_bounds2->displayText();
 
     compgrid_1 = new QString;
-    *compgrid_1 = grid_coord1->displayText();
+    *compgrid_1 = first->grid_coord1->displayText();
     compgrid_2 = new QString;
-    *compgrid_2 = grid_coord2->displayText();
+    *compgrid_2 = first->grid_coord2->displayText();
     compgrid_3 = new QString;
-    *compgrid_3 = grid_coord3->displayText();
+    *compgrid_3 = first->grid_coord3->displayText();
 
     lowerbound_0 = new QString;
-    *lowerbound_0 = lowerbound0->currentText();
+    *lowerbound_0 = first->lowerbound0->currentText();
     upperbound_0 = new QString;
-    *upperbound_0 = upperbound0->currentText();
+    *upperbound_0 = first->upperbound0->currentText();
     lowerbound_1 = new QString;
-    *lowerbound_1 = lowerbound1->currentText();
+    *lowerbound_1 = first->lowerbound1->currentText();
     upperbound_1 = new QString;
-    *upperbound_1 = upperbound1->currentText();
+    *upperbound_1 = first->upperbound1->currentText();
     lowerbound_2 = new QString;
-    *lowerbound_2 = lowerbound2->currentText();
+    *lowerbound_2 = first->lowerbound2->currentText();
     upperbound_2 = new QString;
-    *upperbound_2 = upperbound2->currentText();
+    *upperbound_2 = first->upperbound2->currentText();
 
     max_time_ = new QString;
-    *max_time_ = max_time->displayText();
+    *max_time_ = second->max_time->displayText();
     max_step_ = new QString;
-    *max_step_ = max_step->displayText();
+    *max_step_ = second->max_step->displayText();
     print_interval_ = new QString;
-    *print_interval_ = print_interval->displayText();
+    *print_interval_ = second->print_interval->displayText();
     mv_frame_interval_ = new QString;
-    *mv_frame_interval_ = mv_frame_interval->displayText();
+    *mv_frame_interval_ = second->mv_frame_interval->displayText();
     CFL_factor_ = new QString;
-    *CFL_factor_ = CFL_factor->displayText();
+    *CFL_factor_ = second->CFL_factor->displayText();
     redistribution_interval_ = new QString;
-    *redistribution_interval_ = redistribution_interval->displayText();
+    *redistribution_interval_ = second->redistribution_interval->displayText();
     turn_onoff_redist_int_ = new QString;
-    *turn_onoff_redist_int_ = turn_onoff_redist_int->currentText();
+    *turn_onoff_redist_int_ = second->turn_onoff_redist_int->currentText();
 
     projection_ = new QString;
-    *projection_ = projection->currentText();
+    *projection_ = second->projection->currentText();
     advection_order_ = new QString;
-    *advection_order_ = advection_order->displayText();
+    *advection_order_ = second->advection_order->displayText();
     density_and_visc_1 = new QString;
-    *density_and_visc_1 = density_and_visc1->displayText();
+    *density_and_visc_1 = second->density_and_visc1->displayText();
     density_and_visc_2 = new QString;
-    *density_and_visc_2 = density_and_visc2->displayText();
+    *density_and_visc_2 = second->density_and_visc2->displayText();
     gravity_ = new QString;
-    *gravity_ = gravity->displayText();
+    *gravity_ = second->gravity->displayText();
 
     add_rigbody_ = new QString;
-    *add_rigbody_ = add_rigbody->currentText();
+    *add_rigbody_ = third->add_rigbody->currentText();
     num_rigbodies_ = new QString;
-    *num_rigbodies_ = num_rigbodies->displayText();
+    *num_rigbodies_ = third->num_rigbodies->displayText();
     type_of_rigbody_ = new QString;
-    *type_of_rigbody_ = type_of_rigbody->currentText();
+    *type_of_rigbody_ = third->type_of_rigbody->currentText();
     center_of_rigbody_1 = new QString;
-    *center_of_rigbody_1 = center_of_rigbody1->displayText();
+    *center_of_rigbody_1 = third->center_of_rigbody1->displayText();
     center_of_rigbody_2 = new QString;
-    *center_of_rigbody_2 = center_of_rigbody2->displayText();
+    *center_of_rigbody_2 = third->center_of_rigbody2->displayText();
     center_of_rigbody_3 = new QString;
-    *center_of_rigbody_3 = center_of_rigbody3->displayText();
+    *center_of_rigbody_3 = third->center_of_rigbody3->displayText();
     radius_of_rigbody_1 = new QString;
-    *radius_of_rigbody_1 = radius_of_rigbody1->displayText();
+    *radius_of_rigbody_1 = third->radius_of_rigbody1->displayText();
     radius_of_rigbody_2 = new QString;
-    *radius_of_rigbody_2 = radius_of_rigbody2->displayText();
+    *radius_of_rigbody_2 = third->radius_of_rigbody2->displayText();
     radius_of_rigbody_3 = new QString;
-    *radius_of_rigbody_3 = radius_of_rigbody3->displayText();
+    *radius_of_rigbody_3 = third->radius_of_rigbody3->displayText();
     preset_motion_ = new QString;
-    *preset_motion_ = preset_motion->currentText();
+    *preset_motion_ = third->preset_motion->currentText();
     dynamic_motion_ = new QString;
-    *dynamic_motion_ = dynamic_motion->currentText();
+    *dynamic_motion_ = third->dynamic_motion->currentText();
     direction_of_motion_1 = new QString;
-    *direction_of_motion_1 = direction_of_motion1->displayText();
+    *direction_of_motion_1 = third->direction_of_motion1->displayText();
     direction_of_motion_2 = new QString;
-    *direction_of_motion_2 = direction_of_motion2->displayText();
+    *direction_of_motion_2 = third->direction_of_motion2->displayText();
     direction_of_motion_3 = new QString;
-    *direction_of_motion_3 = direction_of_motion3->displayText();
+    *direction_of_motion_3 = third->direction_of_motion3->displayText();
     total_mass_ = new QString;
-    *total_mass_ = total_mass->displayText();
+    *total_mass_ = third->total_mass->displayText();
     init_center_mass_1 = new QString;
-    *init_center_mass_1 = init_center_mass1->displayText();
+    *init_center_mass_1 = third->init_center_mass1->displayText();
     init_center_mass_2 = new QString;
-    *init_center_mass_2 = init_center_mass2->displayText();
+    *init_center_mass_2 = third->init_center_mass2->displayText();
     init_center_mass_3 = new QString;
-    *init_center_mass_3 = init_center_mass3->displayText();
+    *init_center_mass_3 = third->init_center_mass3->displayText();
     init_center_mass_vel_1 = new QString;
-    *init_center_mass_vel_1 = init_center_mass_vel1->displayText();
+    *init_center_mass_vel_1 = third->init_center_mass_vel1->displayText();
     init_center_mass_vel_2 = new QString;
-    *init_center_mass_vel_2 = init_center_mass_vel2->displayText();
+    *init_center_mass_vel_2 = third->init_center_mass_vel2->displayText();
     init_center_mass_vel_3 = new QString;
-    *init_center_mass_vel_3 = init_center_mass_vel3->displayText();
+    *init_center_mass_vel_3 = third->init_center_mass_vel3->displayText();
 
     num_canopy_surfaces_ = new QString;
-    *num_canopy_surfaces_ = num_canopy_surfaces->displayText();
+    *num_canopy_surfaces_ = fourth->num_canopy_surfaces->displayText();
     canopy_surf_type_ = new QString;
-    *canopy_surf_type_ = canopy_surf_type->currentText();
+    *canopy_surf_type_ = fourth->canopy_surf_type->currentText();
     canopy_boundary_ = new QString;
-    *canopy_boundary_ = canopy_boundary->currentText();
+    *canopy_boundary_ = fourth->canopy_boundary->currentText();
     height_of_plane_ = new QString;
-    *height_of_plane_ = height_of_plane->displayText();
+    *height_of_plane_ = fourth->height_of_plane->displayText();
     circle_center_1 = new QString;
-    *circle_center_1 = circle_center1->displayText();
+    *circle_center_1 = fourth->circle_center1->displayText();
     circle_center_2 = new QString;
-    *circle_center_2 = circle_center2->displayText();
+    *circle_center_2 = fourth->circle_center2->displayText();
     circle_radius_ = new QString;
-    *circle_radius_ = circle_radius->displayText();
+    *circle_radius_ = fourth->circle_radius->displayText();
     attach_gores_ = new QString;
-    *attach_gores_ = attach_gores->currentText();
+    *attach_gores_ = fourth->attach_gores->currentText();
     cut_vent_ = new QString;
-    *cut_vent_ = cut_vent->currentText();
+    *cut_vent_ = fourth->cut_vent->currentText();
     attach_strings_ = new QString;
-    *attach_strings_ = attach_strings->currentText();
+    *attach_strings_ = fourth->attach_strings->currentText();
     num_chords_ = new QString;
-    *num_chords_ = num_chords->displayText();
+    *num_chords_ = fourth->num_chords->displayText();
     init_pos_load_1 = new QString;
-    *init_pos_load_1 = init_pos_load1->displayText();
+    *init_pos_load_1 = fourth->init_pos_load1->displayText();
     init_pos_load_2 = new QString;
-    *init_pos_load_2 = init_pos_load2->displayText();
+    *init_pos_load_2 = fourth->init_pos_load2->displayText();
     init_pos_load_3 = new QString;
-    *init_pos_load_3 = init_pos_load3->displayText();
+    *init_pos_load_3 = fourth->init_pos_load3->displayText();
     install_strings_toRGB_ = new QString;
-    *install_strings_toRGB_ = install_strings_toRGB->currentText();
+    *install_strings_toRGB_ = fourth->install_strings_toRGB->currentText();
     body_index_ = new QString;
-    *body_index_ = body_index->displayText();
+    *body_index_ = fourth->body_index->displayText();
 
     gpu_solver_ = new QString;
-    *gpu_solver_ = gpu_solver->currentText();
+    *gpu_solver_ = fifth->gpu_solver->currentText();
     fluid_solver_ = new QString;
-    *fluid_solver_ = fluid_solver->currentText();
+    *fluid_solver_ = fifth->fluid_solver->currentText();
     use_porosity_ = new QString;
-    *use_porosity_ = use_porosity->currentText();
+    *use_porosity_ = fifth->use_porosity->currentText();
     viscous_param_ = new QString;
-    *viscous_param_ = viscous_param->displayText();
+    *viscous_param_ = fifth->viscous_param->displayText();
     inertial_param_ = new QString;
-    *inertial_param_ = inertial_param->displayText();
+    *inertial_param_ = fifth->inertial_param->displayText();
     smooth_radius_ = new QString;
-    *smooth_radius_ = smooth_radius->displayText();
+    *smooth_radius_ = fifth->smooth_radius->displayText();
 
     payload_ = new QString;
-    *payload_ = payload->displayText();
+    *payload_ = fifth->payload->displayText();
     sub_step_num_ = new QString;
-    *sub_step_num_ = sub_step_num->displayText();
+    *sub_step_num_ = fifth->sub_step_num->displayText();
     area_density_ = new QString;
-    *area_density_ = area_density->displayText();
+    *area_density_ = fifth->area_density->displayText();
 
     fab_spring_const_ = new QString;
-    *fab_spring_const_ = fab_spring_const->displayText();
+    *fab_spring_const_ = sixth->fab_spring_const->displayText();
     fab_damping_const_ = new QString;
-    *fab_damping_const_ = fab_damping_const->displayText();
+    *fab_damping_const_ = sixth->fab_damping_const->displayText();
     fab_friction_const_ = new QString;
-    *fab_friction_const_ = fab_friction_const->displayText();
+    *fab_friction_const_ = sixth->fab_friction_const->displayText();
     fab_point_mass_ = new QString;
-    *fab_point_mass_ = fab_point_mass->displayText();
+    *fab_point_mass_ = sixth->fab_point_mass->displayText();
     fab_thickness_ = new QString;
-    *fab_thickness_ = fab_thickness->displayText();
+    *fab_thickness_ = sixth->fab_thickness->displayText();
     fab_rounding_tol_ = new QString;
-    *fab_rounding_tol_ = fab_rounding_tol->displayText();
+    *fab_rounding_tol_ = sixth->fab_rounding_tol->displayText();
 
     str_spring_const_ = new QString;
-    *str_spring_const_ = str_spring_const->displayText();
+    *str_spring_const_ = sixth->str_spring_const->displayText();
     str_damping_const_ = new QString;
-    *str_damping_const_ = str_damping_const->displayText();
+    *str_damping_const_ = sixth->str_damping_const->displayText();
     str_friction_const_ = new QString;
-    *str_friction_const_ = str_friction_const->displayText();
+    *str_friction_const_ = sixth->str_friction_const->displayText();
     str_point_mass_ = new QString;
-    *str_point_mass_ = str_point_mass->displayText();
+    *str_point_mass_ = sixth->str_point_mass->displayText();
     str_thickness_ = new QString;
-    *str_thickness_ = str_thickness->displayText();
+    *str_thickness_ = sixth->str_thickness->displayText();
     str_rounding_tol_ = new QString;
-    *str_rounding_tol_ = str_rounding_tol->displayText();
+    *str_rounding_tol_ = sixth->str_rounding_tol->displayText();
 
     //STRAIN LIMIT NOT INCLUDED - WAITING FOR MORE DEVELOPED CODE
 
     lower_type_of_dirichlet_ = new QString;
-    *lower_type_of_dirichlet_ = lower_type_of_dirichlet->currentText();
+    *lower_type_of_dirichlet_ = seventh->lower_type_of_dirichlet->currentText();
     velocity_1 = new QString;
-    *velocity_1 = velocity1->displayText();
+    *velocity_1 = seventh->velocity1->displayText();
     velocity_2 = new QString;
-    *velocity_2 = velocity2->displayText();
+    *velocity_2 = seventh->velocity2->displayText();
     velocity_3 = new QString;
-    *velocity_3 = velocity3->displayText();
+    *velocity_3 = seventh->velocity3->displayText();
     pressure_ = new QString;
-    *pressure_ = pressure->displayText();
+    *pressure_ = seventh->pressure->displayText();
     upper_type_of_dirichlet_ = new QString;
-    *upper_type_of_dirichlet_ = upper_type_of_dirichlet->currentText();
+    *upper_type_of_dirichlet_ = seventh->upper_type_of_dirichlet->currentText();
 
     yz_movie_ = new QString;
-    *yz_movie_ = yz_movie->currentText();
+    *yz_movie_ = seventh->yz_movie->currentText();
     xz_movie_ = new QString;
-    *xz_movie_ = xz_movie->currentText();
+    *xz_movie_ = seventh->xz_movie->currentText();
     xy_movie_ = new QString;
-    *xy_movie_ = xy_movie->currentText();
+    *xy_movie_ = seventh->xy_movie->currentText();
     velocity_vector_ = new QString;
-    *velocity_vector_ = velocity_vector->currentText();
+    *velocity_vector_ = seventh->velocity_vector->currentText();
     surface_stress_ = new QString;
-    *surface_stress_ = surface_stress->currentText();
+    *surface_stress_ = seventh->surface_stress->currentText();
 
     debug_ = new QString;
-    *debug_ = debug->currentText();
+    *debug_ = DEBUG->debug->currentText();
     debug_string_space1_ = new QString;
-    *debug_string_space1_ = debug_string_space1->displayText();
+    *debug_string_space1_ = DEBUG->debug_string_space1->displayText();
     debug_string_space2_ = new QString;
-    *debug_string_space2_ = debug_string_space2->displayText();
+    *debug_string_space2_ = DEBUG->debug_string_space2->displayText();
     debug_string_space3_ = new QString;
-    *debug_string_space3_ = debug_string_space3->displayText();
+    *debug_string_space3_ = DEBUG->debug_string_space3->displayText();
     debug_string_space4_ = new QString;
-    *debug_string_space4_ = debug_string_space4->displayText();
+    *debug_string_space4_ = DEBUG->debug_string_space4->displayText();
     debug_string_space5_ = new QString;
-    *debug_string_space5_ = debug_string_space5->displayText();
+    *debug_string_space5_ = DEBUG->debug_string_space5->displayText();
     debug_string_space6_ = new QString;
-    *debug_string_space6_ = debug_string_space6->displayText();
+    *debug_string_space6_ = DEBUG->debug_string_space6->displayText();
     debug_string_space7_ = new QString;
-    *debug_string_space7_ = debug_string_space7->displayText();
+    *debug_string_space7_ = DEBUG->debug_string_space7->displayText();
     debug_string_space8_ = new QString;
-    *debug_string_space8_ = debug_string_space8->displayText();
+    *debug_string_space8_ = DEBUG->debug_string_space8->displayText();
     debug_string_space9_ = new QString;
-    *debug_string_space9_ = debug_string_space9->displayText();
+    *debug_string_space9_ = DEBUG->debug_string_space9->displayText();
     debug_string_space10_ = new QString;
-    *debug_string_space10_ = debug_string_space10->displayText();
+    *debug_string_space10_ = DEBUG->debug_string_space10->displayText();
     debug_string_space11_ = new QString;
-    *debug_string_space11_ = debug_string_space11->displayText();
+    *debug_string_space11_ = DEBUG->debug_string_space11->displayText();
     debug_string_space12_ = new QString;
-    *debug_string_space12_ = debug_string_space12->displayText();
+    *debug_string_space12_ = DEBUG->debug_string_space12->displayText();
     debug_string_space13_ = new QString;
-    *debug_string_space13_ = debug_string_space13->displayText();
+    *debug_string_space13_ = DEBUG->debug_string_space13->displayText();
 
     sample_line_type_ = new QString;
-    *sample_line_type_ = sample_line_type->displayText();
+    *sample_line_type_ = DEBUG->sample_line_type->displayText();
     sample_line_coord_1 = new QString;
-    *sample_line_coord_1 = sample_line_coord1->displayText();
+    *sample_line_coord_1 = DEBUG->sample_line_coord1->displayText();
     sample_line_coord_2 = new QString;
-    *sample_line_coord_2 = sample_line_coord2->displayText();
+    *sample_line_coord_2 = DEBUG->sample_line_coord2->displayText();
     start_step_ = new QString;
-    *start_step_ = start_step->displayText();
+    *start_step_ = DEBUG->start_step->displayText();
     end_step_ = new QString;
-    *end_step_ = end_step->displayText();
+    *end_step_ = DEBUG->end_step->displayText();
 
     QFile Output_txt_file("/Users/Kyle/Parachute_GUIs/Output_Files/input-file.txt"); //kyle's mac
     //QFile iFluidtext("./iFluid.txt"); //lambda
@@ -2018,7 +2060,10 @@ void C9_Write::Write()
 
 }
 
-*/
+
+
+
+
 
 
 
