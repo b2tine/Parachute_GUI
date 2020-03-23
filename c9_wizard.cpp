@@ -81,6 +81,7 @@ IntroPage::IntroPage(QWidget *parent)
     setLayout(layout);
 }
 
+//THE FIRST PAGE INCLUDES DOMAIN LIMITS AND LOWER/UPPER BOUNDARIES FOR DIMENSTIONS 0, 1 AND 2
 
 FirstPage::FirstPage(QWidget *parent)
     : QWizardPage(parent)
@@ -97,11 +98,11 @@ FirstPage::FirstPage(QWidget *parent)
       bounds0->setText("Enter Bounds:");
 
       first_bounds0 = new QLineEdit;
-      first_bounds0->setText("-4");
+      first_bounds0->setText("-2");
       first_bounds0->setFixedWidth(50);
 
       last_bounds0 = new QLineEdit;
-      last_bounds0->setText("18");
+      last_bounds0->setText("14");
       last_bounds0->setFixedWidth(50);
 
       QSpacerItem *space1 = new QSpacerItem(500,1);
@@ -127,10 +128,10 @@ FirstPage::FirstPage(QWidget *parent)
       bounds1->setText("Enter Bounds:");
 
       first_bounds1 = new QLineEdit;
-      first_bounds1->setText("-4");
+      first_bounds1->setText("-2");
       first_bounds1->setFixedWidth(50);
       last_bounds1 = new QLineEdit;
-      last_bounds1->setText("18");
+      last_bounds1->setText("14");
       last_bounds1->setFixedWidth(50);
 
       //QSpacerItem *space2 = new QSpacerItem(500,1);
@@ -159,10 +160,10 @@ FirstPage::FirstPage(QWidget *parent)
       bounds2->setText("Enter Bounds:");
 
       first_bounds2 = new QLineEdit;
-      first_bounds2->setText("-36");
+      first_bounds2->setText("-12");
       first_bounds2->setFixedWidth(50);
       last_bounds2 = new QLineEdit;
-      last_bounds2->setText("28");
+      last_bounds2->setText("24");
       last_bounds2->setFixedWidth(50);
 
       //QSpacerItem *space4 = new QSpacerItem(500,1);
@@ -185,13 +186,13 @@ FirstPage::FirstPage(QWidget *parent)
       QHBoxLayout *hlayout4 = new QHBoxLayout;
 
       grid_coord1 = new QLineEdit;
-      grid_coord1->setText("60");
+      grid_coord1->setText("80");
       grid_coord1->setFixedWidth(50);
       grid_coord2 = new QLineEdit;
-      grid_coord2->setText("60");
+      grid_coord2->setText("80");
       grid_coord2->setFixedWidth(50);
       grid_coord3 = new QLineEdit;
-      grid_coord3->setText("240");
+      grid_coord3->setText("180");
       grid_coord3->setFixedWidth(50);
 
      // QSpacerItem *space4 = new QSpacerItem(500,20);
@@ -248,27 +249,42 @@ FirstPage::FirstPage(QWidget *parent)
       upperbox_1->addWidget(upperbound_1);
       upperbox_1->addWidget(upperbound1);
 
-      QLabel *lowerbound_2 = new QLabel("Lower Boundary in 2nd Dimension:");
+
+
+
+      QLabel *lowerbound_2 = new QLabel("Lower Boundary in 2nd Dimension and Type:");
 
       lowerbound2 = new QComboBox;
-      lowerbound2->addItem("PERIODIC_BOUNDARY");
-      lowerbound2->addItem("NEUMANN_BOUNDARY");
       lowerbound2->addItem("DIRICHLET_BOUNDARY");
+      lowerbound2->addItem("NEUMANN_BOUNDARY");
+      lowerbound2->addItem("PERIODIC_BOUNDARY");
+
+      lowerbound2_type = new QComboBox;
+      lowerbound2_type->addItem("CONSTANT_STATE");
+      lowerbound2_type->addItem("FLOW_THROUGH");
+
 
       QHBoxLayout *lowerbox_2 = new QHBoxLayout;
       lowerbox_2->addWidget(lowerbound_2);
       lowerbox_2->addWidget(lowerbound2);
+      lowerbox_2->addWidget(lowerbound2_type);
 
-      QLabel *upperbound_2 = new QLabel("Upper Boundary in 2nd Dimension:");
+      QLabel *upperbound_2 = new QLabel("Upper Boundary in 2nd Dimension and Type:");
 
       upperbound2 = new QComboBox;
-      upperbound2->addItem("PERIODIC_BOUNDARY");
-      upperbound2->addItem("NEUMANN_BOUNDARY");
       upperbound2->addItem("DIRICHLET_BOUNDARY");
+      upperbound2->addItem("NEUMANN_BOUNDARY");
+      upperbound2->addItem("PERIODIC_BOUNDARY");
+
+      upperbound2_type = new QComboBox;
+      upperbound2_type->addItem("FLOW_THROUGH");
+      upperbound2_type->addItem("CONSTANT_STATE");
+
 
       QHBoxLayout *upperbox_2 = new QHBoxLayout;
       upperbox_2->addWidget(upperbound_2);
       upperbox_2->addWidget(upperbound2);
+      upperbox_2->addWidget(upperbound2_type);
 
       QVBoxLayout *vlayout3 = new QVBoxLayout;
 
@@ -293,6 +309,7 @@ FirstPage::FirstPage(QWidget *parent)
 
 }
 
+//THE SECOND PAGE INCLUDES MAX TIME, MAX STEP, PRINT/MOVIE/REDIST. INTERVALS, AUTO-REDISTRIBUTION, CFL FACTOR AND FLUID PARAMETERS
 
 SecondPage::SecondPage(QWidget *parent)
     : QWizardPage(parent)
@@ -322,7 +339,7 @@ SecondPage::SecondPage(QWidget *parent)
     QHBoxLayout *hlayout2 = new QHBoxLayout;
 
     max_step = new QLineEdit;
-    max_step->setText("2000");
+    max_step->setText("1000");
     max_step->setFixedWidth(50);
 
     hlayout2->addWidget(max_step_);
@@ -335,7 +352,7 @@ SecondPage::SecondPage(QWidget *parent)
     QHBoxLayout *hlayout3 = new QHBoxLayout;
 
     print_interval = new QLineEdit;
-    print_interval->setText("0.5");
+    print_interval->setText("0.05");
     print_interval->setFixedWidth(50);
 
     hlayout3->addWidget(print_interval_);
@@ -389,6 +406,7 @@ SecondPage::SecondPage(QWidget *parent)
     turn_onoff_redist_int = new QComboBox;
     turn_onoff_redist_int->addItem("Yes");
     turn_onoff_redist_int->addItem("No");
+    turn_onoff_redist_int->setFixedWidth(100);
 
     hlayout7->addWidget(turn_onoff_redist_int_);
     hlayout7->addWidget(turn_onoff_redist_int);
@@ -452,7 +470,7 @@ SecondPage::SecondPage(QWidget *parent)
 
     gravity = new QLineEdit;
     gravity->setText("-9.8");
-    gravity->setFixedWidth(50);
+    gravity->setFixedWidth(80);
 
     hlayout11->addWidget(gravity_);
     hlayout11->addWidget(gravity);
@@ -484,6 +502,7 @@ SecondPage::SecondPage(QWidget *parent)
 
 }
 
+//THIRD PAGE INCLUDES RIGID BODY PARAMETERS
 
 ThirdPage::ThirdPage(QWidget *parent)
     : QWizardPage(parent)
@@ -501,6 +520,7 @@ ThirdPage::ThirdPage(QWidget *parent)
     add_rigbody = new QComboBox;
     add_rigbody->addItem("Yes");
     add_rigbody->addItem("No");
+    add_rigbody->setFixedWidth(100);
 
     hlayout1->addWidget(add_rigbody_);
     hlayout1->addWidget(add_rigbody);
@@ -532,6 +552,7 @@ ThirdPage::ThirdPage(QWidget *parent)
     type_of_rigbody->addItem("Sphere");
     type_of_rigbody->addItem("Box");
     type_of_rigbody->addItem("Human");
+    type_of_rigbody->setFixedWidth(150);
 
     hlayout3->addWidget(type_of_rigbody_);
     hlayout3->addWidget(type_of_rigbody);
@@ -589,8 +610,9 @@ ThirdPage::ThirdPage(QWidget *parent)
     QHBoxLayout *hlayout6 = new QHBoxLayout;
 
     preset_motion = new QComboBox;
-    preset_motion->addItem("Yes");
     preset_motion->addItem("No");
+    preset_motion->addItem("Yes");
+    preset_motion->setFixedWidth(100);
 
     hlayout6->addWidget(preset_motion_);
     hlayout6->addWidget(preset_motion);
@@ -604,6 +626,7 @@ ThirdPage::ThirdPage(QWidget *parent)
     dynamic_motion = new QComboBox;
     dynamic_motion->addItem("COM_MOTION");
     dynamic_motion->addItem("Other");
+    dynamic_motion->setFixedWidth(150);
 
     hlayout7->addWidget(dynamic_motion_);
     hlayout7->addWidget(dynamic_motion);
@@ -654,15 +677,15 @@ ThirdPage::ThirdPage(QWidget *parent)
     QHBoxLayout *hlayout10 = new QHBoxLayout;
 
     init_center_mass1 = new QLineEdit;
-    init_center_mass1->setText("6.01");
+    init_center_mass1->setText("6");
     init_center_mass1->setFixedWidth(50);
 
     init_center_mass2= new QLineEdit;
-    init_center_mass2->setText("6.01");
+    init_center_mass2->setText("6");
     init_center_mass2->setFixedWidth(50);
 
     init_center_mass3 = new QLineEdit;
-    init_center_mass3->setText("12");
+    init_center_mass3->setText("11.591");
     init_center_mass3->setFixedWidth(50);
 
     hlayout10->addWidget(init_center_mass_);
@@ -722,6 +745,8 @@ ThirdPage::ThirdPage(QWidget *parent)
 
 }
 
+//FOURTH PAGE INCLUDES PARACHUTE PARAMETERS
+
 FourthPage::FourthPage(QWidget *parent)
     : QWizardPage(parent)
 {
@@ -764,7 +789,7 @@ FourthPage::FourthPage(QWidget *parent)
 
     canopy_boundary = new QComboBox;
     canopy_boundary->setFixedWidth(100);
-    canopy_boundary->addItem("C");
+    canopy_boundary->addItem("Circle");
     canopy_boundary->addItem("Other");
 
     hlayout3->addWidget(canopy_boundary_);
@@ -791,11 +816,11 @@ FourthPage::FourthPage(QWidget *parent)
 
     circle_center1 = new QLineEdit;
     circle_center1->setText("6");
-    circle_center1->setFixedWidth(50);
+    circle_center1->setFixedWidth(100);
 
     circle_center2 = new QLineEdit;
     circle_center2->setText("6");
-    circle_center2->setFixedWidth(50);
+    circle_center2->setFixedWidth(100);
 
     hlayout5->addWidget(circle_center_);
     hlayout5->addWidget(circle_center1);
@@ -810,7 +835,7 @@ FourthPage::FourthPage(QWidget *parent)
 
     circle_radius = new QLineEdit;
     circle_radius->setText("4.2672");
-    circle_radius->setFixedWidth(50);
+    circle_radius->setFixedWidth(100);
 
     hlayout13->addWidget(circle_radius_);
     hlayout13->addWidget(circle_radius);
@@ -949,6 +974,8 @@ FourthPage::FourthPage(QWidget *parent)
 
 }
 
+
+//FIFTH PAGE INCLUDES AIRFOIL PARAMETERS UP TO SPRING AND FABRIC OPTIONS
 
 FifthPage::FifthPage(QWidget *parent)
     : QWizardPage(parent)
@@ -1099,6 +1126,8 @@ FifthPage::FifthPage(QWidget *parent)
 }
 
 
+//SIXTH PAGE INCLUDES ALL FABRIC AND STRING PARAMETERS...STRAIN LIMIT NOT ADDED IN YET
+
 SixthPage::SixthPage(QWidget *parent)
     : QWizardPage(parent)
 {
@@ -1184,7 +1213,7 @@ SixthPage::SixthPage(QWidget *parent)
     hlayout6->addWidget(fab_rounding_tol);
     hlayout6->addSpacerItem(space1);
 
-    //______________________________________________//
+    //__________________________________________________________________//
 
 
     //STRING SPRING CONSTANT
@@ -1193,7 +1222,7 @@ SixthPage::SixthPage(QWidget *parent)
     QHBoxLayout *hlayout7 = new QHBoxLayout;
 
     str_spring_const = new QLineEdit;
-    str_spring_const->setText("5000");
+    str_spring_const->setText("50000");
     str_spring_const->setFixedWidth(100);
 
     hlayout7->addWidget(str_spring_const_);
@@ -1293,6 +1322,8 @@ SixthPage::SixthPage(QWidget *parent)
 }
 
 
+//SEVENTH PAGE INCLUDES VELOCITY, PRESSURE AND MOVIE OPTIONS
+
 
 SeventhPage::SeventhPage(QWidget *parent)
     : QWizardPage(parent)
@@ -1302,21 +1333,21 @@ SeventhPage::SeventhPage(QWidget *parent)
     QSpacerItem *space1 = new QSpacerItem(500,10);
 
     //BOUNDARY PARAMETERS
-    QLabel *lower_boundary_ = new QLabel("For lower boundary in 2-th dimension:");
+    //QLabel *lower_boundary_ = new QLabel("For lower boundary in 2-th dimension:");
 
     //DIRICHLET TYPE
-    QLabel *lower_type_of_dirichlet_ = new QLabel("Enter type of Dirichlet boundary:");
+    //QLabel *lower_type_of_dirichlet_ = new QLabel("Enter type of Dirichlet boundary:");
 
-    QHBoxLayout *hlayout1 = new QHBoxLayout;
+    //QHBoxLayout *hlayout1 = new QHBoxLayout;
 
-    lower_type_of_dirichlet = new QComboBox;
-    lower_type_of_dirichlet->setFixedWidth(200);
-    lower_type_of_dirichlet->addItem("CONSTANT_STATE");
-    lower_type_of_dirichlet->addItem("FLOW_THROUGH");
+    //lower_type_of_dirichlet = new QComboBox;
+    //lower_type_of_dirichlet->setFixedWidth(200);
+    //lower_type_of_dirichlet->addItem("CONSTANT_STATE");
+    //lower_type_of_dirichlet->addItem("FLOW_THROUGH");
 
-    hlayout1->addWidget(lower_type_of_dirichlet_);
-    hlayout1->addWidget(lower_type_of_dirichlet);
-    hlayout1->addSpacerItem(space1);
+    //hlayout1->addWidget(lower_type_of_dirichlet_);
+    //hlayout1->addWidget(lower_type_of_dirichlet);
+    //hlayout1->addSpacerItem(space1);
 
     //VELOCITY
     QLabel *velocity_ = new QLabel("Enter velocity:");
@@ -1332,7 +1363,7 @@ SeventhPage::SeventhPage(QWidget *parent)
     velocity2->setFixedWidth(50);
 
     velocity3 = new QLineEdit;
-    velocity3->setText("3");
+    velocity3->setText("5.0");
     velocity3->setFixedWidth(50);
 
     hlayout2->addWidget(velocity_);
@@ -1354,21 +1385,21 @@ SeventhPage::SeventhPage(QWidget *parent)
     hlayout3->addWidget(pressure);
     hlayout3->addSpacerItem(space1);
 
-    QLabel *upper_boundary_ = new QLabel("For upper boundary in 2-th dimension:");
+    //QLabel *upper_boundary_ = new QLabel("For upper boundary in 2-th dimension:");
 
     //DIRICHLET TYPE
-    QLabel *upper_type_of_dirichlet_ = new QLabel("Enter type of Dirichlet boundary:");
+    //QLabel *upper_type_of_dirichlet_ = new QLabel("Enter type of Dirichlet boundary:");
 
-    QHBoxLayout *hlayout4 = new QHBoxLayout;
+    //QHBoxLayout *hlayout4 = new QHBoxLayout;
 
-    upper_type_of_dirichlet = new QComboBox;
-    upper_type_of_dirichlet->setFixedWidth(200);
-    upper_type_of_dirichlet->addItem("FLOW_THROUGH");
-    upper_type_of_dirichlet->addItem("CONSTANT_STATE");
+    //upper_type_of_dirichlet = new QComboBox;
+    //upper_type_of_dirichlet->setFixedWidth(200);
+    //upper_type_of_dirichlet->addItem("FLOW_THROUGH");
+    //upper_type_of_dirichlet->addItem("CONSTANT_STATE");
 
-    hlayout4->addWidget(upper_type_of_dirichlet_);
-    hlayout4->addWidget(upper_type_of_dirichlet);
-    hlayout4->addSpacerItem(space1);
+    //hlayout4->addWidget(upper_type_of_dirichlet_);
+    //hlayout4->addWidget(upper_type_of_dirichlet);
+    //hlayout4->addSpacerItem(space1);
 
 
     //__________________________________________//
@@ -1449,12 +1480,12 @@ SeventhPage::SeventhPage(QWidget *parent)
 
     QVBoxLayout *vlayout1 = new QVBoxLayout;
     //vlayout1->addSpacerItem(space1);
-    vlayout1->addWidget(lower_boundary_);
-    vlayout1->addLayout(hlayout1);
+    //vlayout1->addWidget(lower_boundary_);
+    //vlayout1->addLayout(hlayout1);
     vlayout1->addLayout(hlayout2);
     vlayout1->addLayout(hlayout3);
-    vlayout1->addWidget(upper_boundary_);
-    vlayout1->addLayout(hlayout4);
+    //vlayout1->addWidget(upper_boundary_);
+    //vlayout1->addLayout(hlayout4);
     vlayout1->addSpacerItem(space1);
     vlayout1->addLayout(hlayout5);
     vlayout1->addLayout(hlayout6);
@@ -1469,6 +1500,8 @@ SeventhPage::SeventhPage(QWidget *parent)
 
 }
 
+
+//DEBUG PAGE INCLUDES ALL OF THE DEBUGGING OPTIONS
 
 
 DebugPage::DebugPage(QWidget *parent)
@@ -1485,8 +1518,8 @@ DebugPage::DebugPage(QWidget *parent)
 
     debug = new QComboBox;
     debug->setFixedWidth(100);
-    debug->addItem("No");
     debug->addItem("Yes");
+    debug->addItem("No");
 
     hlayout1->addWidget(debug_);
     hlayout1->addWidget(debug);
@@ -1842,7 +1875,8 @@ void C9_Wizard::Write()
     //STRAIN LIMIT NOT INCLUDED - WAITING FOR MORE DEVELOPED CODE
 
     lower_type_of_dirichlet_ = new QString;
-    *lower_type_of_dirichlet_ = seventh->lower_type_of_dirichlet->currentText();
+    //*lower_type_of_dirichlet_ = seventh->lower_type_of_dirichlet->currentText();
+    *lower_type_of_dirichlet_ = first->lowerbound2_type->currentText();
     velocity_1 = new QString;
     *velocity_1 = seventh->velocity1->displayText();
     velocity_2 = new QString;
@@ -1852,7 +1886,8 @@ void C9_Wizard::Write()
     pressure_ = new QString;
     *pressure_ = seventh->pressure->displayText();
     upper_type_of_dirichlet_ = new QString;
-    *upper_type_of_dirichlet_ = seventh->upper_type_of_dirichlet->currentText();
+    //*upper_type_of_dirichlet_ = seventh->upper_type_of_dirichlet->currentText();
+    *upper_type_of_dirichlet_ = first->upperbound2_type->currentText();
 
     yz_movie_ = new QString;
     *yz_movie_ = seventh->yz_movie->currentText();
@@ -1968,7 +2003,6 @@ void C9_Wizard::Write()
     out <<"**************Parachute Parameters**************" << "\n";
     out << "Enter number of canopy surfaces: " << *num_canopy_surfaces_ << "\n";
     out << "Enter canopy surface type: " << *canopy_surf_type_ << "\n";
-    out << "Enter canopy surface type: " << *canopy_surf_type_ << "\n";
     out << "Enter type of canopy boundary: " << *canopy_boundary_ << "\n";
     out << "Enter the height of the plane: " << *height_of_plane_ << "\n";
     out << "Enter circle center: " << *circle_center_1 << " " << *circle_center_2 << "\n";
@@ -2008,6 +2042,8 @@ void C9_Wizard::Write()
     out << "Enter string point mass: " << *str_point_mass_ << "\n";
     out << "Enter string thickness: " << *str_thickness_ << "\n";
     out << "Enter string rounding tolerance: " << *str_rounding_tol_ << "\n";
+
+    out << "\n";
 
     out << "Enter strain limit: " << "0.3" << "\n";
     out << "Enter strain rate limit: " << "0.1" << "\n";

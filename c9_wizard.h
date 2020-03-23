@@ -250,6 +250,8 @@ public:
     QComboBox *lowerbound1;
     QComboBox *upperbound2;
     QComboBox *lowerbound2;
+    QComboBox *lowerbound2_type;
+    QComboBox *upperbound2_type;
 
     QSpacerItem *space1;
 
@@ -484,12 +486,12 @@ public:
 //private:
 
 
-    QLabel *lower_boundary_;
-    QLabel *lower_type_of_dirichlet_;
+    //QLabel *lower_boundary_;
+    //QLabel *lower_type_of_dirichlet_;
     QLabel *velocity_;
     QLabel *pressure_;
-    QLabel *upper_boundary_;
-    QLabel *upper_type_of_dirichlet_;
+    //QLabel *upper_boundary_;
+    //QLabel *upper_type_of_dirichlet_;
     QLabel *yz_movie_;
     QLabel *xz_movie_;
     QLabel *xy_movie_;
