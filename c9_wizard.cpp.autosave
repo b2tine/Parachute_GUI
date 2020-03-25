@@ -677,7 +677,8 @@ ThirdPage::ThirdPage(QWidget *parent)
     hlayout5->addWidget(radius_of_rigbody3);
     hlayout5->addSpacerItem(space1);
 
-
+//ADD NEW PAGE FOR RIGID BODY PARAMS
+    
     /*
     35 For rigid body 1
     36 Enter type of rigid body: Box

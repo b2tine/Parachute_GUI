@@ -189,6 +189,12 @@ private:
     QString *start_step_;
     QString *end_step_ ;
 
+    //TEST CHECKBOX
+    QString *hilabel;
+
+    //DIRECTORY
+    QString *save_directory;
+
 
 
 };
@@ -201,10 +207,22 @@ class IntroPage : public QWizardPage
 
 public:
     IntroPage(QWidget *parent = nullptr);
-    //void Write();
 
-private:
+
+//private:
     QLabel *mainlabel;
+    QLabel *Hi_label;
+    QLabel *directory_label;
+
+    QLineEdit *directory_name;
+
+    QVBoxLayout *layout;
+    QVBoxLayout *layout1;
+
+    QCheckBox *testbox;
+
+private slots:
+    void toggled(bool);
 
 };
 
