@@ -55,14 +55,8 @@ C9_Wizard::C9_Wizard(QWidget *parent)
     connect(this->button(FinishButton),SIGNAL(clicked()), this, SLOT(Write()));
 
 
-    //setPixmap(QWizard::BannerPixmap, QPixmap(":/images/banner.png"));
-    //setPixmap(QWizard::BackgroundPixmap, QPixmap(":/images/background.png"));
-
     setWindowTitle(tr("C9 Wizard"));
 }
-
-
-
 
 
 
@@ -70,10 +64,8 @@ IntroPage::IntroPage(QWidget *parent)
     : QWizardPage(parent)
 {
     setTitle("C9 Parachute Initialization Module");
-    //setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/watermark1.png"));
 
     mainlabel = new QLabel("This wizard will help you write an in-file for the parachute type: C9");
-    //label->setWordWrap(true);
 
     QVBoxLayout *vlayout_directory = new QVBoxLayout;
 
@@ -92,65 +84,262 @@ IntroPage::IntroPage(QWidget *parent)
     vlayout_directory->addSpacerItem(space1);
 
 
+    //CHECKBOX DISPLAY FOR RIGID BODY PARAMETERS
 
-    //TESTING CHECKBOX DISPLAY
+    //rigid_body_label = new QLabel("Will you be using a rigid body for this initializaion?");
 
-    testbox = new QCheckBox(this);
-    testbox->setText("Check this to display 'Hi'");
+    //rigid_body_decision = new QComboBox;
+    //rigid_body_decision->addItem("Yes");
+    //rigid_body_decision->addItem("No");
+    //rigid_body_decision->setFixedWidth(150);
 
-    Hi_label = new QLabel("Hi");
+    //rigid_body_decision_layout = new QHBoxLayout;
+    //rigid_body_decision_layout->addWidget(rigid_body_label);
+    //rigid_body_decision_layout->addWidget(rigid_body_decision);
 
-    connect(testbox, SIGNAL(clicked(bool)), this, SLOT(toggled(bool)));
+    rigid_body_check = new QCheckBox(this);
+    rigid_body_check->setText("Check here if you will be using a rigid body for this initializaion.");
+
+    rigid_body_sphere = new QCheckBox();
+    rigid_body_sphere->setText("Sphere");
+
+    rigid_body_box = new QCheckBox();
+    rigid_body_box->setText("Box");
+
+    rigid_body_human = new QCheckBox();
+    rigid_body_human->setText("Human");
 
 
-    //QVBoxLayout *layout = new QVBoxLayout;
-    layout  = new QVBoxLayout;
-    layout->addWidget(mainlabel);
-    layout->addLayout(vlayout_directory);
-    layout->addWidget(testbox);
+    finallayout  = new QVBoxLayout;
+    finallayout->addWidget(mainlabel);
+    finallayout->addLayout(vlayout_directory);
+    //finallayout->addLayout(rigid_body_decision_layout);
+    finallayout->addWidget(rigid_body_check);
 
-    setLayout(layout);
-
-
+    setLayout(finallayout);
 
 
-    /*
+    connect(rigid_body_check, SIGNAL(clicked(bool)), this, SLOT(rigid_body_toggled(bool)));
+    connect(rigid_body_sphere, SIGNAL(clicked(bool)), this, SLOT(spheretoggled(bool)));
+    connect(rigid_body_box, SIGNAL(clicked(bool)), this, SLOT(boxtoggled(bool)));
+    connect(rigid_body_human, SIGNAL(clicked(bool)), this, SLOT(humantoggled(bool)));
 
-    if (testbox->stateChanged()) {
 
-        Hi_label = new QLabel("Hi");
-        layout->addWidget(Hi_label);
+    //FOR SUBSEQUENT LAYOUTS
 
-        setLayout(layout);
+    //SPHERE
 
-    } else {
+    //CENTER OF RIGID BODY-SPHERE
+    QLabel *center_of_sphere_ = new QLabel("Enter center of the sphere:");
 
-       setLayout(layout);
+    hlayout4 = new QHBoxLayout;
 
-    }
-*/
+    center_of_sphere1 = new QLineEdit;
+    center_of_sphere1->setText("6.01");
+    center_of_sphere1->setFixedWidth(100);
+    center_of_sphere1->setStyleSheet("color: blue; background-color: yellow");
+
+    center_of_sphere2= new QLineEdit;
+    center_of_sphere2->setText("6.01");
+    center_of_sphere2->setFixedWidth(100);
+    center_of_sphere2->setStyleSheet("color: blue; background-color: yellow");
+
+    center_of_sphere3 = new QLineEdit;
+    center_of_sphere3->setText("12");
+    center_of_sphere3->setFixedWidth(100);
+    center_of_sphere3->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout4->addWidget(center_of_sphere_);
+    hlayout4->addWidget(center_of_sphere1);
+    hlayout4->addWidget(center_of_sphere2);
+    hlayout4->addWidget(center_of_sphere3);
+    hlayout4->addSpacerItem(space1);
+
+    //RADIUS OF RIGID BODY-SPHERE
+    QLabel *radius_of_rigbody_ = new QLabel("Enter radius of the sphere:");
+
+    hlayout5 = new QHBoxLayout;
+
+    radius_of_sphere1 = new QLineEdit;
+    radius_of_sphere1->setText("0.5");
+    radius_of_sphere1->setFixedWidth(100);
+    radius_of_sphere1->setStyleSheet("color: blue; background-color: yellow");
+
+    radius_of_sphere2= new QLineEdit;
+    radius_of_sphere2->setText("0.5");
+    radius_of_sphere2->setFixedWidth(100);
+    radius_of_sphere2->setStyleSheet("color: blue; background-color: yellow");
+
+    radius_of_sphere3 = new QLineEdit;
+    radius_of_sphere3->setText("0.5");
+    radius_of_sphere3->setFixedWidth(100);
+    radius_of_sphere3->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout5->addWidget(radius_of_rigbody_);
+    hlayout5->addWidget(radius_of_sphere1);
+    hlayout5->addWidget(radius_of_sphere2);
+    hlayout5->addWidget(radius_of_sphere3);
+    hlayout5->addSpacerItem(space1);
+
+    //**************************************//
+
+    //BOX
+
+    //CENTER OF RIGID BODY-BOX
+        QLabel *center_of_box_ = new QLabel("Enter center of the box:");
+
+        hlayout1 = new QHBoxLayout;
+
+        center_of_box1 = new QLineEdit;
+        center_of_box1->setText("6");
+        center_of_box1->setFixedWidth(100);
+        center_of_box1->setStyleSheet("color: blue; background-color: yellow");
+
+        center_of_box2= new QLineEdit;
+        center_of_box2->setText("6");
+        center_of_box2->setFixedWidth(100);
+        center_of_box2->setStyleSheet("color: blue; background-color: yellow");
+
+        center_of_box3 = new QLineEdit;
+        center_of_box3->setText("11.951");
+        center_of_box3->setFixedWidth(100);
+        center_of_box3->setStyleSheet("color: blue; background-color: yellow");
+
+        hlayout1->addWidget(center_of_box_);
+        hlayout1->addWidget(center_of_box1);
+        hlayout1->addWidget(center_of_box2);
+        hlayout1->addWidget(center_of_box3);
+        hlayout1->addSpacerItem(space1);
+
+        //EDGES OF BOX
+        QLabel *edges_of_rigbody_ = new QLabel("Enter edges of the box:");
+
+        hlayout2 = new QHBoxLayout;
+
+        edge_of_box1 = new QLineEdit;
+        edge_of_box1->setText("0.5");
+        edge_of_box1->setFixedWidth(100);
+        edge_of_box1->setStyleSheet("color: blue; background-color: yellow");
+
+        edge_of_box2= new QLineEdit;
+        edge_of_box2->setText("0.5");
+        edge_of_box2->setFixedWidth(100);
+        edge_of_box2->setStyleSheet("color: blue; background-color: yellow");
+
+        edge_of_box3 = new QLineEdit;
+        edge_of_box3->setText("0.5");
+        edge_of_box3->setFixedWidth(100);
+        edge_of_box3->setStyleSheet("color: blue; background-color: yellow");
+
+        hlayout2->addWidget(edges_of_rigbody_);
+        hlayout2->addWidget(edge_of_box1);
+        hlayout2->addWidget(edge_of_box2);
+        hlayout2->addWidget(edge_of_box3);
+        hlayout2->addSpacerItem(space1);
+
+
+    //*************************************//
+
+        //HUMAN
+
+
+        QLabel *vtk_human_ = new QLabel("Enter vtk file directory:");
+
+        hlayout_human0 = new QHBoxLayout;
+
+        human_vtk_directory = new QLineEdit;
+        human_vtk_directory->setText("input-vtk/human_body.vtk");   //THIS MAY BE WRONG...NEED CORRECT DIRECTORY
+        human_vtk_directory->setFixedWidth(200);
+        human_vtk_directory->setStyleSheet("color: blue; background-color: yellow");
+
+        hlayout_human0->addWidget(vtk_human_);
+        hlayout_human0->addWidget(human_vtk_directory);
+        hlayout_human0->addSpacerItem(space1);
+
+
+
+        //CENTER OF THE BODY-HUMAN
+
+
+        QLabel *center_of_human_ = new QLabel("Enter center of the human:");
+
+        hlayout_human1 = new QHBoxLayout;
+
+        center_of_human1 = new QLineEdit;
+        center_of_human1->setText("6");
+        center_of_human1->setFixedWidth(100);
+        center_of_human1->setStyleSheet("color: blue; background-color: yellow");
+
+        center_of_human2= new QLineEdit;
+        center_of_human2->setText("6");
+        center_of_human2->setFixedWidth(100);
+        center_of_human2->setStyleSheet("color: blue; background-color: yellow");
+
+        center_of_human3 = new QLineEdit;
+        center_of_human3->setText("11");
+        center_of_human3->setFixedWidth(100);
+        center_of_human3->setStyleSheet("color: blue; background-color: yellow");
+
+        hlayout_human1->addWidget(center_of_human_);
+        hlayout_human1->addWidget(center_of_human1);
+        hlayout_human1->addWidget(center_of_human2);
+        hlayout_human1->addWidget(center_of_human3);
+        hlayout_human1->addSpacerItem(space1);
+
+        //ENLARGEMENT COEFF
+        QLabel *enlargement_coeff_ = new QLabel("Enter enlargement coefficient:");
+
+        hlayout_human2 = new QHBoxLayout;
+
+        enlargement_coeff = new QLineEdit;
+        enlargement_coeff->setText("1.5");
+        enlargement_coeff->setFixedWidth(100);
+        enlargement_coeff->setStyleSheet("color: blue; background-color: yellow");
+
+
+        hlayout_human2->addWidget(enlargement_coeff_);
+        hlayout_human2->addWidget(enlargement_coeff);
+        hlayout_human2->addSpacerItem(space1);
 
 
 }
 
 
-void  IntroPage::toggled(bool)
+void IntroPage::rigid_body_toggled(bool)
 {
-    //Hi_label = new QLabel("Hi");
-    layout->addWidget(Hi_label);
-    //layout->addWidget(mainlabel);
-    //layout->addWidget(testbox);
 
-
-    setLayout(layout);
+    finallayout->addWidget(rigid_body_sphere);
+    finallayout->addWidget(rigid_body_box);
+    finallayout->addWidget(rigid_body_human);
 
 }
 
 
+void  IntroPage::spheretoggled(bool)
+{
+
+    finallayout->addLayout(hlayout4);
+    finallayout->addLayout(hlayout5);
+
+}
+
+void  IntroPage::boxtoggled(bool)
+{
+
+    finallayout->addLayout(hlayout1);
+    finallayout->addLayout(hlayout2);
+
+}
 
 
+void  IntroPage::humantoggled(bool)
+{
 
+   finallayout->addLayout(hlayout_human0);
+   finallayout->addLayout(hlayout_human1);
+   finallayout->addLayout(hlayout_human2);
 
+}
 
 
 //THE FIRST PAGE INCLUDES DOMAIN LIMITS AND LOWER/UPPER BOUNDARIES FOR DIMENSTIONS 0, 1 AND 2
@@ -584,8 +773,15 @@ ThirdPage::ThirdPage(QWidget *parent)
 
     QSpacerItem *space1 = new QSpacerItem(500,10);
 
+
+
+    /*
+
+
     //ADD RIGID BODY
     QLabel *add_rigbody_ = new QLabel("Add a rigid body?");
+
+
 
     QHBoxLayout *hlayout1 = new QHBoxLayout;
 
@@ -610,6 +806,8 @@ ThirdPage::ThirdPage(QWidget *parent)
     hlayout2->addWidget(num_rigbodies_);
     hlayout2->addWidget(num_rigbodies);
     hlayout2->addSpacerItem(space1);
+
+
 
     //FOR RIGID BODY 1
 
@@ -654,6 +852,8 @@ ThirdPage::ThirdPage(QWidget *parent)
     hlayout4->addWidget(center_of_rigbody3);
     hlayout4->addSpacerItem(space1);
 
+
+
     //RADIUS OF RIGID BODY-SPHERE
     QLabel *radius_of_rigbody_ = new QLabel("Enter radius of the sphere:");
 
@@ -677,20 +877,9 @@ ThirdPage::ThirdPage(QWidget *parent)
     hlayout5->addWidget(radius_of_rigbody3);
     hlayout5->addSpacerItem(space1);
 
-
-    /*
-    35 For rigid body 1
-    36 Enter type of rigid body: Box
-    37 Enter center of the box: 6 6 11.951
-    38 Enter edges of the box: 0.5 0.5 0.5
-
-
-    35 For rigid body 1
-     36 Enter type of rigid body: Human
-     37 Enter the vtk file name for human body: vtk-human/human_body.vtk
-     38 Enter center of the human body: 6 6 11
-     39 Enter enlargement coefficient: 1.5
     */
+
+
 
 
 
@@ -815,12 +1004,12 @@ ThirdPage::ThirdPage(QWidget *parent)
 
     QVBoxLayout *vlayout1 = new QVBoxLayout;
     vlayout1->addSpacerItem(space1);
-    vlayout1->addLayout(hlayout1);
-    vlayout1->addLayout(hlayout2);
-    vlayout1->addWidget(rig_body1_);
-    vlayout1->addLayout(hlayout3);
-    vlayout1->addLayout(hlayout4);
-    vlayout1->addLayout(hlayout5);
+    //vlayout1->addLayout(hlayout1);
+    //vlayout1->addLayout(hlayout2);
+    //vlayout1->addWidget(rig_body1_);
+    //vlayout1->addLayout(hlayout3);
+    //vlayout1->addLayout(hlayout4);
+    //vlayout1->addLayout(hlayout5);
     vlayout1->addLayout(hlayout6);
     vlayout1->addLayout(hlayout7);
     vlayout1->addLayout(hlayout8);
@@ -835,6 +1024,8 @@ ThirdPage::ThirdPage(QWidget *parent)
 
 
 }
+
+//TRY TO USE CHECKBOXES TO CHOOSE OTHER PARACHUTE TYPES FOR DIFFERENT INITIALIZATIONS
 
 //FOURTH PAGE INCLUDES PARACHUTE PARAMETERS
 
@@ -1841,6 +2032,7 @@ void C9_Wizard::Write()
     gravity_ = new QString;
     *gravity_ = second->gravity->displayText();
 
+    /*
     add_rigbody_ = new QString;
     *add_rigbody_ = third->add_rigbody->currentText();
     num_rigbodies_ = new QString;
@@ -1859,6 +2051,8 @@ void C9_Wizard::Write()
     *radius_of_rigbody_2 = third->radius_of_rigbody2->displayText();
     radius_of_rigbody_3 = new QString;
     *radius_of_rigbody_3 = third->radius_of_rigbody3->displayText();
+    */
+
     preset_motion_ = new QString;
     *preset_motion_ = third->preset_motion->currentText();
     dynamic_motion_ = new QString;
@@ -2031,9 +2225,65 @@ void C9_Wizard::Write()
     end_step_ = new QString;
     *end_step_ = DEBUG->end_step->displayText();
 
-    //TEST CHECKBOX
-    hilabel = new QString;
-    *hilabel = intro->Hi_label->text();
+    //CHECKBOXES FOR RIGID BODY INITIALIZATION/PRINTING
+
+    //SPHERE
+    center_of_sphere1 = new QString;
+    *center_of_sphere1 = intro->center_of_sphere1->displayText();
+
+    center_of_sphere2 = new QString;
+    *center_of_sphere2 = intro->center_of_sphere2->displayText();
+
+    center_of_sphere3 = new QString;
+    *center_of_sphere3 = intro->center_of_sphere3->displayText();
+
+    radius_of_sphere_1 = new QString;
+    *radius_of_sphere_1 = intro->radius_of_sphere1->displayText();
+
+    radius_of_sphere_2 = new QString;
+    *radius_of_sphere_2 = intro->radius_of_sphere2->displayText();
+
+    radius_of_sphere_3 = new QString;
+    *radius_of_sphere_3 = intro->radius_of_sphere3->displayText();
+    //***********************************************************//
+
+    //BOX
+    center_of_box1 = new QString;
+    *center_of_box1 = intro->center_of_box1->displayText();
+
+    center_of_box2 = new QString;
+    *center_of_box2 = intro->center_of_box2->displayText();
+
+    center_of_box3 = new QString;
+    *center_of_box3 = intro->center_of_box3->displayText();
+
+    edge_of_box1 = new QString;
+    *edge_of_box1 = intro->edge_of_box1->displayText();
+
+    edge_of_box2 = new QString;
+    *edge_of_box2 = intro->edge_of_box2->displayText();
+
+    edge_of_box3 = new QString;
+    *edge_of_box3 = intro->edge_of_box3->displayText();
+
+    //***********************************************************//
+
+    //HUMAN
+    human_vtk_directory = new QString;
+    *human_vtk_directory = intro->human_vtk_directory->displayText();
+
+    center_of_human1 = new QString;
+    *center_of_human1 = intro->center_of_human1->displayText();
+
+    center_of_human2 = new QString;
+    *center_of_human2 = intro->center_of_human2->displayText();
+
+    center_of_human3 = new QString;
+    *center_of_human3 = intro->center_of_human3->displayText();
+
+    enlargement_coeff = new QString;
+    *enlargement_coeff = intro->enlargement_coeff->displayText();
+
 
     //GIVE DIRECTORY
     save_directory = new QString;
@@ -2055,10 +2305,6 @@ void C9_Wizard::Write()
     //Output all
     QTextStream out(&Output_txt_file);
 
-    //TEST CHECKBOX
-    if (intro->testbox->isChecked()) {
-        out << "Say hi if textbox checked: " << *hilabel << "\n";
-    }
 
     out << "Domain limit in 0-th dimension: " << *dom_lim_0_first << " " << *dom_lim_0_last << "\n";
     out << "Domain limit in 1-th dimension: " << *dom_lim_1_first << " " << *dom_lim_1_last << "\n";
@@ -2092,12 +2338,42 @@ void C9_Wizard::Write()
     out << "\n";
 
     out <<"**************Rigid Body Parameters**************" << "\n";
-    out << "Enter yes to add rigid body: " << *add_rigbody_ << "\n";              //IF STATEMENT HERE FOR BOX/BALL/HUMAN?
-    out << "Enter the number of rigid bodies: " << *num_rigbodies_ << "\n";
+    //CHECKBOX TO ADD RIGID BODY
+
+    if (intro->rigid_body_check->isChecked()) {
+    out << "Enter yes to add rigid body: " << "Yes" << "\n";
+    out << "Enter the number of rigid bodies: " << "1" << "\n";
     out << "For rigid body 1: " << "\n";
-    out << "Enter type of rigid body: " << *type_of_rigbody_ << "\n";
-    out << "Enter center of the sphere: " << *center_of_rigbody_1 << " " << *center_of_rigbody_2 << " " << *center_of_rigbody_3 << "\n";
-    out << "Enter radius of the sphere: " << *radius_of_rigbody_1 << " " << *radius_of_rigbody_2 << " " << *radius_of_rigbody_3 << "\n";
+
+    }
+
+    //CHECKBOXES FOR RIGID BODY TYPE AND PARAMETERS
+
+    if (intro->rigid_body_sphere->isChecked()) {
+        out << "Enter type of rigid body: " << "Sphere" << "\n";
+        out << "Enter center of the sphere: " << *center_of_sphere1 << " " << *center_of_sphere2 << " " << *center_of_sphere3 << "\n";
+        out << "Enter radius of the sphere: " << *radius_of_sphere_1 << " " << *radius_of_sphere_2 << " " << *radius_of_sphere_3 << "\n";
+
+    }
+
+    if (intro->rigid_body_box->isChecked()) {
+
+        out << "Enter type of rigid body: " << "Box" << "\n";
+        out << "Enter center of the box: " << *center_of_box1 << " " << *center_of_box2 << " " << *center_of_box3 << "\n";
+        out << "Enter edges of the box: " << *edge_of_box1 << " " << *edge_of_box2 << " " << *edge_of_box3 << "\n";
+
+    }
+
+    if (intro->rigid_body_human->isChecked()) {
+
+        out << "Enter type of rigid body: " << "Human" << "\n";
+        out << "Enter the vtk file name for human body: " << *human_vtk_directory << "\n";
+        out << "Enter center of the human body: " << *center_of_human1 << " " << *center_of_human2 << " " << *center_of_human3 << "\n";
+        out << "Enter enlargement coefficient: " << *enlargement_coeff << "\n";
+
+    }
+
+
     out << "Type yes if motion is preset: " << *preset_motion_ << "\n";
     out << "Enter type of dynamic motion: " << *dynamic_motion_ << "\n";
     out << "Enter the direction of motion: " << *direction_of_motion_1 << " " << *direction_of_motion_2 << " " << *direction_of_motion_3 << "\n";

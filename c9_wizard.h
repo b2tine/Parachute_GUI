@@ -189,8 +189,30 @@ private:
     QString *start_step_;
     QString *end_step_ ;
 
-    //TEST CHECKBOX
-    QString *hilabel;
+    //CHECKBOX
+    QString *center_of_sphere1;
+    QString *center_of_sphere2;
+    QString *center_of_sphere3;
+
+    QString *radius_of_sphere_1;
+    QString *radius_of_sphere_2;
+    QString *radius_of_sphere_3;
+
+    QString *center_of_box1;
+    QString *center_of_box2;
+    QString *center_of_box3;
+
+    QString *edge_of_box1;
+    QString *edge_of_box2;
+    QString *edge_of_box3;
+
+    QString *human_vtk_directory;
+    QString *center_of_human1;
+    QString *center_of_human2;
+    QString *center_of_human3;
+    QString *enlargement_coeff;
+
+
 
     //DIRECTORY
     QString *save_directory;
@@ -211,18 +233,52 @@ public:
 
 //private:
     QLabel *mainlabel;
-    QLabel *Hi_label;
+    //QLabel *Hi_label;
     QLabel *directory_label;
+    QLabel *rigid_body_label;
 
     QLineEdit *directory_name;
+    QLineEdit *center_of_sphere1;
+    QLineEdit *center_of_sphere2;
+    QLineEdit *center_of_sphere3;
+    QLineEdit *center_of_box1;
+    QLineEdit *center_of_box2;
+    QLineEdit *center_of_box3;
+    QLineEdit *radius_of_sphere1;
+    QLineEdit *radius_of_sphere2;
+    QLineEdit *radius_of_sphere3;
+    QLineEdit *edge_of_box1;
+    QLineEdit *edge_of_box2;
+    QLineEdit *edge_of_box3;
+    QLineEdit *human_vtk_directory;
+    QLineEdit *center_of_human1;
+    QLineEdit *center_of_human2;
+    QLineEdit *center_of_human3;
+    QLineEdit *enlargement_coeff;
 
-    QVBoxLayout *layout;
-    QVBoxLayout *layout1;
+    QVBoxLayout *finallayout;
+    //QHBoxLayout *rigid_body_decision_layout;
+    QHBoxLayout *hlayout4;
+    QHBoxLayout *hlayout5;
+    QHBoxLayout *hlayout1;
+    QHBoxLayout *hlayout2;
+    QHBoxLayout *hlayout_human0;
+    QHBoxLayout *hlayout_human1;
+    QHBoxLayout *hlayout_human2;
 
-    QCheckBox *testbox;
+    QCheckBox *rigid_body_check;
+    QCheckBox *rigid_body_sphere;
+    QCheckBox *rigid_body_box;
+    QCheckBox *rigid_body_human;
+
+
+    //QComboBox *rigid_body_decision;
 
 private slots:
-    void toggled(bool);
+    void rigid_body_toggled(bool);
+    void spheretoggled(bool);
+    void boxtoggled(bool);
+    void humantoggled(bool);
 
 };
 
@@ -318,6 +374,8 @@ public:
 
 
 };
+
+
 
 class ThirdPage : public QWizardPage
 {
