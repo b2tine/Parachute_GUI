@@ -75,6 +75,7 @@ IntroPage::IntroPage(QWidget *parent)
     directory_name = new QLineEdit;
     directory_name->setText("/Users/Kyle/Parachute_GUIs/Output_Files/input-file.txt");
     directory_name->setFixedWidth(500);
+    directory_name->setStyleSheet("color: blue; background-color: yellow");
 
     QSpacerItem *space1 = new QSpacerItem(500,1);
 
@@ -248,7 +249,7 @@ IntroPage::IntroPage(QWidget *parent)
         hlayout_human0 = new QHBoxLayout;
 
         human_vtk_directory = new QLineEdit;
-        human_vtk_directory->setText("input-vtk/human_body.vtk");   //THIS MAY BE WRONG...NEED CORRECT DIRECTORY
+        human_vtk_directory->setText("input-vtk/human_body.vtk");
         human_vtk_directory->setFixedWidth(200);
         human_vtk_directory->setStyleSheet("color: blue; background-color: yellow");
 
@@ -305,39 +306,91 @@ IntroPage::IntroPage(QWidget *parent)
 }
 
 
-void IntroPage::rigid_body_toggled(bool)
+void IntroPage::rigid_body_toggled(bool clicked)
 {
 
-    finallayout->addWidget(rigid_body_sphere);
-    finallayout->addWidget(rigid_body_box);
-    finallayout->addWidget(rigid_body_human);
+    if (clicked) {
+        finallayout->addWidget(rigid_body_sphere);
+        finallayout->addWidget(rigid_body_box);
+        finallayout->addWidget(rigid_body_human);
+    } else {
+
+        //finallayout->removeWidget(rigid_body_sphere);
+        //finallayout->removeWidget(rigid_body_box);
+        //finallayout->removeWidget(rigid_body_human);
+
+        //rigid_body_sphere->hide();
+        //rigid_body_box->hide();
+        //rigid_body_human->hide();
+
+    }
+
+    //finallayout->addWidget(rigid_body_sphere);
+    //finallayout->addWidget(rigid_body_box);
+    //finallayout->addWidget(rigid_body_human);
 
 }
 
 
-void  IntroPage::spheretoggled(bool)
+void  IntroPage::spheretoggled(bool clicked)
 {
 
-    finallayout->addLayout(hlayout4);
-    finallayout->addLayout(hlayout5);
+    if (clicked) {
+        finallayout->addLayout(hlayout4);
+        finallayout->addLayout(hlayout5);
+    } else {
+
+        //finallayout->removeItem(hlayout4);
+        //finallayout->removeItem(hlayout5);
+
+    }
+
+
+    //finallayout->addLayout(hlayout4);
+    //finallayout->addLayout(hlayout5);
 
 }
 
-void  IntroPage::boxtoggled(bool)
+void  IntroPage::boxtoggled(bool clicked)
 {
 
-    finallayout->addLayout(hlayout1);
-    finallayout->addLayout(hlayout2);
+    if (clicked) {
+        finallayout->addLayout(hlayout1);
+        finallayout->addLayout(hlayout2);
+    } else {
+
+        //finallayout->removeItem(hlayout1);
+        //finallayout->removeItem(hlayout2);
+
+    }
+
+
+    //finallayout->addLayout(hlayout1);
+    //finallayout->addLayout(hlayout2);
 
 }
 
 
-void  IntroPage::humantoggled(bool)
+void  IntroPage::humantoggled(bool clicked)
 {
 
-   finallayout->addLayout(hlayout_human0);
-   finallayout->addLayout(hlayout_human1);
-   finallayout->addLayout(hlayout_human2);
+    if (clicked) {
+        finallayout->addLayout(hlayout_human0);
+        finallayout->addLayout(hlayout_human1);
+        finallayout->addLayout(hlayout_human2);
+    } else {
+
+        //finallayout->removeItem(hlayout_human0);
+        //finallayout->removeItem(hlayout_human1);
+        //finallayout->removeItem(hlayout_human2);
+
+    }
+
+
+
+   //finallayout->addLayout(hlayout_human0);
+   //finallayout->addLayout(hlayout_human1);
+   //finallayout->addLayout(hlayout_human2);
 
 }
 
@@ -879,9 +932,11 @@ ThirdPage::ThirdPage(QWidget *parent)
 
     */
 
+    //USING RIGID BODY??? IF NOT, GO TO NEXT PAGE
 
 
-
+    //PRESET MOTION
+    QLabel *GO_TO_NEXT_PAGE = new QLabel("IF YOU ARE NOT USING A RIGID BODY....GO TO THE NEXT PAGE ==>");
 
 
     //PRESET MOTION
@@ -1004,6 +1059,10 @@ ThirdPage::ThirdPage(QWidget *parent)
 
     QVBoxLayout *vlayout1 = new QVBoxLayout;
     vlayout1->addSpacerItem(space1);
+    vlayout1->addSpacerItem(space1);
+    vlayout1->addWidget(GO_TO_NEXT_PAGE);
+    vlayout1->addSpacerItem(space1);
+    vlayout1->addSpacerItem(space1);
     //vlayout1->addLayout(hlayout1);
     //vlayout1->addLayout(hlayout2);
     //vlayout1->addWidget(rig_body1_);
@@ -1025,6 +1084,8 @@ ThirdPage::ThirdPage(QWidget *parent)
 
 }
 
+
+
 //TRY TO USE CHECKBOXES TO CHOOSE OTHER PARACHUTE TYPES FOR DIFFERENT INITIALIZATIONS
 
 //FOURTH PAGE INCLUDES PARACHUTE PARAMETERS
@@ -1033,6 +1094,45 @@ FourthPage::FourthPage(QWidget *parent)
     : QWizardPage(parent)
 {
     setTitle("C9 Parachute Initialization Module: Page 4");
+
+    main_label = new QLabel("Check the type of parachute for this initializaion.");
+
+    //parachute_type_check = new QCheckBox(this);
+    //parachute_type_check->setText("Check the type of parachute for this initializaion.");
+
+    C9_parachute = new QCheckBox();
+    C9_parachute->setText("C9");
+
+    DGB_parachute = new QCheckBox();
+    DGB_parachute->setText("DGB");
+
+    G11_parachute = new QCheckBox();
+    G11_parachute->setText("G11");
+
+    intruder_parachute = new QCheckBox();
+    intruder_parachute->setText("Intruder");
+
+    hlayout_parachutes = new QHBoxLayout;
+    hlayout_parachutes->addWidget(C9_parachute);
+    hlayout_parachutes->addWidget(DGB_parachute);
+    hlayout_parachutes->addWidget(G11_parachute);
+    hlayout_parachutes->addWidget(intruder_parachute);
+
+    finallayout  = new QVBoxLayout;
+    finallayout->addWidget(main_label);
+    finallayout->addLayout(hlayout_parachutes);
+    //finallayout->addLayout(rigid_body_decision_layout);
+    //finallayout->addWidget(rigid_body_check);
+
+    setLayout(finallayout);
+
+    connect(C9_parachute, SIGNAL(clicked(bool)), this, SLOT(C9_toggled(bool)));
+    connect(DGB_parachute, SIGNAL(clicked(bool)), this, SLOT(DGB_toggled(bool)));
+    connect(G11_parachute, SIGNAL(clicked(bool)), this, SLOT(G11_toggled(bool)));
+    connect(intruder_parachute, SIGNAL(clicked(bool)), this, SLOT(intruder_toggled(bool)));
+
+
+    //***********THIS IS FOR THE C9 PARACHUTE OPTION***************//
 
     QSpacerItem *space1 = new QSpacerItem(500,10);
 
@@ -1045,6 +1145,7 @@ FourthPage::FourthPage(QWidget *parent)
     num_canopy_surfaces = new QLineEdit;
     num_canopy_surfaces->setText("1");
     num_canopy_surfaces->setFixedWidth(50);
+    num_canopy_surfaces->setStyleSheet("color: blue; background-color: yellow");
 
     hlayout1->addWidget(num_canopy_surfaces_);
     hlayout1->addWidget(num_canopy_surfaces);
@@ -1059,6 +1160,8 @@ FourthPage::FourthPage(QWidget *parent)
     canopy_surf_type->setFixedWidth(100);
     canopy_surf_type->addItem("FLAT ");
     canopy_surf_type->addItem("Other");
+    canopy_surf_type->setStyleSheet("color: blue; background-color: yellow");
+
 
     hlayout2->addWidget(canopy_surf_type_);
     hlayout2->addWidget(canopy_surf_type);
@@ -1073,6 +1176,7 @@ FourthPage::FourthPage(QWidget *parent)
     canopy_boundary->setFixedWidth(100);
     canopy_boundary->addItem("Circle");
     canopy_boundary->addItem("Other");
+    canopy_boundary->setStyleSheet("color: blue; background-color: yellow");
 
     hlayout3->addWidget(canopy_boundary_);
     hlayout3->addWidget(canopy_boundary);
@@ -1086,6 +1190,7 @@ FourthPage::FourthPage(QWidget *parent)
     height_of_plane = new QLineEdit;
     height_of_plane->setText("18");
     height_of_plane->setFixedWidth(50);
+    height_of_plane->setStyleSheet("color: blue; background-color: yellow");
 
     hlayout4->addWidget(height_of_plane_);
     hlayout4->addWidget(height_of_plane);
@@ -1099,10 +1204,12 @@ FourthPage::FourthPage(QWidget *parent)
     circle_center1 = new QLineEdit;
     circle_center1->setText("6");
     circle_center1->setFixedWidth(100);
+    circle_center1->setStyleSheet("color: blue; background-color: yellow");
 
     circle_center2 = new QLineEdit;
     circle_center2->setText("6");
     circle_center2->setFixedWidth(100);
+    circle_center2->setStyleSheet("color: blue; background-color: yellow");
 
     hlayout5->addWidget(circle_center_);
     hlayout5->addWidget(circle_center1);
@@ -1118,6 +1225,7 @@ FourthPage::FourthPage(QWidget *parent)
     circle_radius = new QLineEdit;
     circle_radius->setText("4.2672");
     circle_radius->setFixedWidth(100);
+    circle_radius->setStyleSheet("color: blue; background-color: yellow");
 
     hlayout13->addWidget(circle_radius_);
     hlayout13->addWidget(circle_radius);
@@ -1133,6 +1241,7 @@ FourthPage::FourthPage(QWidget *parent)
     attach_gores->setFixedWidth(100);
     attach_gores->addItem("No");
     attach_gores->addItem("Yes");
+    attach_gores->setStyleSheet("color: blue; background-color: yellow");
 
     hlayout6->addWidget(attach_gores_);
     hlayout6->addWidget(attach_gores);
@@ -1147,6 +1256,7 @@ FourthPage::FourthPage(QWidget *parent)
     cut_vent->setFixedWidth(100);
     cut_vent->addItem("No");
     cut_vent->addItem("Yes");
+    cut_vent->setStyleSheet("color: blue; background-color: yellow");
 
     hlayout7->addWidget(cut_vent_);
     hlayout7->addWidget(cut_vent);
@@ -1161,6 +1271,7 @@ FourthPage::FourthPage(QWidget *parent)
     attach_strings->setFixedWidth(100);
     attach_strings->addItem("Yes");
     attach_strings->addItem("No");
+    attach_strings->setStyleSheet("color: blue; background-color: yellow");
 
     hlayout8->addWidget(attach_strings_);
     hlayout8->addWidget(attach_strings);
@@ -1174,6 +1285,7 @@ FourthPage::FourthPage(QWidget *parent)
     num_chords = new QLineEdit;
     num_chords->setText("28");
     num_chords->setFixedWidth(50);
+    num_chords->setStyleSheet("color: blue; background-color: yellow");
 
     hlayout9->addWidget(num_chords_);
     hlayout9->addWidget(num_chords);
@@ -1187,14 +1299,17 @@ FourthPage::FourthPage(QWidget *parent)
     init_pos_load1 = new QLineEdit;
     init_pos_load1->setText("6");
     init_pos_load1->setFixedWidth(50);
+    init_pos_load1->setStyleSheet("color: blue; background-color: yellow");
 
     init_pos_load2= new QLineEdit;
     init_pos_load2->setText("6");
     init_pos_load2->setFixedWidth(50);
+    init_pos_load2->setStyleSheet("color: blue; background-color: yellow");
 
     init_pos_load3 = new QLineEdit;
     init_pos_load3->setText("12.451");
     init_pos_load3->setFixedWidth(50);
+    init_pos_load3->setStyleSheet("color: blue; background-color: yellow");
 
     hlayout10->addWidget(init_pos_load_);
     hlayout10->addWidget(init_pos_load1);
@@ -1211,6 +1326,7 @@ FourthPage::FourthPage(QWidget *parent)
     install_strings_toRGB->setFixedWidth(100);
     install_strings_toRGB->addItem("Yes");
     install_strings_toRGB->addItem("No");
+    install_strings_toRGB->setStyleSheet("color: blue; background-color: yellow");
 
     hlayout11->addWidget(install_strings_toRGB_);
     hlayout11->addWidget(install_strings_toRGB);
@@ -1224,37 +1340,1019 @@ FourthPage::FourthPage(QWidget *parent)
     body_index = new QLineEdit;
     body_index->setText("1");
     body_index->setFixedWidth(50);
+    body_index->setStyleSheet("color: blue; background-color: yellow");
 
     hlayout12->addWidget(body_index_);
     hlayout12->addWidget(body_index);
     hlayout12->addSpacerItem(space1);
 
 
-    QVBoxLayout *page4layout = new QVBoxLayout;
+    //QVBoxLayout *page4layout = new QVBoxLayout;
 
-    QVBoxLayout *vlayout1 = new QVBoxLayout;
-    vlayout1->addSpacerItem(space1);
-    vlayout1->addLayout(hlayout1);
-    vlayout1->addLayout(hlayout2);
-    vlayout1->addLayout(hlayout3);
-    vlayout1->addLayout(hlayout4);
-    vlayout1->addLayout(hlayout5);
-    vlayout1->addLayout(hlayout6);
-    vlayout1->addLayout(hlayout7);
-    vlayout1->addLayout(hlayout8);
-    vlayout1->addLayout(hlayout9);
-    vlayout1->addLayout(hlayout10);
-    vlayout1->addLayout(hlayout11);
-    vlayout1->addLayout(hlayout12);
-    vlayout1->addLayout(hlayout13);
-
-
-    page4layout->addLayout(vlayout1);
+    vlayout_C9 = new QVBoxLayout;
+    vlayout_C9->addSpacerItem(space1);
+    vlayout_C9->addLayout(hlayout1);
+    vlayout_C9->addLayout(hlayout2);
+    vlayout_C9->addLayout(hlayout3);
+    vlayout_C9->addLayout(hlayout4);
+    vlayout_C9->addLayout(hlayout5);
+    vlayout_C9->addLayout(hlayout13);
+    vlayout_C9->addLayout(hlayout6);
+    vlayout_C9->addLayout(hlayout7);
+    vlayout_C9->addLayout(hlayout8);
+    vlayout_C9->addLayout(hlayout9);
+    vlayout_C9->addLayout(hlayout10);
+    vlayout_C9->addLayout(hlayout11);
+    vlayout_C9->addLayout(hlayout12);
 
 
-    setLayout(page4layout);
+    //page4layout->addLayout(vlayout1);
+
+
+    //setLayout(page4layout);
+
+
+     //***********THIS IS FOR THE DGB0 PARACHUTE OPTION***************//
+
+
+    //NUMBER OF CANOPY SURFACES
+
+    QLabel *num_canopy_surfaces_DGB_ = new QLabel("Enter number of canopy surfaces:");
+
+    QHBoxLayout *hlayout1_DGB = new QHBoxLayout;
+
+    num_canopy_surfaces_DGB = new QLineEdit;
+    num_canopy_surfaces_DGB->setText("1");
+    num_canopy_surfaces_DGB->setFixedWidth(80);
+    num_canopy_surfaces_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout1_DGB->addWidget(num_canopy_surfaces_DGB_);
+    hlayout1_DGB->addWidget(num_canopy_surfaces_DGB);
+    //hlayout1_DGB->addSpacerItem(space1);
+
+    //COMPLEX CONNECTION
+
+    QLabel *complex_connection_DGB_ = new QLabel("Use complex connection?");
+
+    //QHBoxLayout *hlayout2_DGB = new QHBoxLayout;
+
+    complex_connection_DGB = new QComboBox;
+    complex_connection_DGB->addItem("No");
+    complex_connection_DGB->addItem("Yes");
+    complex_connection_DGB->setFixedWidth(150);
+    complex_connection_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+
+    hlayout1_DGB->addWidget(complex_connection_DGB_);
+    hlayout1_DGB->addWidget(complex_connection_DGB);
+    //hlayout1_DGB->addSpacerItem(space1);
+
+    //FOR MODULE 1
+    QLabel *module_1_DGB = new QLabel("For module 1:");
+
+    //CANOPY SURFACE TYPE
+    QLabel *canopy_surf_type_DGB_ = new QLabel("Enter canopy surface type:");
+
+    QHBoxLayout *hlayout2_DGB = new QHBoxLayout;
+
+    //QHBoxLayout *hlayout3_DGB = new QHBoxLayout;
+
+    canopy_surf_type_DGB = new QComboBox;
+    canopy_surf_type_DGB->setFixedWidth(100);
+    canopy_surf_type_DGB->addItem("FLAT");
+    canopy_surf_type_DGB->addItem("Other");
+    canopy_surf_type_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+
+    hlayout2_DGB->addWidget(canopy_surf_type_DGB_);
+    hlayout2_DGB->addWidget(canopy_surf_type_DGB);
+    //hlayout2_DGB->addSpacerItem(space1);
+
+    //CANOPY BOUNDARY
+
+    QLabel *canopy_boundary_DGB_ = new QLabel("Enter type of canopy boundary:");
+
+    //QHBoxLayout *hlayout4_DGB = new QHBoxLayout;
+
+    canopy_boundary_DGB = new QComboBox;
+    canopy_boundary_DGB->setFixedWidth(100);
+    canopy_boundary_DGB->addItem("S");      //WHAT DOES THE S STAND FOR
+    canopy_boundary_DGB->addItem("Other");
+    canopy_boundary_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+
+    hlayout2_DGB->addWidget(canopy_boundary_DGB_);
+    hlayout2_DGB->addWidget(canopy_boundary_DGB);
+    //hlayout2_DGB->addSpacerItem(space1);
+
+    //HEIGHT OF PLANE
+    QLabel *height_of_plane_DGB_ = new QLabel("Enter the height of the plane:");
+
+    QHBoxLayout *hlayout3_DGB = new QHBoxLayout;
+    //QHBoxLayout *hlayout5_DGB = new QHBoxLayout;
+
+    height_of_plane_DGB = new QLineEdit;
+    height_of_plane_DGB->setText("3.324");
+    height_of_plane_DGB->setFixedWidth(50);
+    height_of_plane_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+
+    hlayout3_DGB->addWidget(height_of_plane_DGB_);
+    hlayout3_DGB->addWidget(height_of_plane_DGB);
+    //hlayout3_DGB->addSpacerItem(space1);
+
+    //CIRCLE CENTER
+    QLabel *circle_center_DGB_ = new QLabel("Enter circle center:");
+
+    //QHBoxLayout *hlayout6_DGB = new QHBoxLayout;
+
+    circle_center1_DGB = new QLineEdit;
+    circle_center1_DGB->setText("0.5");
+    circle_center1_DGB->setFixedWidth(100);
+    circle_center1_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    circle_center2_DGB = new QLineEdit;
+    circle_center2_DGB->setText("0.5");
+    circle_center2_DGB->setFixedWidth(100);
+    circle_center2_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout3_DGB->addWidget(circle_center_DGB_);
+    hlayout3_DGB->addWidget(circle_center1_DGB);
+    hlayout3_DGB->addWidget(circle_center2_DGB);
+    //hlayout3_DGB->addSpacerItem(space1);
+
+    //CIRCLE RADIUS
+
+    QLabel *circle_radius_DGB_ = new QLabel("Enter circle radius:");
+
+    //QHBoxLayout *hlayout7_DGB = new QHBoxLayout;
+    QHBoxLayout *hlayout4_DGB = new QHBoxLayout;
+
+    circle_radius_DGB = new QLineEdit;
+    circle_radius_DGB->setText("0.28");
+    circle_radius_DGB->setFixedWidth(100);
+    circle_radius_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    QSpacerItem *space2 = new QSpacerItem(80,10);
+
+    hlayout4_DGB->addWidget(circle_radius_DGB_);
+    hlayout4_DGB->addWidget(circle_radius_DGB);
+    hlayout4_DGB->addSpacerItem(space2);
+
+
+    //ATTACH GORES
+    QLabel *attach_gores_DGB_ = new QLabel("Attach gores to canopy?");
+
+    //QHBoxLayout *hlayout8_DGB = new QHBoxLayout;
+
+    attach_gores_DGB = new QComboBox;
+    attach_gores_DGB->setFixedWidth(100);
+    attach_gores_DGB->addItem("No");
+    attach_gores_DGB->addItem("Yes");
+    attach_gores_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout4_DGB->addWidget(attach_gores_DGB_);
+    hlayout4_DGB->addWidget(attach_gores_DGB);
+    //hlayout4_DGB->addSpacerItem(space1);
+
+    //CUT VENT
+    QLabel *cut_vent_DGB_ = new QLabel("Cut a vent on the canopy?");
+
+    //QHBoxLayout *hlayout9_DGB = new QHBoxLayout;
+    QHBoxLayout *hlayout5_DGB = new QHBoxLayout;
+
+    cut_vent_DGB = new QComboBox;
+    cut_vent_DGB->setFixedWidth(100);
+    cut_vent_DGB->addItem("No");
+    cut_vent_DGB->addItem("Yes");
+    cut_vent_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout5_DGB->addWidget(cut_vent_DGB_);
+    hlayout5_DGB->addWidget(cut_vent_DGB);
+    hlayout5_DGB->addSpacerItem(space2);
+    //hlayout9_DGB->addSpacerItem(space1);
+
+    //RADIUS OF VENT
+    QLabel *radius_vent_DGB_ = new QLabel("Enter radius of vent:");
+
+    //QHBoxLayout *hlayout10_DGB = new QHBoxLayout;
+
+    radius_vent_DGB = new QLineEdit;
+    radius_vent_DGB->setFixedWidth(100);
+    radius_vent_DGB->setText("0.05");
+    radius_vent_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout5_DGB->addWidget(radius_vent_DGB_);
+    hlayout5_DGB->addWidget(radius_vent_DGB);
+    //hlayout5_DGB->addSpacerItem(space1);
+    //hlayout9_DGB->addSpacerItem(space1);
+
+    //ATTACH STRINGS TO CANOPY
+    QLabel *attach_strings_DGB_ = new QLabel("Attach strings to canopy?");
+
+    QHBoxLayout *hlayout6_DGB = new QHBoxLayout;
+    //QHBoxLayout *hlayout11_DGB = new QHBoxLayout;
+
+    attach_strings_DGB = new QComboBox;
+    attach_strings_DGB->setFixedWidth(100);
+    attach_strings_DGB->addItem("Yes");
+    attach_strings_DGB->addItem("No");
+    attach_strings_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout6_DGB->addWidget(attach_strings_DGB_);
+    hlayout6_DGB->addWidget(attach_strings_DGB);
+    hlayout6_DGB->addSpacerItem(space2);
+    //hlayout10_DGB->addSpacerItem(space1);
+
+    //NUMBER OF CHORDS
+    QLabel *num_chords_DGB_ = new QLabel("Enter number of chords:");
+
+    //QHBoxLayout *hlayout9 = new QHBoxLayout;
+
+    num_chords_DGB = new QLineEdit;
+    num_chords_DGB->setText("24");
+    num_chords_DGB->setFixedWidth(80);
+    num_chords_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout6_DGB->addWidget(num_chords_DGB_);
+    hlayout6_DGB->addWidget(num_chords_DGB);
+    //hlayout10_DGB->addSpacerItem(space1);
+
+    //LENGTH OF THE DRAPE
+    QLabel *length_drape_DGB_ = new QLabel("Enter the length of the drape:");
+
+    //QHBoxLayout *hlayout11_DGB = new QHBoxLayout;
+    QHBoxLayout *hlayout7_DGB = new QHBoxLayout;
+
+    length_drape_DGB = new QLineEdit;
+    length_drape_DGB->setText("0.1016");
+    length_drape_DGB->setFixedWidth(80);
+    length_drape_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    QSpacerItem *space3 = new QSpacerItem(40,10);
+
+    hlayout7_DGB->addWidget(length_drape_DGB_);
+    hlayout7_DGB->addWidget(length_drape_DGB);
+    hlayout7_DGB->addSpacerItem(space3);
+    //add space?
+
+    //GAP BETWEEN CANOPY AND DRAPE
+    QLabel *gap_canopy_drape_DGB_ = new QLabel("Enter the gap between canopy and drape:");
+
+    //QHBoxLayout *hlayout11_DGB = new QHBoxLayout;
+
+    gap_canopy_drape_DGB = new QLineEdit;
+    gap_canopy_drape_DGB->setText("0.1016");
+    gap_canopy_drape_DGB->setFixedWidth(80);
+    gap_canopy_drape_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout7_DGB->addWidget(gap_canopy_drape_DGB_);
+    hlayout7_DGB->addWidget(gap_canopy_drape_DGB);
+
+    //INITIAL POSITION OF LOAD
+    QLabel *init_pos_load_DGB_ = new QLabel("Enter initial position of load:");
+
+    //QHBoxLayout *hlayout12_DGB = new QHBoxLayout;
+    QHBoxLayout *hlayout8_DGB = new QHBoxLayout;
+
+    init_pos_load1_DGB = new QLineEdit;
+    init_pos_load1_DGB->setText("0.5");
+    init_pos_load1_DGB->setFixedWidth(50);
+    init_pos_load1_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    init_pos_load2_DGB= new QLineEdit;
+    init_pos_load2_DGB->setText("0.5");
+    init_pos_load2_DGB->setFixedWidth(50);
+    init_pos_load2_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    init_pos_load3_DGB = new QLineEdit;
+    init_pos_load3_DGB->setText("1.9076");
+    init_pos_load3_DGB->setFixedWidth(50);
+    init_pos_load3_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout8_DGB->addWidget(init_pos_load_DGB_);
+    hlayout8_DGB->addWidget(init_pos_load1_DGB);
+    hlayout8_DGB->addWidget(init_pos_load2_DGB);
+    hlayout8_DGB->addWidget(init_pos_load3_DGB);
+    hlayout8_DGB->addSpacerItem(space1);
+
+    //FIX LOAD NODE
+    QLabel *fix_load_node_DGB_ = new QLabel("Fix the load node?");
+
+    QHBoxLayout *hlayout9_DGB = new QHBoxLayout;
+    //QHBoxLayout *hlayout11_DGB = new QHBoxLayout;
+
+    fix_load_node_DGB = new QComboBox;
+    fix_load_node_DGB->setFixedWidth(100);
+    fix_load_node_DGB->addItem("No");
+    fix_load_node_DGB->addItem("Yes");
+    fix_load_node_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout9_DGB->addWidget(fix_load_node_DGB_);
+    hlayout9_DGB->addWidget(fix_load_node_DGB);
+    hlayout9_DGB->addSpacerItem(space2);
+    //hlayout10_DGB->addSpacerItem(space1);
+
+
+    //INSTALL STRINGS TO RGB
+    QLabel *install_strings_toRGB_DGB_ = new QLabel("Install the strings to RGB?");
+
+    //QHBoxLayout *hlayout10_DGB = new QHBoxLayout;
+
+    install_strings_toRGB_DGB = new QComboBox;
+    install_strings_toRGB_DGB->setFixedWidth(100);
+    install_strings_toRGB_DGB->addItem("No");
+    install_strings_toRGB_DGB->addItem("Yes");
+    install_strings_toRGB_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout9_DGB->addWidget(install_strings_toRGB_DGB_);
+    hlayout9_DGB->addWidget(install_strings_toRGB_DGB);
+    //hlayout10->addSpacerItem(space1);
+
+    //MODIFY INITIALIZATION
+    QLabel *modify_initialization_DGB_ = new QLabel("Modify initialization?");
+
+    QHBoxLayout *hlayout10_DGB = new QHBoxLayout;
+
+    modify_initialization_DGB = new QComboBox;
+    modify_initialization_DGB->setFixedWidth(100);
+    modify_initialization_DGB->addItem("Yes");
+    modify_initialization_DGB->addItem("No");
+    modify_initialization_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout10_DGB->addWidget(modify_initialization_DGB_);
+    hlayout10_DGB->addWidget(modify_initialization_DGB);
+    hlayout10_DGB->addSpacerItem(space2);
+
+    //ROTATE CANOPY
+    QLabel *rotate_canopy_DGB_ = new QLabel("Rotate canopy?");
+
+    //QHBoxLayout *hlayout10_DGB = new QHBoxLayout;
+
+    rotate_canopy_DGB = new QComboBox;
+    rotate_canopy_DGB->setFixedWidth(100);
+    rotate_canopy_DGB->addItem("No");
+    rotate_canopy_DGB->addItem("Yes");
+    rotate_canopy_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout10_DGB->addWidget(rotate_canopy_DGB_);
+    hlayout10_DGB->addWidget(rotate_canopy_DGB);
+    //hlayout10_DGB->addSpacerItem(space2);
+
+
+    //NEW LOAD POSITION
+    QLabel *new_pos_load_DGB_ = new QLabel("Enter new load position:");
+    QHBoxLayout *hlayout11_DGB = new QHBoxLayout;
+
+    new_pos_load1_DGB = new QLineEdit;
+    new_pos_load1_DGB->setText("0.5");
+    new_pos_load1_DGB->setFixedWidth(80);
+    new_pos_load1_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    new_pos_load2_DGB= new QLineEdit;
+    new_pos_load2_DGB->setText("0.5");
+    new_pos_load2_DGB->setFixedWidth(80);
+    new_pos_load2_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    new_pos_load3_DGB = new QLineEdit;
+    new_pos_load3_DGB->setText("1.5536");
+    new_pos_load3_DGB->setFixedWidth(80);
+    new_pos_load3_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout11_DGB->addWidget(new_pos_load_DGB_);
+    hlayout11_DGB->addWidget(new_pos_load1_DGB);
+    hlayout11_DGB->addWidget(new_pos_load2_DGB);
+    hlayout11_DGB->addWidget(new_pos_load3_DGB);
+    hlayout11_DGB->addSpacerItem(space1);
+
+    //NEW CONNECTION POSITION
+    QLabel *connect_pos_DGB_ = new QLabel("Enter connection position:");
+    QHBoxLayout *hlayout12_DGB = new QHBoxLayout;
+
+    connect_pos1_DGB = new QLineEdit;
+    connect_pos1_DGB->setText("0.5");
+    connect_pos1_DGB->setFixedWidth(80);
+    connect_pos1_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    connect_pos2_DGB= new QLineEdit;
+    connect_pos2_DGB->setText("0.5");
+    connect_pos2_DGB->setFixedWidth(80);
+    connect_pos2_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    connect_pos3_DGB = new QLineEdit;
+    connect_pos3_DGB->setText("1.7");
+    connect_pos3_DGB->setFixedWidth(80);
+    connect_pos3_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout12_DGB->addWidget(connect_pos_DGB_);
+    hlayout12_DGB->addWidget(connect_pos1_DGB);
+    hlayout12_DGB->addWidget(connect_pos2_DGB);
+    hlayout12_DGB->addWidget(connect_pos3_DGB);
+    hlayout12_DGB->addSpacerItem(space1);
+
+
+    //INSTALL MULTI_PARACHUTE TO RGB
+    QLabel *multi_parachute_to_RGB_DGB_ = new QLabel("Install the multi-parachute to RGB?");
+    QHBoxLayout *hlayout13_DGB = new QHBoxLayout;
+
+    multi_parachute_to_RGB_DGB = new QComboBox;
+    multi_parachute_to_RGB_DGB->addItem("Yes");
+    multi_parachute_to_RGB_DGB->addItem("No");
+    multi_parachute_to_RGB_DGB->setFixedWidth(80);
+    multi_parachute_to_RGB_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout13_DGB->addWidget(multi_parachute_to_RGB_DGB_);
+    hlayout13_DGB->addWidget(multi_parachute_to_RGB_DGB);
+    hlayout13_DGB->addSpacerItem(space2);
+
+    //BODY INDEX
+    QLabel *body_index_DGB_ = new QLabel("Enter body index of the target RGB:");
+
+    //QHBoxLayout *hlayout12 = new QHBoxLayout;
+
+    body_index_DGB = new QLineEdit;
+    body_index_DGB->setText("1");
+    body_index_DGB->setFixedWidth(50);
+    body_index_DGB->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout13_DGB->addWidget(body_index_DGB_);
+    hlayout13_DGB->addWidget(body_index_DGB);
+    //hlayout13_DGB->addSpacerItem(space1);
+
+    vlayout_DGB = new QVBoxLayout;
+    //vlayout_DGB->addSpacerItem(space1);
+    vlayout_DGB->addLayout(hlayout1_DGB);
+    vlayout_DGB->addLayout(hlayout2_DGB);
+    vlayout_DGB->addWidget(module_1_DGB);
+    vlayout_DGB->addLayout(hlayout3_DGB);
+    vlayout_DGB->addLayout(hlayout4_DGB);
+    vlayout_DGB->addLayout(hlayout5_DGB);
+    vlayout_DGB->addLayout(hlayout6_DGB);
+    vlayout_DGB->addLayout(hlayout7_DGB);
+    vlayout_DGB->addLayout(hlayout8_DGB);
+    vlayout_DGB->addLayout(hlayout9_DGB);
+    vlayout_DGB->addLayout(hlayout10_DGB);
+    vlayout_DGB->addLayout(hlayout11_DGB);
+    vlayout_DGB->addLayout(hlayout12_DGB);
+    vlayout_DGB->addLayout(hlayout13_DGB);
+
+
+    //***********THIS IS FOR THE G11 PARACHUTE OPTION***************//
+
+    //QSpacerItem *space1 = new QSpacerItem(500,10);
+
+    //NUMBER OF CANOPY SURFACES
+
+    QLabel *num_canopy_surfaces_G11_ = new QLabel("Enter number of canopy surfaces:");
+
+    QHBoxLayout *hlayout1_G11 = new QHBoxLayout;
+
+    num_canopy_surfaces_G11 = new QLineEdit;
+    num_canopy_surfaces_G11->setText("1");
+    num_canopy_surfaces_G11->setFixedWidth(50);
+    num_canopy_surfaces_G11->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout1_G11->addWidget(num_canopy_surfaces_G11_);
+    hlayout1_G11->addWidget(num_canopy_surfaces_G11);
+    hlayout1_G11->addSpacerItem(space1);
+
+    //CANOPY SURFACE TYPE
+    QLabel *canopy_surf_type_G11_ = new QLabel("Enter canopy surface type:");
+
+    QHBoxLayout *hlayout2_G11 = new QHBoxLayout;
+
+    canopy_surf_type_G11 = new QComboBox;
+    canopy_surf_type_G11->setFixedWidth(100);
+    canopy_surf_type_G11->addItem("FLAT ");
+    canopy_surf_type_G11->addItem("Other");
+    canopy_surf_type_G11->setStyleSheet("color: blue; background-color: yellow");
+
+
+    hlayout2_G11->addWidget(canopy_surf_type_G11_);
+    hlayout2_G11->addWidget(canopy_surf_type_G11);
+    hlayout2_G11->addSpacerItem(space1);
+
+    //CANOPY BOUNDARY
+    QLabel *canopy_boundary_G11_ = new QLabel("Enter type of canopy boundary:");
+
+    QHBoxLayout *hlayout3_G11 = new QHBoxLayout;
+
+    canopy_boundary_G11 = new QComboBox;
+    canopy_boundary_G11->setFixedWidth(100);
+    canopy_boundary_G11->addItem("Circle");
+    canopy_boundary_G11->addItem("Other");
+    canopy_boundary_G11->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout3_G11->addWidget(canopy_boundary_G11_);
+    hlayout3_G11->addWidget(canopy_boundary_G11);
+    hlayout3_G11->addSpacerItem(space1);
+
+    //HEIGHT OF PLANE
+    QLabel *height_of_plane_G11_ = new QLabel("Enter the height of the plane:");
+
+    QHBoxLayout *hlayout4_G11 = new QHBoxLayout;
+
+    height_of_plane_G11 = new QLineEdit;
+    height_of_plane_G11->setText("16");
+    height_of_plane_G11->setFixedWidth(50);
+    height_of_plane_G11->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout4_G11->addWidget(height_of_plane_G11_);
+    hlayout4_G11->addWidget(height_of_plane_G11);
+    hlayout4_G11->addSpacerItem(space1);
+
+    //CIRCLE CENTER
+    QLabel *circle_center_G11_ = new QLabel("Enter circle center:");
+
+    QHBoxLayout *hlayout5_G11 = new QHBoxLayout;
+
+    circle_center1_G11 = new QLineEdit;
+    circle_center1_G11->setText("7");
+    circle_center1_G11->setFixedWidth(100);
+    circle_center1_G11->setStyleSheet("color: blue; background-color: yellow");
+
+    circle_center2_G11 = new QLineEdit;
+    circle_center2_G11->setText("7");
+    circle_center2_G11->setFixedWidth(100);
+    circle_center2_G11->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout5_G11->addWidget(circle_center_G11_);
+    hlayout5_G11->addWidget(circle_center1_G11);
+    hlayout5_G11->addWidget(circle_center2_G11);
+    hlayout5_G11->addSpacerItem(space1);
+
+    //CIRCLE RADIUS
+
+    QLabel *circle_radius_G11_ = new QLabel("Enter circle radius:");
+
+    QHBoxLayout *hlayout13_G11 = new QHBoxLayout;
+
+    circle_radius_G11 = new QLineEdit;
+    circle_radius_G11->setText("5");
+    circle_radius_G11->setFixedWidth(100);
+    circle_radius_G11->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout13_G11->addWidget(circle_radius_G11_);
+    hlayout13_G11->addWidget(circle_radius_G11);
+    hlayout13_G11->addSpacerItem(space1);
+
+
+    //ATTACH GORES
+    QLabel *attach_gores_G11_ = new QLabel("Attach gores to canopy?");
+
+    QHBoxLayout *hlayout6_G11 = new QHBoxLayout;
+
+    attach_gores_G11 = new QComboBox;
+    attach_gores_G11->setFixedWidth(100);
+    attach_gores_G11->addItem("No");
+    attach_gores_G11->addItem("Yes");
+    attach_gores_G11->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout6_G11->addWidget(attach_gores_G11_);
+    hlayout6_G11->addWidget(attach_gores_G11);
+    hlayout6_G11->addSpacerItem(space1);
+
+    //CUT VENT
+    QLabel *cut_vent_G11_ = new QLabel("Cut a vent on the canopy?");
+
+    QHBoxLayout *hlayout7_G11 = new QHBoxLayout;
+
+    cut_vent_G11 = new QComboBox;
+    cut_vent_G11->setFixedWidth(100);
+    cut_vent_G11->addItem("No");
+    cut_vent_G11->addItem("Yes");
+    cut_vent_G11->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout7_G11->addWidget(cut_vent_G11_);
+    hlayout7_G11->addWidget(cut_vent_G11);
+    hlayout7_G11->addSpacerItem(space1);
+
+    //ATTACH STRINGS TO CANOPY
+    QLabel *attach_strings_G11_ = new QLabel("Attach strings to canopy?");
+
+    QHBoxLayout *hlayout8_G11 = new QHBoxLayout;
+
+    attach_strings_G11 = new QComboBox;
+    attach_strings_G11->setFixedWidth(100);
+    attach_strings_G11->addItem("Yes");
+    attach_strings_G11->addItem("No");
+    attach_strings_G11->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout8_G11->addWidget(attach_strings_G11_);
+    hlayout8_G11->addWidget(attach_strings_G11);
+    hlayout8_G11->addSpacerItem(space1);
+
+    //NUMBER OF CHORDS
+    QLabel *num_chords_G11_ = new QLabel("Enter number of chords:");
+
+    QHBoxLayout *hlayout9_G11 = new QHBoxLayout;
+
+    num_chords_G11 = new QLineEdit;
+    num_chords_G11->setText("30");
+    num_chords_G11->setFixedWidth(50);
+    num_chords_G11->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout9_G11->addWidget(num_chords_G11_);
+    hlayout9_G11->addWidget(num_chords_G11);
+    hlayout9_G11->addSpacerItem(space1);
+
+    //INITIAL POSITION OF LOAD
+    QLabel *init_pos_load_G11_ = new QLabel("Enter initial position of load:");
+
+    QHBoxLayout *hlayout10_G11 = new QHBoxLayout;
+
+    init_pos_load1_G11 = new QLineEdit;
+    init_pos_load1_G11->setText("7");
+    init_pos_load1_G11->setFixedWidth(50);
+    init_pos_load1_G11->setStyleSheet("color: blue; background-color: yellow");
+
+    init_pos_load2_G11 = new QLineEdit;
+    init_pos_load2_G11->setText("7");
+    init_pos_load2_G11->setFixedWidth(50);
+    init_pos_load2_G11->setStyleSheet("color: blue; background-color: yellow");
+
+    init_pos_load3_G11 = new QLineEdit;
+    init_pos_load3_G11->setText("2");
+    init_pos_load3_G11->setFixedWidth(50);
+    init_pos_load3_G11->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout10_G11->addWidget(init_pos_load_G11_);
+    hlayout10_G11->addWidget(init_pos_load1_G11);
+    hlayout10_G11->addWidget(init_pos_load2_G11);
+    hlayout10_G11->addWidget(init_pos_load3_G11);
+    hlayout10_G11->addSpacerItem(space1);
+
+
+
+    //INSTALL STRINGS TO RGB
+    QLabel *install_strings_toRGB_G11_ = new QLabel("Install the strings to RGB?");
+
+    QHBoxLayout *hlayout11_G11 = new QHBoxLayout;
+
+    install_strings_toRGB_G11 = new QComboBox;
+    install_strings_toRGB_G11->setFixedWidth(100);
+    install_strings_toRGB_G11->addItem("Yes");
+    install_strings_toRGB_G11->addItem("No");
+    install_strings_toRGB_G11->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout11_G11->addWidget(install_strings_toRGB_G11_);
+    hlayout11_G11->addWidget(install_strings_toRGB_G11);
+    hlayout11_G11->addSpacerItem(space1);
+
+    //BODY INDEX
+    QLabel *body_index_G11_ = new QLabel("Enter the body index of the target RGB:");
+
+    QHBoxLayout *hlayout12_G11 = new QHBoxLayout;
+
+    body_index_G11 = new QLineEdit;
+    body_index_G11->setText("1");
+    body_index_G11->setFixedWidth(50);
+    body_index_G11->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout12_G11->addWidget(body_index_G11_);
+    hlayout12_G11->addWidget(body_index_G11);
+    hlayout12_G11->addSpacerItem(space1);
+
+
+
+    //QVBoxLayout *page4layout = new QVBoxLayout;
+
+    vlayout_G11 = new QVBoxLayout;
+    vlayout_G11->addSpacerItem(space1);
+    vlayout_G11->addLayout(hlayout1_G11);
+    vlayout_G11->addLayout(hlayout2_G11);
+    vlayout_G11->addLayout(hlayout3_G11);
+    vlayout_G11->addLayout(hlayout4_G11);
+    vlayout_G11->addLayout(hlayout5_G11);
+    vlayout_G11->addLayout(hlayout13_G11);
+    vlayout_G11->addLayout(hlayout6_G11);
+    vlayout_G11->addLayout(hlayout7_G11);
+    vlayout_G11->addLayout(hlayout8_G11);
+    vlayout_G11->addLayout(hlayout9_G11);
+    vlayout_G11->addLayout(hlayout10_G11);
+    vlayout_G11->addLayout(hlayout11_G11);
+    vlayout_G11->addLayout(hlayout12_G11);
+
+
+    //***********THIS IS FOR THE INTRUDER PARACHUTE OPTION***************//
+
+    //NUMBER OF CANOPY SURFACES
+
+    QLabel *num_canopy_surfaces_intruder_ = new QLabel("Enter number of canopy surfaces:");
+
+    QHBoxLayout *hlayout1_intruder = new QHBoxLayout;
+
+    num_canopy_surfaces_intruder = new QLineEdit;
+    num_canopy_surfaces_intruder->setText("1");
+    num_canopy_surfaces_intruder->setFixedWidth(50);
+    num_canopy_surfaces_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout1_intruder->addWidget(num_canopy_surfaces_intruder_);
+    hlayout1_intruder->addWidget(num_canopy_surfaces_intruder);
+    hlayout1_intruder->addSpacerItem(space1);
+
+    //CANOPY SURFACE TYPE
+    QLabel *canopy_surf_type_intruder_ = new QLabel("Enter canopy surface type:");
+
+    QHBoxLayout *hlayout2_intruder = new QHBoxLayout;
+
+    canopy_surf_type_intruder = new QComboBox;
+    canopy_surf_type_intruder->setFixedWidth(100);
+    canopy_surf_type_intruder->addItem("FLAT ");
+    canopy_surf_type_intruder->addItem("Other");
+    canopy_surf_type_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+
+    hlayout2_intruder->addWidget(canopy_surf_type_intruder_);
+    hlayout2_intruder->addWidget(canopy_surf_type_intruder);
+    hlayout2_intruder->addSpacerItem(space1);
+
+    //CANOPY BOUNDARY
+    QLabel *canopy_boundary_intruder_ = new QLabel("Enter type of canopy boundary:");
+
+    QHBoxLayout *hlayout3_intruder = new QHBoxLayout;
+
+    canopy_boundary_intruder = new QComboBox;
+    canopy_boundary_intruder->setFixedWidth(100);
+    canopy_boundary_intruder->addItem("Ellipse");
+    canopy_boundary_intruder->addItem("Other");
+    canopy_boundary_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout3_intruder->addWidget(canopy_boundary_intruder_);
+    hlayout3_intruder->addWidget(canopy_boundary_intruder);
+    hlayout3_intruder->addSpacerItem(space1);
+
+    //HEIGHT OF PLANE
+    QLabel *height_of_plane_intruder_ = new QLabel("Enter the height of the plane:");
+
+    QHBoxLayout *hlayout4_intruder = new QHBoxLayout;
+
+    height_of_plane_intruder = new QLineEdit;
+    height_of_plane_intruder->setText("23");
+    height_of_plane_intruder->setFixedWidth(50);
+    height_of_plane_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout4_intruder->addWidget(height_of_plane_intruder_);
+    hlayout4_intruder->addWidget(height_of_plane_intruder);
+    hlayout4_intruder->addSpacerItem(space1);
+
+    //ELLIPSE CENTER
+    QLabel *ellipse_center_intruder_ = new QLabel("Enter ellipse center:");
+
+    QHBoxLayout *hlayout5_intruder = new QHBoxLayout;
+
+    ellipse_center1_intruder = new QLineEdit;
+    ellipse_center1_intruder->setText("10");
+    ellipse_center1_intruder->setFixedWidth(100);
+    ellipse_center1_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    ellipse_center2_intruder = new QLineEdit;
+    ellipse_center2_intruder->setText("4");
+    ellipse_center2_intruder->setFixedWidth(100);
+    ellipse_center2_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    ellipse_center3_intruder = new QLineEdit;
+    ellipse_center3_intruder->setText("20");
+    ellipse_center3_intruder->setFixedWidth(100);
+    ellipse_center3_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout5_intruder->addWidget(ellipse_center_intruder_);
+    hlayout5_intruder->addWidget(ellipse_center1_intruder);
+    hlayout5_intruder->addWidget(ellipse_center2_intruder);
+    hlayout5_intruder->addWidget(ellipse_center3_intruder);
+    hlayout5_intruder->addSpacerItem(space1);
+
+    //ELLIPSE RADIUS
+
+    QLabel *ellipse_radius_intruder_ = new QLabel("Enter ellipse radius:");
+
+    QHBoxLayout *hlayout6_intruder = new QHBoxLayout;
+
+    ellipse_radius1_intruder = new QLineEdit;
+    ellipse_radius1_intruder->setText("8.2862");
+    ellipse_radius1_intruder->setFixedWidth(100);
+    ellipse_radius1_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    ellipse_radius2_intruder = new QLineEdit;
+    ellipse_radius2_intruder->setText("1.85");
+    ellipse_radius2_intruder->setFixedWidth(100);
+    ellipse_radius2_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+
+    hlayout6_intruder->addWidget(ellipse_radius_intruder_);
+    hlayout6_intruder->addWidget(ellipse_radius1_intruder);
+    hlayout6_intruder->addWidget(ellipse_radius2_intruder);
+    hlayout6_intruder->addSpacerItem(space1);
+
+    //X-RANGE OF ELLIPSE
+
+    QLabel *xrange_ellipse_intruder_ = new QLabel("Enter x range of ellipse:");
+
+    QHBoxLayout *hlayout7_intruder = new QHBoxLayout;
+
+    ellipse_xrange1_intruder = new QLineEdit;
+    ellipse_xrange1_intruder->setText("5.15");
+    ellipse_xrange1_intruder->setFixedWidth(100);
+    ellipse_xrange1_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    ellipse_xrange2_intruder = new QLineEdit;
+    ellipse_xrange2_intruder->setText("14.85");
+    ellipse_xrange2_intruder->setFixedWidth(100);
+    ellipse_xrange2_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout7_intruder->addWidget(xrange_ellipse_intruder_);
+    hlayout7_intruder->addWidget(ellipse_xrange1_intruder);
+    hlayout7_intruder->addWidget(ellipse_xrange2_intruder);
+    hlayout7_intruder->addSpacerItem(space1);
+
+    //ATTACH GORES
+    QLabel *attach_gores_intruder_ = new QLabel("Attach gores to canopy?");
+
+    QHBoxLayout *hlayout8_intruder = new QHBoxLayout;
+
+    attach_gores_intruder = new QComboBox;
+    attach_gores_intruder->setFixedWidth(100);
+    attach_gores_intruder->addItem("Yes");
+    attach_gores_intruder->addItem("No");
+    attach_gores_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout8_intruder->addWidget(attach_gores_intruder_);
+    hlayout8_intruder->addWidget(attach_gores_intruder);
+    hlayout8_intruder->addSpacerItem(space1);
+
+    //NUMBER OF VERTICAL GORES
+    QLabel *number_vert_gores_intruder_ = new QLabel("Enter number of vertical gores:");
+
+    QHBoxLayout *hlayout9_intruder = new QHBoxLayout;
+
+    num_vert_gores_intruder = new QLineEdit;
+    num_vert_gores_intruder->setText("8");
+    num_vert_gores_intruder->setFixedWidth(100);
+    num_vert_gores_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout9_intruder->addWidget(number_vert_gores_intruder_);
+    hlayout9_intruder->addWidget(num_vert_gores_intruder);
+    hlayout9_intruder->addSpacerItem(space1);
+
+    //START X-COORDINATE
+    QLabel *start_x_coord_intruder_ = new QLabel("Enter start x-coordinate of gore:");
+
+    QHBoxLayout *hlayout10_intruder = new QHBoxLayout;
+
+    start_xcoord_gore_intruder = new QLineEdit;
+    start_xcoord_gore_intruder->setText("5.45");
+    start_xcoord_gore_intruder->setFixedWidth(100);
+    start_xcoord_gore_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout10_intruder->addWidget(start_x_coord_intruder_);
+    hlayout10_intruder->addWidget(start_xcoord_gore_intruder);
+    hlayout10_intruder->addSpacerItem(space1);
+
+    //DISTANCE BETWEEN GORES
+    QLabel *dist_btn_gores_intruder_ = new QLabel("Enter distance between gores:");
+
+    QHBoxLayout *hlayout11_intruder = new QHBoxLayout;
+
+    dist_btn_gores_intruder = new QLineEdit;
+    dist_btn_gores_intruder->setText("1.3");
+    dist_btn_gores_intruder->setFixedWidth(100);
+    dist_btn_gores_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout11_intruder->addWidget(dist_btn_gores_intruder_);
+    hlayout11_intruder->addWidget(start_xcoord_gore_intruder);
+    hlayout11_intruder->addSpacerItem(space1);
+
+    //ATTACH STRINGS TO CANOPY
+    QLabel *attach_strings_intruder_ = new QLabel("Attach strings to canopy?");
+
+    QHBoxLayout *hlayout12_intruder = new QHBoxLayout;
+
+    attach_strings_intruder = new QComboBox;
+    attach_strings_intruder->setFixedWidth(100);
+    attach_strings_intruder->addItem("Yes");
+    attach_strings_intruder->addItem("No");
+    attach_strings_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout12_intruder->addWidget(attach_strings_intruder_);
+    hlayout12_intruder->addWidget(attach_strings_intruder);
+    hlayout12_intruder->addSpacerItem(space1);
+
+    //VERTEX COORD OF PARABOLOID
+    QLabel *vertex_coord_paraboloid_intruder_ = new QLabel("Enter vertex coordinate of the paraboloid:");
+
+    QHBoxLayout *hlayout13_intruder = new QHBoxLayout;
+
+    vertex_coord_paraboloid1_intruder = new QLineEdit;
+    vertex_coord_paraboloid1_intruder->setFixedWidth(100);
+    vertex_coord_paraboloid1_intruder->setText("10");
+    vertex_coord_paraboloid1_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    vertex_coord_paraboloid2_intruder = new QLineEdit;
+    vertex_coord_paraboloid2_intruder->setFixedWidth(100);
+    vertex_coord_paraboloid2_intruder->setText("4");
+    vertex_coord_paraboloid2_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    vertex_coord_paraboloid3_intruder = new QLineEdit;
+    vertex_coord_paraboloid3_intruder->setFixedWidth(100);
+    vertex_coord_paraboloid3_intruder->setText("23.3");
+    vertex_coord_paraboloid3_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout13_intruder->addWidget(vertex_coord_paraboloid_intruder_);
+    hlayout13_intruder->addWidget(vertex_coord_paraboloid1_intruder);
+    hlayout13_intruder->addWidget(vertex_coord_paraboloid2_intruder);
+    hlayout13_intruder->addWidget(vertex_coord_paraboloid3_intruder);
+    hlayout13_intruder->addSpacerItem(space1);
+
+
+    //COEFF OF PARABOLOID
+    QLabel *coeff_paraboloid_intruder_ = new QLabel("Enter coefficient of the paraboloid:");
+
+    QHBoxLayout *hlayout14_intruder = new QHBoxLayout;
+
+    coeff_paraboloid_intruder = new QLineEdit;
+    coeff_paraboloid_intruder->setText("0.05");
+    coeff_paraboloid_intruder->setFixedWidth(100);
+    coeff_paraboloid_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout14_intruder->addWidget(coeff_paraboloid_intruder_);
+    hlayout14_intruder->addWidget(coeff_paraboloid_intruder);
+    hlayout14_intruder->addSpacerItem(space1);
+
+
+    //INITIAL POSITION OF LOAD
+    QLabel *init_pos_load_intruder_ = new QLabel("Enter initial position of load:");
+
+    QHBoxLayout *hlayout15_intruder = new QHBoxLayout;
+
+    init_pos_load1_intruder = new QLineEdit;
+    init_pos_load1_intruder->setText("10");
+    init_pos_load1_intruder->setFixedWidth(50);
+    init_pos_load1_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    init_pos_load2_intruder = new QLineEdit;
+    init_pos_load2_intruder->setText("4");
+    init_pos_load2_intruder->setFixedWidth(50);
+    init_pos_load2_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    init_pos_load3_intruder = new QLineEdit;
+    init_pos_load3_intruder->setText("13");
+    init_pos_load3_intruder->setFixedWidth(50);
+    init_pos_load3_intruder->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout15_intruder->addWidget(init_pos_load_intruder_);
+    hlayout15_intruder->addWidget(init_pos_load1_intruder);
+    hlayout15_intruder->addWidget(init_pos_load2_intruder);
+    hlayout15_intruder->addWidget(init_pos_load3_intruder);
+    hlayout15_intruder->addSpacerItem(space1);
+
+    vlayout_intruder = new QVBoxLayout;
+    vlayout_intruder->addSpacerItem(space1);
+    vlayout_intruder->addLayout(hlayout1_intruder);
+    vlayout_intruder->addLayout(hlayout2_intruder);
+    vlayout_intruder->addLayout(hlayout3_intruder);
+    vlayout_intruder->addLayout(hlayout4_intruder);
+    vlayout_intruder->addLayout(hlayout5_intruder);
+    vlayout_intruder->addLayout(hlayout6_intruder);
+    vlayout_intruder->addLayout(hlayout7_intruder);
+    vlayout_intruder->addLayout(hlayout8_intruder);
+    vlayout_intruder->addLayout(hlayout9_intruder);
+    vlayout_intruder->addLayout(hlayout10_intruder);
+    vlayout_intruder->addLayout(hlayout11_intruder);
+    vlayout_intruder->addLayout(hlayout12_intruder);
+    vlayout_intruder->addLayout(hlayout13_intruder);
+    vlayout_intruder->addLayout(hlayout14_intruder);
+    vlayout_intruder->addLayout(hlayout15_intruder);
+
 
 }
+
+
+
+void FourthPage::C9_toggled(bool)
+{
+    finallayout->addLayout(vlayout_C9);
+
+}
+
+void FourthPage::DGB_toggled(bool)
+{
+    finallayout->addLayout(vlayout_DGB);
+
+}
+
+void FourthPage::G11_toggled(bool)
+{
+    finallayout->addLayout(vlayout_G11);
+
+}
+
+void FourthPage::intruder_toggled(bool)
+{
+    finallayout->addLayout(vlayout_intruder);
+
+}
+
+
 
 
 //FIFTH PAGE INCLUDES AIRFOIL PARAMETERS UP TO SPRING AND FABRIC OPTIONS
@@ -1404,6 +2502,10 @@ FifthPage::FifthPage(QWidget *parent)
     page5layout->addLayout(vlayout1);
 
     setLayout(page5layout);
+
+
+
+
 
 }
 
@@ -2078,6 +3180,9 @@ void C9_Wizard::Write()
     init_center_mass_vel_3 = new QString;
     *init_center_mass_vel_3 = third->init_center_mass_vel3->displayText();
 
+    //***********************************************************//
+    //FOR C9 PARACHUTE TYPE
+
     num_canopy_surfaces_ = new QString;
     *num_canopy_surfaces_ = fourth->num_canopy_surfaces->displayText();
     canopy_surf_type_ = new QString;
@@ -2110,6 +3215,8 @@ void C9_Wizard::Write()
     *install_strings_toRGB_ = fourth->install_strings_toRGB->currentText();
     body_index_ = new QString;
     *body_index_ = fourth->body_index->displayText();
+
+    //***********************************************************//
 
     gpu_solver_ = new QString;
     *gpu_solver_ = fifth->gpu_solver->currentText();
@@ -2284,11 +3391,230 @@ void C9_Wizard::Write()
     enlargement_coeff = new QString;
     *enlargement_coeff = intro->enlargement_coeff->displayText();
 
+    //***********************************************************//
 
     //GIVE DIRECTORY
     save_directory = new QString;
     *save_directory = intro->directory_name->displayText();
 
+    //***********************************************************//
+
+    //PARACHUTE TYPES OTHER THAN C9
+
+    //***********************************************************//
+
+    //DGB
+
+    complex_connection_DGB = new QString;
+    *complex_connection_DGB = fourth->complex_connection_DGB->currentText();
+
+    canopy_surf_type_DGB = new QString;
+    *canopy_surf_type_DGB = fourth->canopy_surf_type_DGB->currentText();
+
+    canopy_boundary_DGB = new QString;
+    *canopy_boundary_DGB = fourth->canopy_boundary_DGB->currentText();
+
+    height_of_plane_DGB = new QString;
+    *height_of_plane_DGB = fourth->height_of_plane_DGB->displayText();
+
+    circle_center1_DGB = new QString;
+    *circle_center1_DGB = fourth->circle_center1_DGB->displayText();
+
+    circle_center2_DGB = new QString;
+    *circle_center2_DGB = fourth->circle_center2_DGB->displayText();
+
+    circle_radius_DGB = new QString;
+    *circle_radius_DGB = fourth->circle_radius_DGB->displayText();
+
+    attach_gores_DGB = new QString;
+    *attach_gores_DGB = fourth->attach_gores_DGB->currentText();
+
+    cut_vent_DGB = new QString;
+    *cut_vent_DGB = fourth->cut_vent_DGB->currentText();
+
+    radius_of_vent_DGB = new QString;
+    *radius_of_vent_DGB = fourth->radius_vent_DGB->displayText();
+
+    attach_strings_DGB = new QString;
+    *attach_strings_DGB = fourth->attach_strings_DGB->currentText();
+
+    num_chords_DGB = new QString;
+    *num_chords_DGB = fourth->num_chords_DGB->displayText();
+
+    length_of_drape_DGB = new QString;
+    *length_of_drape_DGB = fourth->length_drape_DGB->displayText();
+
+    gap_btn_canopy_and_drape_DGB = new QString;
+    *gap_btn_canopy_and_drape_DGB = fourth->gap_canopy_drape_DGB->displayText();
+
+    init_pos_load_1_DGB = new QString;
+    *init_pos_load_1_DGB = fourth->init_pos_load1_DGB->displayText();
+
+    init_pos_load_2_DGB = new QString;
+    *init_pos_load_2_DGB = fourth->init_pos_load2_DGB->displayText();
+
+    init_pos_load_3_DGB = new QString;
+    *init_pos_load_3_DGB = fourth->init_pos_load3_DGB->displayText();
+
+    fix_load_node_DGB = new QString;
+    *fix_load_node_DGB = fourth->fix_load_node_DGB->currentText();
+
+    install_strings_toRGB_DGB = new QString;
+    *install_strings_toRGB_DGB = fourth->install_strings_toRGB_DGB->currentText();
+
+    modify_initialization_DGB = new QString;
+    *modify_initialization_DGB = fourth->modify_initialization_DGB->currentText();
+
+    canopy_rotation_DGB = new QString;
+    *canopy_rotation_DGB = fourth->rotate_canopy_DGB->currentText();
+
+    new_load_pos1_DGB = new QString;
+    *new_load_pos1_DGB = fourth->new_pos_load1_DGB->displayText();
+
+    new_load_pos2_DGB = new QString;
+    *new_load_pos2_DGB = fourth->new_pos_load2_DGB->displayText();
+
+    new_load_pos3_DGB = new QString;
+    *new_load_pos3_DGB = fourth->new_pos_load3_DGB->displayText();
+
+    connection_pos1_DGB = new QString;
+    *connection_pos1_DGB = fourth->connect_pos1_DGB->displayText();
+
+    connection_pos2_DGB = new QString;
+    *connection_pos2_DGB = fourth->connect_pos2_DGB->displayText();
+
+    connection_pos3_DGB = new QString;
+    *connection_pos3_DGB = fourth->connect_pos3_DGB->displayText();
+
+    multi_parachute_DGB = new QString;
+    *multi_parachute_DGB = fourth->multi_parachute_to_RGB_DGB->currentText();
+
+    body_index_DGB = new QString;
+    *body_index_DGB = fourth->body_index_DGB->displayText();
+
+
+    //***********************************************************//
+
+    //G11
+
+    canopy_surf_type_G11 = new QString;
+    *canopy_surf_type_G11 = fourth->canopy_surf_type_G11->currentText();
+
+    canopy_boundary_G11 = new QString;
+    *canopy_boundary_G11 = fourth->canopy_boundary_G11->currentText();
+
+    height_of_plane_G11 = new QString;
+    *height_of_plane_G11 = fourth->height_of_plane_G11->displayText();
+
+    circle_center_1_G11 = new QString;
+    *circle_center_1_G11 = fourth->circle_center1_G11->displayText();
+
+    circle_center_2_G11 = new QString;
+    *circle_center_2_G11 = fourth->circle_center2_G11->displayText();
+
+    circle_radius_G11 = new QString;
+    *circle_radius_G11 = fourth->circle_radius_G11->displayText();
+
+    attach_gores_G11 = new QString;
+    *attach_gores_G11 = fourth->attach_gores_G11->currentText();
+
+    cut_vent_G11 = new QString;
+    *cut_vent_G11 = fourth->cut_vent_G11->currentText();
+
+    attach_strings_G11 = new QString;
+    *attach_strings_G11 = fourth->attach_strings_G11->currentText();
+
+    num_chords_G11 = new QString;
+    *num_chords_G11 = fourth->num_chords_G11->displayText();
+
+    init_pos_load_1_G11 = new QString;
+    *init_pos_load_1_G11 = fourth->init_pos_load1_G11->displayText();
+
+    init_pos_load_2_G11 = new QString;
+    *init_pos_load_2_G11 = fourth->init_pos_load2_G11->displayText();
+
+    init_pos_load_3_G11 = new QString;
+    *init_pos_load_3_G11 = fourth->init_pos_load3_G11->displayText();
+
+    install_strings_toRGB_G11 = new QString;
+    *install_strings_toRGB_G11 = fourth->install_strings_toRGB_G11->currentText();
+
+    body_index_G11 = new QString;
+    *body_index_G11 = fourth->body_index_G11->displayText();
+
+
+    //***********************************************************//
+
+    //INTRUDER
+
+    canopy_surf_type_intruder = new QString;
+    *canopy_surf_type_intruder = fourth->canopy_surf_type_intruder->currentText();
+
+    canopy_boundary_intruder = new QString;
+    *canopy_boundary_intruder = fourth->canopy_boundary_intruder->currentText();
+
+    height_of_plane_intruder = new QString;
+    *height_of_plane_intruder = fourth->height_of_plane_intruder->displayText();
+
+    ellipse_center1_intruder = new QString;
+    *ellipse_center1_intruder = fourth->ellipse_center1_intruder->displayText();
+
+    ellipse_center2_intruder = new QString;
+    *ellipse_center2_intruder = fourth->ellipse_center2_intruder->displayText();
+
+    ellipse_center3_intruder = new QString;
+    *ellipse_center3_intruder = fourth->ellipse_center3_intruder->displayText();
+
+    ellipse_radius1_intruder = new QString;
+    *ellipse_radius1_intruder = fourth->ellipse_radius1_intruder->displayText();
+
+    ellipse_radius2_intruder = new QString;
+    *ellipse_radius2_intruder = fourth->ellipse_radius2_intruder->displayText();
+
+    ellipse_xrange1_intruder = new QString;
+    *ellipse_xrange1_intruder = fourth->ellipse_xrange1_intruder->displayText();
+
+    ellipse_xrange2_intruder = new QString;
+    *ellipse_xrange2_intruder = fourth->ellipse_xrange2_intruder->displayText();
+
+    attach_gores_intruder = new QString;
+    *attach_gores_intruder = fourth->attach_gores_intruder->currentText();
+
+    num_vert_gores_intruder = new QString;
+    *num_vert_gores_intruder = fourth->num_vert_gores_intruder->displayText();
+
+    start_xcoord_gore_intruder = new QString;
+    *start_xcoord_gore_intruder = fourth->start_xcoord_gore_intruder->displayText();
+
+    dist_btn_gores_intruder = new QString;
+    *dist_btn_gores_intruder = fourth->dist_btn_gores_intruder->displayText();
+
+    attach_strings_intruder = new QString;
+    *attach_strings_intruder = fourth->attach_strings_intruder->currentText();
+
+    vertex_coord_paraboloid1_intruder = new QString;
+    *vertex_coord_paraboloid1_intruder = fourth->vertex_coord_paraboloid1_intruder->displayText();
+
+    vertex_coord_paraboloid2_intruder = new QString;
+    *vertex_coord_paraboloid2_intruder = fourth->vertex_coord_paraboloid2_intruder->displayText();
+
+    vertex_coord_paraboloid3_intruder = new QString;
+    *vertex_coord_paraboloid3_intruder = fourth->vertex_coord_paraboloid3_intruder->displayText();
+
+    coeff_paraboloid_intruder = new QString;
+    *coeff_paraboloid_intruder = fourth->coeff_paraboloid_intruder->displayText();
+
+    init_pos_load1_intruder = new QString;
+    *init_pos_load1_intruder = fourth->init_pos_load1_intruder->displayText();
+
+    init_pos_load2_intruder = new QString;
+    *init_pos_load2_intruder = fourth->init_pos_load2_intruder->displayText();
+
+    init_pos_load3_intruder = new QString;
+    *init_pos_load3_intruder = fourth->init_pos_load3_intruder->displayText();
+
+
+    //***********************************************************//
 
 
     QFile Output_txt_file(*save_directory);
@@ -2334,13 +3660,17 @@ void C9_Wizard::Write()
     out << "Enter advection order: " << *advection_order_ << "\n";
     out << "Enter density and viscosity of the fluid: " << *density_and_visc_1 << " " << *density_and_visc_2 << "\n";
     out << "Enter gravity: " << "0" << " " << "0" << " " << *gravity_ << "\n";
+    if (fourth->intruder_parachute->isChecked()) {
+    out << "Enter fluid ambient velocity: " << "0" << " " << "0" << " " << "4" << "\n";
+    }
 
     out << "\n";
 
+    if (intro->rigid_body_check->isChecked()) {
     out <<"**************Rigid Body Parameters**************" << "\n";
     //CHECKBOX TO ADD RIGID BODY
 
-    if (intro->rigid_body_check->isChecked()) {
+
     out << "Enter yes to add rigid body: " << "Yes" << "\n";
     out << "Enter the number of rigid bodies: " << "1" << "\n";
     out << "For rigid body 1: " << "\n";
@@ -2373,7 +3703,7 @@ void C9_Wizard::Write()
 
     }
 
-
+    if (intro->rigid_body_check->isChecked()) {
     out << "Type yes if motion is preset: " << *preset_motion_ << "\n";
     out << "Enter type of dynamic motion: " << *dynamic_motion_ << "\n";
     out << "Enter the direction of motion: " << *direction_of_motion_1 << " " << *direction_of_motion_2 << " " << *direction_of_motion_3 << "\n";
@@ -2381,9 +3711,17 @@ void C9_Wizard::Write()
     out << "Enter the initial center of mass for rigid body: " << *init_center_mass_1 << " " << *init_center_mass_2 << " " << *init_center_mass_3 << "\n";
     out << "Enter the initial center of mass velocity: " << *init_center_mass_vel_1 << " " << *init_center_mass_vel_2 << " " << *init_center_mass_vel_3 << "\n";
 
+
     out << "\n";
 
+    }
+
+    //PUT IN CONDITIONS FOR DIFFERENT PARACHUTE TYPES
+
     out <<"**************Parachute Parameters**************" << "\n";
+
+    if (fourth->C9_parachute->isChecked()) {
+
     out << "Enter number of canopy surfaces: " << *num_canopy_surfaces_ << "\n";
     out << "Enter canopy surface type: " << *canopy_surf_type_ << "\n";
     out << "Enter type of canopy boundary: " << *canopy_boundary_ << "\n";
@@ -2397,6 +3735,82 @@ void C9_Wizard::Write()
     out << "Enter initial position of load: " << *init_pos_load_1 << " " << *init_pos_load_2 << " " << *init_pos_load_3 << "\n";
     out << "Enter yes to install the strings to RGB: " << *install_strings_toRGB_ << "\n";
     out << "Enter the body index of the target RGB: " << *body_index_ << "\n";
+
+    }
+
+    if (fourth->DGB_parachute->isChecked()) {
+
+    out << "Enter number of canopy surfaces: " << "1" << "\n";
+    out << "Enter yes for complex connection: " << *complex_connection_DGB << "\n";
+    out << "\n";
+    out << "For module 1" << "\n";
+    out << "Enter canopy surface type: " << *canopy_surf_type_DGB << "\n";
+    out << "Enter type of canopy boundary: " << *canopy_boundary_DGB << "\n";
+    out << "Enter the height of the plane: " << *height_of_plane_DGB << "\n";
+    out << "Enter circle center: " << *circle_center1_DGB << " " << *circle_center2_DGB << "\n";
+    out << "Enter circle radius: " << *circle_radius_DGB << "\n";
+    out << "Enter yes to attach gores to canopy: " << *attach_gores_DGB << "\n";
+    out << "Enter yes to cut a vent on canopy: " << *cut_vent_DGB << "\n";
+    out << "Enter yes to attach strings to canopy: " << *attach_strings_DGB << "\n";
+    out << "Enter number of chords: " << *num_chords_DGB << "\n";
+    out << "Enter the length of the drape: " << *length_of_drape_DGB << "\n";
+    out << "Enter the gap between canopy and drape: " << *gap_btn_canopy_and_drape_DGB << "\n";
+    out << "Enter initial position of load: " << *init_pos_load_1_DGB << " " << *init_pos_load_2_DGB << " " << *init_pos_load_3_DGB << "\n";
+    out << "Enter yes to fix the load node: " << *fix_load_node_DGB << "\n";
+    out << "Enter yes to install the strings to RGB: " << *install_strings_toRGB_DGB << "\n";
+    out << "Entering yes to modify initialization: " << *modify_initialization_DGB << "\n";
+    out << "Enter yes for rotation of canopy: " << *canopy_rotation_DGB << "\n";
+    out << "\n";
+    out << "Enter new load position: " << *new_load_pos1_DGB << " " << *new_load_pos2_DGB << " " << *new_load_pos3_DGB << "\n";
+    out << "Enter connection position: " << *connection_pos1_DGB << " " << *connection_pos2_DGB << " " << *connection_pos3_DGB << "\n";
+    out << "\n";
+    out << "Enter yes to install the multi-parachute to RGB: " << *multi_parachute_DGB << "\n";
+    out << "Enter the body index of the target RGB: " << *body_index_DGB << "\n";
+
+    }
+
+
+    if (fourth->G11_parachute->isChecked()) {
+
+    out << "Enter number of canopy surfaces: " << "1" << "\n";
+    out << "Enter canopy surface type: " << *canopy_surf_type_G11 << "\n";
+    out << "Enter type of canopy boundary: " << *canopy_boundary_G11 << "\n";
+    out << "Enter the height of the plane: " << *height_of_plane_G11 << "\n";
+    out << "Enter circle center: " << *circle_center_1_G11 << " " << *circle_center_2_G11 << "\n";
+    out << "Enter circle radius: " << *circle_radius_G11 << "\n";
+    out << "Enter yes to attach gores to canopy: " << *attach_gores_G11 << "\n";
+    out << "Enter yes to cut a vent on canopy: " << *cut_vent_G11 << "\n";
+    out << "Enter yes to attach strings to canopy: " << *attach_strings_G11 << "\n";
+    out << "Enter number of chords: " << *num_chords_G11 << "\n";
+    out << "Enter initial position of load: " << *init_pos_load_1_G11 << " " << *init_pos_load_2_G11 << " " << *init_pos_load_3_G11 << "\n";
+    out << "Enter yes to install the strings to RGB: " << *install_strings_toRGB_G11 << "\n";
+    out << "Enter the body index of the target RGB: " << *body_index_G11 << "\n";
+
+    }
+
+
+    if (fourth->intruder_parachute->isChecked()) {
+
+    out << "Enter number of canopy surfaces: " << "1" << "\n";
+    out << "Enter canopy surface type: " << *canopy_surf_type_intruder << "\n";
+    out << "Enter type of canopy boundary: " << *canopy_boundary_intruder << "\n";
+    out << "Enter the height of the plane: " << *height_of_plane_intruder << "\n";
+    out << "Enter ellipse center: " << *ellipse_center1_intruder << " " << *ellipse_center2_intruder << " " << *ellipse_center3_intruder << "\n";
+    out << "Enter ellipse radius: " << *ellipse_radius1_intruder << " " << *ellipse_radius2_intruder << "\n";
+    out << "Enter x range of ellipse: " << *ellipse_xrange1_intruder << " " << *ellipse_xrange2_intruder << "\n";
+    out << "Enter yes to attach gores to canopy: " << *attach_gores_intruder << "\n";
+    out << "Enter number of vertical gores: " << *num_vert_gores_intruder << "\n";
+    out << "Enter start x-coordinate of gore: " << *start_xcoord_gore_intruder << "\n";
+    out << "Enter distance between gores: " << *dist_btn_gores_intruder << "\n";
+    out << "Enter yes to attach strings to canopy: " << *attach_strings_intruder << "\n";
+    out << "Enter vertex coordinate of the paraboloid: " << *vertex_coord_paraboloid1_intruder << " " << *vertex_coord_paraboloid2_intruder << " " << *vertex_coord_paraboloid3_intruder << "\n";
+    out << "Enter coefficient of the paraboloid: " << *coeff_paraboloid_intruder << "\n";
+    out << "Enter initial position of load: " << *init_pos_load1_intruder << " " << *init_pos_load2_intruder << " " << *init_pos_load3_intruder << "\n";
+    // NO RGB WITH INTRUDER     out << "Enter yes to install the strings to RGB: " << *install_strings_toRGB_G11 << "\n";
+    // NO RGB WITH INTRUDER     out << "Enter the body index of the target RGB: " << *body_index_G11 << "\n";
+
+    }
+
 
     out << "\n";
 
@@ -2430,6 +3844,13 @@ void C9_Wizard::Write()
 
     out << "Enter strain limit: " << "0.3" << "\n";
     out << "Enter strain rate limit: " << "0.1" << "\n";
+
+    if (fourth->intruder_parachute->isChecked()) {
+    out << "\n";
+    out << "Enter gore spring constant: " << "8000" << "\n";
+    out << "Enter gore friction constant: " << "0.1" << "\n";
+    out << "Enter gore point mass: " << "0.002" << "\n";
+    }
 
     out << "\n";
 
@@ -2473,6 +3894,7 @@ void C9_Wizard::Write()
     out << "Enter the sample line coordinate: " << *sample_line_coord_1 << " " << *sample_line_coord_2 << "\n";
     out << "Enter the start step for sample: " << *start_step_ << "\n";
     out << "Enter the end step for sample: " << *end_step_ << "\n";
+    out << "Enter the step interval for sample: " << "1" << "\n";
 
 
 

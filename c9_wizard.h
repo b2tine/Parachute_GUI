@@ -112,6 +112,9 @@ private:
     QString *init_center_mass_vel_2 ;
     QString *init_center_mass_vel_3 ;
 
+    //****************************//
+
+    //C9
     QString *num_canopy_surfaces_ ;
     QString *canopy_surf_type_ ;
     QString *canopy_boundary_;
@@ -128,6 +131,8 @@ private:
     QString *init_pos_load_3 ;
     QString *install_strings_toRGB_ ;
     QString *body_index_;
+
+    //****************************//
 
     QString *gpu_solver_;
     QString *fluid_solver_;
@@ -217,6 +222,86 @@ private:
     //DIRECTORY
     QString *save_directory;
 
+    //****************************//
+    //DGB PARACHUTE TYPE
+    QString *complex_connection_DGB;
+    QString *canopy_surf_type_DGB;
+    QString *canopy_boundary_DGB;
+    QString *height_of_plane_DGB;
+    QString *circle_center1_DGB;
+    QString *circle_center2_DGB;
+    QString *circle_radius_DGB;
+    QString *attach_gores_DGB;
+    QString *cut_vent_DGB;
+    QString *radius_of_vent_DGB;
+    QString *attach_strings_DGB;
+    QString *num_chords_DGB;
+    QString *length_of_drape_DGB;
+    QString *gap_btn_canopy_and_drape_DGB;
+    QString *init_pos_load_1_DGB;
+    QString *init_pos_load_2_DGB;
+    QString *init_pos_load_3_DGB;
+    QString *fix_load_node_DGB;
+    QString *install_strings_toRGB_DGB;
+    QString *modify_initialization_DGB;
+    QString *canopy_rotation_DGB;
+    QString *new_load_pos1_DGB;
+    QString *new_load_pos2_DGB;
+    QString *new_load_pos3_DGB;
+    QString *connection_pos1_DGB;
+    QString *connection_pos2_DGB;
+    QString *connection_pos3_DGB;
+    QString *multi_parachute_DGB;
+    QString *body_index_DGB;
+
+    //****************************//
+
+    //G11 PARACHUTE TYPE
+
+    QString *canopy_surf_type_G11 ;
+    QString *canopy_boundary_G11;
+    QString *height_of_plane_G11;
+    QString *circle_center_1_G11 ;
+    QString *circle_center_2_G11 ;
+    QString *circle_radius_G11 ;
+    QString *attach_gores_G11;
+    QString *cut_vent_G11;
+    QString *attach_strings_G11 ;
+    QString *num_chords_G11 ;
+    QString *init_pos_load_1_G11 ;
+    QString *init_pos_load_2_G11 ;
+    QString *init_pos_load_3_G11 ;
+    QString *install_strings_toRGB_G11 ;
+    QString *body_index_G11;
+
+    //****************************//
+
+    //INTRUDER PARACHUTE TYPE
+
+    QString *num_canopy_surfaces_intruder;
+    QString *canopy_surf_type_intruder;
+    QString *canopy_boundary_intruder;
+    QString *height_of_plane_intruder;
+    QString *ellipse_center1_intruder;
+    QString *ellipse_center2_intruder;
+    QString *ellipse_center3_intruder;
+    QString *ellipse_radius1_intruder;
+    QString *ellipse_radius2_intruder;
+    QString *ellipse_xrange1_intruder;
+    QString *ellipse_xrange2_intruder;
+    QString *attach_gores_intruder;
+    QString *num_vert_gores_intruder;
+    QString *start_xcoord_gore_intruder;
+    QString *dist_btn_gores_intruder;
+    QString *attach_strings_intruder;
+    QString *vertex_coord_paraboloid1_intruder;
+    QString *vertex_coord_paraboloid2_intruder;
+    QString *vertex_coord_paraboloid3_intruder;
+    QString *coeff_paraboloid_intruder;
+    QString *init_pos_load1_intruder;
+    QString *init_pos_load2_intruder;
+    QString *init_pos_load3_intruder;
+
 
 
 };
@@ -275,10 +360,10 @@ public:
     //QComboBox *rigid_body_decision;
 
 private slots:
-    void rigid_body_toggled(bool);
-    void spheretoggled(bool);
-    void boxtoggled(bool);
-    void humantoggled(bool);
+    void rigid_body_toggled(bool clicked);
+    void spheretoggled(bool clicked);
+    void boxtoggled(bool clicked);
+    void humantoggled(bool clicked);
 
 };
 
@@ -437,7 +522,9 @@ public:
 
 //private:
 
+    //C9...the original parameters
 
+    QLabel *main_label;
     QLabel *num_canopy_surfaces_;
     QLabel *canopy_surf_type_;
     QLabel *canopy_boundary_;
@@ -469,7 +556,110 @@ public:
     QLineEdit *body_index;
     QLineEdit *circle_radius;
 
+    QVBoxLayout *vlayout_C9;
+    QVBoxLayout *finallayout;
+
+    QHBoxLayout *hlayout_parachutes;
+
+    //CHECKBOXES
+
+    QCheckBox *C9_parachute;
+    QCheckBox *DGB_parachute;
+    QCheckBox *G11_parachute;
+    QCheckBox *intruder_parachute;
+
+    //DGB
+    QLineEdit *num_canopy_surfaces_DGB;
+    QComboBox *complex_connection_DGB;
+    QComboBox *canopy_surf_type_DGB;
+    QComboBox *canopy_boundary_DGB;
+    QLineEdit *height_of_plane_DGB;
+    QLineEdit *circle_radius_DGB;
+    QLineEdit *circle_center1_DGB;
+    QLineEdit *circle_center2_DGB;
+    QComboBox *attach_gores_DGB;
+    QComboBox *cut_vent_DGB;
+    QComboBox *attach_strings_DGB;
+    QLineEdit *radius_vent_DGB;
+    QLineEdit *num_chords_DGB;
+    QLineEdit *length_drape_DGB;
+    QLineEdit *gap_canopy_drape_DGB;
+    QLineEdit *init_pos_load1_DGB;
+    QLineEdit *init_pos_load2_DGB;
+    QLineEdit *init_pos_load3_DGB;
+    QComboBox *fix_load_node_DGB;
+    QComboBox *install_strings_toRGB_DGB;
+    QComboBox *modify_initialization_DGB;
+    QComboBox *rotate_canopy_DGB;
+    QLineEdit *new_pos_load1_DGB;
+    QLineEdit *new_pos_load2_DGB;
+    QLineEdit *new_pos_load3_DGB;
+    QLineEdit *connect_pos1_DGB;
+    QLineEdit *connect_pos2_DGB;
+    QLineEdit *connect_pos3_DGB;
+    QComboBox *multi_parachute_to_RGB_DGB;
+    QLineEdit *body_index_DGB;
+
+    QVBoxLayout *vlayout_DGB;
+
+    //G11
+
+    QLineEdit *num_canopy_surfaces_G11;
+    QComboBox *canopy_surf_type_G11;
+    QComboBox *canopy_boundary_G11;
+    QLineEdit *height_of_plane_G11;
+    QLineEdit *circle_center1_G11;
+    QLineEdit *circle_center2_G11;
+    QComboBox *attach_gores_G11;
+    QComboBox *cut_vent_G11;
+    QComboBox *attach_strings_G11;
+    QLineEdit *num_chords_G11;
+    QLineEdit *init_pos_load1_G11;
+    QLineEdit *init_pos_load2_G11;
+    QLineEdit *init_pos_load3_G11;
+    QComboBox *install_strings_toRGB_G11;
+    QLineEdit *body_index_G11;
+    QLineEdit *circle_radius_G11;
+
+
+    QVBoxLayout *vlayout_G11;
+
+    //INTRUDER
+
+    QLineEdit *num_canopy_surfaces_intruder;
+    QComboBox *canopy_surf_type_intruder;
+    QComboBox *canopy_boundary_intruder;
+    QLineEdit *height_of_plane_intruder;
+    QLineEdit *ellipse_center1_intruder;
+    QLineEdit *ellipse_center2_intruder;
+    QLineEdit *ellipse_center3_intruder;
+    QLineEdit *ellipse_radius1_intruder;
+    QLineEdit *ellipse_radius2_intruder;
+    QLineEdit *ellipse_xrange1_intruder;
+    QLineEdit *ellipse_xrange2_intruder;
+    QComboBox *attach_gores_intruder;
+    QLineEdit *num_vert_gores_intruder;
+    QLineEdit *start_xcoord_gore_intruder;
+    QLineEdit *dist_btn_gores_intruder;
+    QComboBox *attach_strings_intruder;
+    QLineEdit *vertex_coord_paraboloid1_intruder;
+    QLineEdit *vertex_coord_paraboloid2_intruder;
+    QLineEdit *vertex_coord_paraboloid3_intruder;
+    QLineEdit *coeff_paraboloid_intruder;
+    QLineEdit *init_pos_load1_intruder;
+    QLineEdit *init_pos_load2_intruder;
+    QLineEdit *init_pos_load3_intruder;
+
+    QVBoxLayout *vlayout_intruder;
+
+    //USED FOR ALL
     QSpacerItem *space1;
+
+private slots:
+    void C9_toggled(bool);
+    void DGB_toggled(bool);
+    void G11_toggled(bool);
+    void intruder_toggled(bool);
 
 
 
