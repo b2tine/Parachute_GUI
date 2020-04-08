@@ -31,6 +31,9 @@ class C9_Wizard :  public QWizard
 {
     Q_OBJECT
 
+//TRY TO GET REFRESH TO WORK ON BACK BUTTON
+    enum {Page_Intro, Page_First, Page_Second, Page_Third, Page_Fourth, Page_Fifth, Page_Sixth, Page_Seventh, Page_Debug};
+
 
 public:
     C9_Wizard(QWidget *parent = nullptr);
@@ -40,6 +43,7 @@ public:
 private slots:
 
     void Write();
+    //void Refresh();
 
 
 private:
@@ -323,6 +327,11 @@ public:
     QLabel *rigid_body_label;
 
     QLineEdit *directory_name;
+
+    QVBoxLayout *finallayout;
+
+    /*
+
     QLineEdit *center_of_sphere1;
     QLineEdit *center_of_sphere2;
     QLineEdit *center_of_sphere3;
@@ -365,6 +374,7 @@ private slots:
     void boxtoggled(bool clicked);
     void humantoggled(bool clicked);
 
+    */
 };
 
 
@@ -510,6 +520,63 @@ public:
 
     QSpacerItem *space1;
 
+
+    //MOVED FROM INIT PAGE
+
+    QLineEdit *center_of_sphere1;
+    QLineEdit *center_of_sphere2;
+    QLineEdit *center_of_sphere3;
+    QLineEdit *center_of_box1;
+    QLineEdit *center_of_box2;
+    QLineEdit *center_of_box3;
+    QLineEdit *radius_of_sphere1;
+    QLineEdit *radius_of_sphere2;
+    QLineEdit *radius_of_sphere3;
+    QLineEdit *edge_of_box1;
+    QLineEdit *edge_of_box2;
+    QLineEdit *edge_of_box3;
+    QLineEdit *human_vtk_directory;
+    QLineEdit *center_of_human1;
+    QLineEdit *center_of_human2;
+    QLineEdit *center_of_human3;
+    QLineEdit *enlargement_coeff;
+
+    QVBoxLayout *finallayout;
+    //QHBoxLayout *rigid_body_decision_layout;
+    QHBoxLayout *hlayout4;
+    QHBoxLayout *hlayout5;
+    QHBoxLayout *hlayout1;
+    QHBoxLayout *hlayout2;
+    QHBoxLayout *hlayout_human0;
+    QHBoxLayout *hlayout_human1;
+    QHBoxLayout *hlayout_human2;
+
+    QCheckBox *rigid_body_check;
+    QCheckBox *rigid_body_sphere;
+    QCheckBox *rigid_body_box;
+    QCheckBox *rigid_body_human;
+
+    QWidget *for_show_widget_hlayout1;
+    QWidget *for_show_widget_hlayout2;
+    QWidget *for_show_widget_hlayout4;
+    QWidget *for_show_widget_hlayout5;
+
+    QWidget *for_show_widget_hlayout_human0;
+    QWidget *for_show_widget_hlayout_human1;
+    QWidget *for_show_widget_hlayout_human2;
+
+
+
+    //QComboBox *rigid_body_decision;
+
+private slots:
+    void rigid_body_toggled(bool clicked);
+    void spheretoggled(bool clicked);
+    void boxtoggled(bool clicked);
+    void humantoggled(bool clicked);
+
+
+
 };
 
 
@@ -654,6 +721,15 @@ public:
 
     //USED FOR ALL
     QSpacerItem *space1;
+
+
+    //FOR SHOWING AND HIDING
+
+    QWidget *for_show_vlayout_C9;
+    QWidget *for_show_vlayout_DGB;
+    QWidget *for_show_vlayout_G11;
+    QWidget *for_show_vlayout_intruder;
+
 
 private slots:
     void C9_toggled(bool);
