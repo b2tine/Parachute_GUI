@@ -37,6 +37,10 @@ C9_Wizard::C9_Wizard(QWidget *parent)
     //seventh->initializePage();
     C9_Wizard::addPage(seventh);
 
+    Turb_Init = new Turb_Init_Page;
+    //seventh->initializePage();
+    C9_Wizard::addPage(Turb_Init);
+
     DEBUG = new DebugPage;
     //DEBUG->initializePage();
     C9_Wizard::addPage(DEBUG);
@@ -62,6 +66,10 @@ C9_Wizard::C9_Wizard(QWidget *parent)
     connect(this->button(FinishButton),SIGNAL(clicked()), this, SLOT(Write()));
 
 
+
+    connect(this->button(FinishButton),SIGNAL(clicked()), this, SLOT(Init_file_Write()));
+
+
     setWindowTitle(tr("C9 Wizard"));
 }
 
@@ -72,11 +80,11 @@ IntroPage::IntroPage(QWidget *parent)
 {
     setTitle("C9 Parachute Initialization Module");
 
-    mainlabel = new QLabel("This wizard will help you write an in-file for the parachute type: C9");
+    mainlabel = new QLabel("This wizard will help you write an in-file for the multiple parachute types");
 
     QVBoxLayout *vlayout_directory = new QVBoxLayout;
 
-    directory_label = new QLabel("How would you like to save the input file?");
+    directory_label = new QLabel("How would you like to save the general input file?");
 
 
     directory_name = new QLineEdit;
@@ -84,11 +92,29 @@ IntroPage::IntroPage(QWidget *parent)
     directory_name->setFixedWidth(500);
     directory_name->setStyleSheet("color: blue; background-color: yellow");
 
+    //FOR INIT FILES
+    //QVBoxLayout *vlayout_directory_init = new QVBoxLayout;
+
+    init_directory_label = new QLabel("How would you like to save the init file for this run?");
+
+
+    init_directory_name = new QLineEdit;
+    init_directory_name->setText("/Users/Kyle/Parachute_GUIs/Output_Files/init-file.txt");
+    init_directory_name->setFixedWidth(500);
+    init_directory_name->setStyleSheet("color: blue; background-color: yellow");
+
+
+
+
     QSpacerItem *space1 = new QSpacerItem(500,1);
 
     vlayout_directory->addWidget(directory_label);
     vlayout_directory->addSpacerItem(space1);
     vlayout_directory->addWidget(directory_name);
+    vlayout_directory->addSpacerItem(space1);
+    vlayout_directory->addWidget(init_directory_label);
+    vlayout_directory->addSpacerItem(space1);
+    vlayout_directory->addWidget(init_directory_name);
     vlayout_directory->addSpacerItem(space1);
 
 
@@ -3260,6 +3286,401 @@ SeventhPage::SeventhPage(QWidget *parent)
 }
 
 
+
+Turb_Init_Page::Turb_Init_Page(QWidget *parent)
+    : QWizardPage(parent)
+{
+    setTitle("Turbulence and Initialization File Parameters");
+
+    QSpacerItem *space1 = new QSpacerItem(500,10);
+
+    //VELOCITY FUNCTION
+    velocity_function_label = new QLabel("Enter velocity function:");
+
+    QHBoxLayout *hlayout1_turb_init_page = new QHBoxLayout;
+
+    velocity_function = new QComboBox;
+    velocity_function->addItem("FA");
+    velocity_function->addItem("Other");
+    velocity_function->setFixedWidth(80);
+    velocity_function->setStyleSheet("color: blue; background-color: yellow");
+
+
+    hlayout1_turb_init_page->addWidget(velocity_function_label);
+    hlayout1_turb_init_page->addWidget(velocity_function);
+    hlayout1_turb_init_page->addSpacerItem(space1);
+
+    //SHAPE OF FIXED AREA
+    shape_fixed_area_label = new QLabel("Enter initial shape of fixed area:");
+
+    QHBoxLayout *hlayout2_turb_init_page = new QHBoxLayout;
+
+    shape_fixed_area = new QComboBox;
+    shape_fixed_area->addItem("Ellipse");
+    shape_fixed_area->addItem("Other");
+    shape_fixed_area->setFixedWidth(100);
+    shape_fixed_area->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout2_turb_init_page->addWidget(shape_fixed_area_label);
+    hlayout2_turb_init_page->addWidget(shape_fixed_area);
+    hlayout2_turb_init_page->addSpacerItem(space1);
+
+    //CENTER OF ELLIPSE
+
+    center_ellipse_label = new QLabel("Enter center of ellipse:");
+
+    QHBoxLayout *hlayout3_turb_init_page = new QHBoxLayout;
+
+    center_ellipse_1 = new QLineEdit;
+    center_ellipse_1->setText("6");
+    center_ellipse_1->setFixedWidth(100);
+    center_ellipse_1->setStyleSheet("color: blue; background-color: yellow");
+
+    center_ellipse_2 = new QLineEdit;
+    center_ellipse_2->setText("6");
+    center_ellipse_2->setFixedWidth(100);
+    center_ellipse_2->setStyleSheet("color: blue; background-color: yellow");
+
+
+    //QSpacerItem *space2 = new QSpacerItem(80,10);
+
+    hlayout3_turb_init_page->addWidget(center_ellipse_label);
+    hlayout3_turb_init_page->addWidget(center_ellipse_1);
+    hlayout3_turb_init_page->addWidget(center_ellipse_2);
+    hlayout3_turb_init_page->addSpacerItem(space1);
+
+
+    //RADII OF ELLIPSE
+    radii_ellipse_label = new QLabel("Enter radii of ellipse:");
+
+    QHBoxLayout *hlayout4_turb_init_page = new QHBoxLayout;
+
+    radii_ellipse_1 = new QLineEdit;
+    radii_ellipse_1->setText("0.175");
+    radii_ellipse_1->setFixedWidth(100);
+    radii_ellipse_1->setStyleSheet("color: blue; background-color: yellow");
+
+    radii_ellipse_2 = new QLineEdit;
+    radii_ellipse_2->setText("0.175");
+    radii_ellipse_2->setFixedWidth(100);
+    radii_ellipse_2->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout4_turb_init_page->addWidget(radii_ellipse_label);
+    hlayout4_turb_init_page->addWidget(radii_ellipse_1);
+    hlayout4_turb_init_page->addWidget(radii_ellipse_2);
+    hlayout4_turb_init_page->addSpacerItem(space1);
+
+    //AREA VELOCITY
+    area_velocity_label = new QLabel("Enter area velocity:");
+
+    QHBoxLayout *hlayout5_turb_init_page = new QHBoxLayout;
+
+    area_velocity_1 = new QLineEdit;
+    area_velocity_1->setText("0");
+    area_velocity_1->setFixedWidth(100);
+    area_velocity_1->setStyleSheet("color: blue; background-color: yellow");
+
+    area_velocity_2 = new QLineEdit;
+    area_velocity_2->setText("0");
+    area_velocity_2->setFixedWidth(100);
+    area_velocity_2->setStyleSheet("color: blue; background-color: yellow");
+
+    area_velocity_3 = new QLineEdit;
+    area_velocity_3->setText("10");
+    area_velocity_3->setFixedWidth(100);
+    area_velocity_3->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout5_turb_init_page->addWidget(area_velocity_label);
+    hlayout5_turb_init_page->addWidget(area_velocity_1);
+    hlayout5_turb_init_page->addWidget(area_velocity_2);
+    hlayout5_turb_init_page->addWidget(area_velocity_3);
+    hlayout5_turb_init_page->addSpacerItem(space1);
+
+
+    //GRAVITY
+    gravity_label = new QLabel("Enter gravity:");
+
+    QHBoxLayout *hlayout6_turb_init_page = new QHBoxLayout;
+
+    gravity = new QLineEdit;
+    gravity->setFixedWidth(100);
+    gravity->setText("0");
+    gravity->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout6_turb_init_page->addWidget(gravity_label);
+    hlayout6_turb_init_page->addWidget(gravity);
+    hlayout6_turb_init_page->addSpacerItem(space1);
+
+
+    //INTERIOR PROPAGATOR
+    interior_propagator_label = new QLabel("Enter interior propagator:");
+
+    QHBoxLayout *hlayout7_turb_init_page = new QHBoxLayout;
+
+    interior_propagator = new QComboBox;
+    interior_propagator->addItem("p");
+    interior_propagator->addItem("Other");
+    interior_propagator->setFixedWidth(100);
+    interior_propagator->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout7_turb_init_page->addWidget(interior_propagator_label);
+    hlayout7_turb_init_page->addWidget(interior_propagator);
+    hlayout7_turb_init_page->addSpacerItem(space1);
+
+
+
+
+    //******************* TURBULENCE PARAMS **********************//
+
+
+    turbulence_declaration = new QLabel("Turbulence Parameters:");
+
+
+    //USE EDDY VISCOSITY
+    use_eddy_viscosity_label = new QLabel("Enter yes to use eddy viscosity:");
+
+    QHBoxLayout *hlayout8_turb_init_page = new QHBoxLayout;
+
+    use_eddy_viscosity = new QComboBox;
+    use_eddy_viscosity->addItem("Yes");
+    use_eddy_viscosity->addItem("No");
+    use_eddy_viscosity->setFixedWidth(100);
+    use_eddy_viscosity->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout8_turb_init_page->addWidget(use_eddy_viscosity_label);
+    hlayout8_turb_init_page->addWidget(use_eddy_viscosity);
+    hlayout8_turb_init_page->addSpacerItem(space1);
+
+    //TURBULENCE MODELS
+    turbulence_model_label = new QLabel("Enter turbulence model:");
+
+    QHBoxLayout *hlayout9_turb_init_page = new QHBoxLayout;
+
+    turbulence_model = new QComboBox;
+    turbulence_model->addItem("KEPSILON  (K)");
+    turbulence_model->addItem("Baldwin-Lomax (B)");
+    turbulence_model->addItem("Moin (M)");
+    turbulence_model->addItem("Smagorinski (S)");
+    turbulence_model->setFixedWidth(130);
+    turbulence_model->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout9_turb_init_page->addWidget(turbulence_model_label);
+    hlayout9_turb_init_page->addWidget(turbulence_model);
+    hlayout9_turb_init_page->addSpacerItem(space1);
+
+    //K EPSILON MODEL
+    k_eps_model_label = new QLabel("Enter type of k-eps model:");
+
+    QHBoxLayout *hlayout10_turb_init_page = new QHBoxLayout;
+
+    k_eps_model = new QComboBox;
+    k_eps_model->addItem("RNG");
+    k_eps_model->addItem("Other");
+    k_eps_model->setFixedWidth(100);
+    k_eps_model->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout10_turb_init_page->addWidget(k_eps_model_label);
+    hlayout10_turb_init_page->addWidget(k_eps_model);
+    hlayout10_turb_init_page->addSpacerItem(space1);
+
+
+    //TURBULENT PRANDTL NUMBER FOR K
+    prandtl_number_for_k_label = new QLabel("Enter turbulent Prandtl number for k:");
+
+    QHBoxLayout *hlayout11_turb_init_page = new QHBoxLayout;
+
+    prandtl_number_for_k = new QLineEdit;
+    prandtl_number_for_k->setFixedWidth(100);
+    prandtl_number_for_k->setText("0.7194");
+    prandtl_number_for_k->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout11_turb_init_page->addWidget(prandtl_number_for_k_label);
+    hlayout11_turb_init_page->addWidget(prandtl_number_for_k);
+    hlayout11_turb_init_page->addSpacerItem(space1);
+
+
+    //TURBULENT PRANDTL NUMBER FOR EPSILON
+    prandtl_number_for_eps_label = new QLabel("Enter turbulent Prandtl number for epsilon:");
+
+    QHBoxLayout *hlayout12_turb_init_page = new QHBoxLayout;
+
+    prandtl_number_for_eps = new QLineEdit;
+    prandtl_number_for_eps->setFixedWidth(100);
+    prandtl_number_for_eps->setText("0.7194");
+    prandtl_number_for_eps->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout12_turb_init_page->addWidget(prandtl_number_for_eps_label);
+    hlayout12_turb_init_page->addWidget(prandtl_number_for_eps);
+    hlayout12_turb_init_page->addSpacerItem(space1);
+
+    //C1
+    C1_label = new QLabel("Enter C1:");
+
+    QHBoxLayout *hlayout13_turb_init_page = new QHBoxLayout;
+
+    C1 = new QLineEdit;
+    C1->setFixedWidth(100);
+    C1->setText("1.42");
+    C1->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout13_turb_init_page->addWidget(C1_label);
+    hlayout13_turb_init_page->addWidget(C1);
+    hlayout13_turb_init_page->addSpacerItem(space1);
+
+    //C2
+    C2_label = new QLabel("Enter C2:");
+
+    QHBoxLayout *hlayout14_turb_init_page = new QHBoxLayout;
+
+    C2 = new QLineEdit;
+    C2->setFixedWidth(100);
+    C2->setText("1.68");
+    C2->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout14_turb_init_page->addWidget(C2_label);
+    hlayout14_turb_init_page->addWidget(C2);
+    hlayout14_turb_init_page->addSpacerItem(space1);
+
+    //Cmu
+    Cmu_label = new QLabel("Enter Cmu:");
+
+    QHBoxLayout *hlayout15_turb_init_page = new QHBoxLayout;
+
+    Cmu = new QLineEdit;
+    Cmu->setFixedWidth(100);
+    Cmu->setText("0.0845");
+    Cmu->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout15_turb_init_page->addWidget(Cmu_label);
+    hlayout15_turb_init_page->addWidget(Cmu);
+    hlayout15_turb_init_page->addSpacerItem(space1);
+
+    //Cbc
+    Cbc_label = new QLabel("Enter Cmu:");
+
+    QHBoxLayout *hlayout16_turb_init_page = new QHBoxLayout;
+
+    Cbc = new QLineEdit;
+    Cbc->setFixedWidth(100);
+    Cbc->setText("0.01");
+    Cbc->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout16_turb_init_page->addWidget(Cbc_label);
+    hlayout16_turb_init_page->addWidget(Cbc);
+    hlayout16_turb_init_page->addSpacerItem(space1);
+
+    //l0
+    l0_label = new QLabel("Enter l0:");
+
+    QHBoxLayout *hlayout17_turb_init_page = new QHBoxLayout;
+
+    l0 = new QLineEdit;
+    l0->setFixedWidth(100);
+    l0->setText("0.01");
+    l0->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout17_turb_init_page->addWidget(l0_label);
+    hlayout17_turb_init_page->addWidget(l0);
+    hlayout17_turb_init_page->addSpacerItem(space1);
+
+    //mu0
+    mu0_label = new QLabel("Enter mu0:");
+
+    QHBoxLayout *hlayout18_turb_init_page = new QHBoxLayout;
+
+    mu0 = new QLineEdit;
+    mu0->setFixedWidth(100);
+    mu0->setText("0.001");
+    mu0->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout18_turb_init_page->addWidget(mu0_label);
+    hlayout18_turb_init_page->addWidget(mu0);
+    hlayout18_turb_init_page->addSpacerItem(space1);
+
+    //y+
+    y_plus_label = new QLabel("Enter y+:");
+
+    QHBoxLayout *hlayout19_turb_init_page = new QHBoxLayout;
+
+    y_plus = new QLineEdit;
+    y_plus->setFixedWidth(100);
+    y_plus->setText("30");
+    y_plus->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout19_turb_init_page->addWidget(y_plus_label);
+    hlayout19_turb_init_page->addWidget(y_plus);
+    hlayout19_turb_init_page->addSpacerItem(space1);
+
+
+    //TIME TO ACTIATE TURBULENCE MODEL
+    time_to_activate_turb_label = new QLabel("Enter time to active turbulence model:");
+
+    QHBoxLayout *hlayout20_turb_init_page = new QHBoxLayout;
+
+    time_to_activate_turb = new QLineEdit;
+    time_to_activate_turb->setFixedWidth(100);
+    time_to_activate_turb->setText("0");
+    time_to_activate_turb->setStyleSheet("color: blue; background-color: yellow");
+
+    hlayout20_turb_init_page->addWidget(time_to_activate_turb_label);
+    hlayout20_turb_init_page->addWidget(time_to_activate_turb);
+    hlayout20_turb_init_page->addSpacerItem(space1);
+
+
+
+    //for_show_vlayout_DGB = new QWidget();
+
+    vlayout_turb_init_page = new QVBoxLayout;
+    vlayout_turb_init_page->addLayout(hlayout1_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout2_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout3_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout4_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout5_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout6_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout7_turb_init_page);
+    vlayout_turb_init_page->addSpacerItem(space1);
+    vlayout_turb_init_page->addWidget(turbulence_declaration);
+    vlayout_turb_init_page->addLayout(hlayout8_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout9_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout10_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout11_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout12_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout13_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout14_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout15_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout16_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout17_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout18_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout19_turb_init_page);
+    vlayout_turb_init_page->addLayout(hlayout20_turb_init_page);
+
+
+    QVBoxLayout *turb_init_pagelayout = new QVBoxLayout;
+
+    turb_init_pagelayout->addLayout(vlayout_turb_init_page);
+
+    setLayout(turb_init_pagelayout);
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //DEBUG PAGE INCLUDES ALL OF THE DEBUGGING OPTIONS
 
 
@@ -4292,9 +4713,929 @@ void C9_Wizard::Write()
     out << "Enter the step interval for sample: " << "1" << "\n";
 
 
+}
+//**************************************************** FOR INIT FILE WRITING **********************************************************************//
+
+
+
+void C9_Wizard::Init_file_Write()
+{
+
+    dom_lim_0_first = new QString;
+    *dom_lim_0_first = first->first_bounds0->displayText();
+    dom_lim_0_last = new QString;
+    *dom_lim_0_last = first->last_bounds0->displayText();
+
+    dom_lim_1_first = new QString;
+    *dom_lim_1_first = first->first_bounds1->displayText();
+    dom_lim_1_last = new QString;
+    *dom_lim_1_last = first->last_bounds1->displayText();
+    dom_lim_2_first = new QString;
+    *dom_lim_2_first = first->first_bounds2->displayText();
+    dom_lim_2_last = new QString;
+    *dom_lim_2_last = first->last_bounds2->displayText();
+
+    compgrid_1 = new QString;
+    *compgrid_1 = first->grid_coord1->displayText();
+    compgrid_2 = new QString;
+    *compgrid_2 = first->grid_coord2->displayText();
+    compgrid_3 = new QString;
+    *compgrid_3 = first->grid_coord3->displayText();
+
+    lowerbound_0 = new QString;
+    *lowerbound_0 = first->lowerbound0->currentText();
+    upperbound_0 = new QString;
+    *upperbound_0 = first->upperbound0->currentText();
+    lowerbound_1 = new QString;
+    *lowerbound_1 = first->lowerbound1->currentText();
+    upperbound_1 = new QString;
+    *upperbound_1 = first->upperbound1->currentText();
+    lowerbound_2 = new QString;
+    *lowerbound_2 = first->lowerbound2->currentText();
+    upperbound_2 = new QString;
+    *upperbound_2 = first->upperbound2->currentText();
+
+    max_time_ = new QString;
+    *max_time_ = second->max_time->displayText();
+    max_step_ = new QString;
+    *max_step_ = second->max_step->displayText();
+    print_interval_ = new QString;
+    *print_interval_ = second->print_interval->displayText();
+    mv_frame_interval_ = new QString;
+    *mv_frame_interval_ = second->mv_frame_interval->displayText();
+    CFL_factor_ = new QString;
+    *CFL_factor_ = second->CFL_factor->displayText();
+    redistribution_interval_ = new QString;
+    *redistribution_interval_ = second->redistribution_interval->displayText();
+    turn_onoff_redist_int_ = new QString;
+    *turn_onoff_redist_int_ = second->turn_onoff_redist_int->currentText();
+
+    projection_ = new QString;
+    *projection_ = second->projection->currentText();
+    advection_order_ = new QString;
+    *advection_order_ = second->advection_order->displayText();
+    density_and_visc_1 = new QString;
+    *density_and_visc_1 = second->density_and_visc1->displayText();
+    density_and_visc_2 = new QString;
+    *density_and_visc_2 = second->density_and_visc2->displayText();
+    gravity_ = new QString;
+    *gravity_ = second->gravity->displayText();
+
+    preset_motion_ = new QString;
+    *preset_motion_ = third->preset_motion->currentText();
+    dynamic_motion_ = new QString;
+    *dynamic_motion_ = third->dynamic_motion->currentText();
+    direction_of_motion_1 = new QString;
+    *direction_of_motion_1 = third->direction_of_motion1->displayText();
+    direction_of_motion_2 = new QString;
+    *direction_of_motion_2 = third->direction_of_motion2->displayText();
+    direction_of_motion_3 = new QString;
+    *direction_of_motion_3 = third->direction_of_motion3->displayText();
+    total_mass_ = new QString;
+    *total_mass_ = third->total_mass->displayText();
+    init_center_mass_1 = new QString;
+    *init_center_mass_1 = third->init_center_mass1->displayText();
+    init_center_mass_2 = new QString;
+    *init_center_mass_2 = third->init_center_mass2->displayText();
+    init_center_mass_3 = new QString;
+    *init_center_mass_3 = third->init_center_mass3->displayText();
+    init_center_mass_vel_1 = new QString;
+    *init_center_mass_vel_1 = third->init_center_mass_vel1->displayText();
+    init_center_mass_vel_2 = new QString;
+    *init_center_mass_vel_2 = third->init_center_mass_vel2->displayText();
+    init_center_mass_vel_3 = new QString;
+    *init_center_mass_vel_3 = third->init_center_mass_vel3->displayText();
+
+    //***********************************************************//
+    //FOR C9 PARACHUTE TYPE
+
+    num_canopy_surfaces_ = new QString;
+    *num_canopy_surfaces_ = fourth->num_canopy_surfaces->displayText();
+    canopy_surf_type_ = new QString;
+    *canopy_surf_type_ = fourth->canopy_surf_type->currentText();
+    canopy_boundary_ = new QString;
+    *canopy_boundary_ = fourth->canopy_boundary->currentText();
+    height_of_plane_ = new QString;
+    *height_of_plane_ = fourth->height_of_plane->displayText();
+    circle_center_1 = new QString;
+    *circle_center_1 = fourth->circle_center1->displayText();
+    circle_center_2 = new QString;
+    *circle_center_2 = fourth->circle_center2->displayText();
+    circle_radius_ = new QString;
+    *circle_radius_ = fourth->circle_radius->displayText();
+    attach_gores_ = new QString;
+    *attach_gores_ = fourth->attach_gores->currentText();
+    cut_vent_ = new QString;
+    *cut_vent_ = fourth->cut_vent->currentText();
+    attach_strings_ = new QString;
+    *attach_strings_ = fourth->attach_strings->currentText();
+    num_chords_ = new QString;
+    *num_chords_ = fourth->num_chords->displayText();
+    init_pos_load_1 = new QString;
+    *init_pos_load_1 = fourth->init_pos_load1->displayText();
+    init_pos_load_2 = new QString;
+    *init_pos_load_2 = fourth->init_pos_load2->displayText();
+    init_pos_load_3 = new QString;
+    *init_pos_load_3 = fourth->init_pos_load3->displayText();
+    install_strings_toRGB_ = new QString;
+    *install_strings_toRGB_ = fourth->install_strings_toRGB->currentText();
+    body_index_ = new QString;
+    *body_index_ = fourth->body_index->displayText();
+
+    //***********************************************************//
+
+    gpu_solver_ = new QString;
+    *gpu_solver_ = fifth->gpu_solver->currentText();
+    fluid_solver_ = new QString;
+    *fluid_solver_ = fifth->fluid_solver->currentText();
+    use_porosity_ = new QString;
+    *use_porosity_ = fifth->use_porosity->currentText();
+    viscous_param_ = new QString;
+    *viscous_param_ = fifth->viscous_param->displayText();
+    inertial_param_ = new QString;
+    *inertial_param_ = fifth->inertial_param->displayText();
+    smooth_radius_ = new QString;
+    *smooth_radius_ = fifth->smooth_radius->displayText();
+
+    payload_ = new QString;
+    *payload_ = fifth->payload->displayText();
+    sub_step_num_ = new QString;
+    *sub_step_num_ = fifth->sub_step_num->displayText();
+    area_density_ = new QString;
+    *area_density_ = fifth->area_density->displayText();
+
+    fab_spring_const_ = new QString;
+    *fab_spring_const_ = sixth->fab_spring_const->displayText();
+    fab_damping_const_ = new QString;
+    *fab_damping_const_ = sixth->fab_damping_const->displayText();
+    fab_friction_const_ = new QString;
+    *fab_friction_const_ = sixth->fab_friction_const->displayText();
+    fab_point_mass_ = new QString;
+    *fab_point_mass_ = sixth->fab_point_mass->displayText();
+    fab_thickness_ = new QString;
+    *fab_thickness_ = sixth->fab_thickness->displayText();
+    fab_rounding_tol_ = new QString;
+    *fab_rounding_tol_ = sixth->fab_rounding_tol->displayText();
+
+    str_spring_const_ = new QString;
+    *str_spring_const_ = sixth->str_spring_const->displayText();
+    str_damping_const_ = new QString;
+    *str_damping_const_ = sixth->str_damping_const->displayText();
+    str_friction_const_ = new QString;
+    *str_friction_const_ = sixth->str_friction_const->displayText();
+    str_point_mass_ = new QString;
+    *str_point_mass_ = sixth->str_point_mass->displayText();
+    str_thickness_ = new QString;
+    *str_thickness_ = sixth->str_thickness->displayText();
+    str_rounding_tol_ = new QString;
+    *str_rounding_tol_ = sixth->str_rounding_tol->displayText();
+
+    //STRAIN LIMIT NOT INCLUDED - WAITING FOR MORE DEVELOPED CODE
+
+    lower_type_of_dirichlet_ = new QString;
+    //*lower_type_of_dirichlet_ = seventh->lower_type_of_dirichlet->currentText();
+    *lower_type_of_dirichlet_ = first->lowerbound2_type->currentText();
+    velocity_1 = new QString;
+    *velocity_1 = seventh->velocity1->displayText();
+    velocity_2 = new QString;
+    *velocity_2 = seventh->velocity2->displayText();
+    velocity_3 = new QString;
+    *velocity_3 = seventh->velocity3->displayText();
+    pressure_ = new QString;
+    *pressure_ = seventh->pressure->displayText();
+    upper_type_of_dirichlet_ = new QString;
+    //*upper_type_of_dirichlet_ = seventh->upper_type_of_dirichlet->currentText();
+    *upper_type_of_dirichlet_ = first->upperbound2_type->currentText();
+
+    yz_movie_ = new QString;
+    *yz_movie_ = seventh->yz_movie->currentText();
+    xz_movie_ = new QString;
+    *xz_movie_ = seventh->xz_movie->currentText();
+    xy_movie_ = new QString;
+    *xy_movie_ = seventh->xy_movie->currentText();
+    velocity_vector_ = new QString;
+    *velocity_vector_ = seventh->velocity_vector->currentText();
+    surface_stress_ = new QString;
+    *surface_stress_ = seventh->surface_stress->currentText();
+
+    debug_ = new QString;
+    *debug_ = DEBUG->debug->currentText();
+    debug_string_space1_ = new QString;
+    *debug_string_space1_ = DEBUG->debug_string_space1->displayText();
+    debug_string_space2_ = new QString;
+    *debug_string_space2_ = DEBUG->debug_string_space2->displayText();
+    debug_string_space3_ = new QString;
+    *debug_string_space3_ = DEBUG->debug_string_space3->displayText();
+    debug_string_space4_ = new QString;
+    *debug_string_space4_ = DEBUG->debug_string_space4->displayText();
+    debug_string_space5_ = new QString;
+    *debug_string_space5_ = DEBUG->debug_string_space5->displayText();
+    debug_string_space6_ = new QString;
+    *debug_string_space6_ = DEBUG->debug_string_space6->displayText();
+    debug_string_space7_ = new QString;
+    *debug_string_space7_ = DEBUG->debug_string_space7->displayText();
+    debug_string_space8_ = new QString;
+    *debug_string_space8_ = DEBUG->debug_string_space8->displayText();
+    debug_string_space9_ = new QString;
+    *debug_string_space9_ = DEBUG->debug_string_space9->displayText();
+    debug_string_space10_ = new QString;
+    *debug_string_space10_ = DEBUG->debug_string_space10->displayText();
+    debug_string_space11_ = new QString;
+    *debug_string_space11_ = DEBUG->debug_string_space11->displayText();
+    debug_string_space12_ = new QString;
+    *debug_string_space12_ = DEBUG->debug_string_space12->displayText();
+    debug_string_space13_ = new QString;
+    *debug_string_space13_ = DEBUG->debug_string_space13->displayText();
+
+    sample_line_type_ = new QString;
+    *sample_line_type_ = DEBUG->sample_line_type->displayText();
+    sample_line_coord_1 = new QString;
+    *sample_line_coord_1 = DEBUG->sample_line_coord1->displayText();
+    sample_line_coord_2 = new QString;
+    *sample_line_coord_2 = DEBUG->sample_line_coord2->displayText();
+    start_step_ = new QString;
+    *start_step_ = DEBUG->start_step->displayText();
+    end_step_ = new QString;
+    *end_step_ = DEBUG->end_step->displayText();
+
+    //CHECKBOXES FOR RIGID BODY INITIALIZATION/PRINTING
+
+    //SPHERE
+    center_of_sphere1 = new QString;
+    *center_of_sphere1 = third->center_of_sphere1->displayText();
+
+    center_of_sphere2 = new QString;
+    *center_of_sphere2 = third->center_of_sphere2->displayText();
+
+    center_of_sphere3 = new QString;
+    *center_of_sphere3 = third->center_of_sphere3->displayText();
+
+    radius_of_sphere_1 = new QString;
+    *radius_of_sphere_1 = third->radius_of_sphere1->displayText();
+
+    radius_of_sphere_2 = new QString;
+    *radius_of_sphere_2 = third->radius_of_sphere2->displayText();
+
+    radius_of_sphere_3 = new QString;
+    *radius_of_sphere_3 = third->radius_of_sphere3->displayText();
+    //***********************************************************//
+
+    //BOX
+    center_of_box1 = new QString;
+    *center_of_box1 = third->center_of_box1->displayText();
+
+    center_of_box2 = new QString;
+    *center_of_box2 = third->center_of_box2->displayText();
+
+    center_of_box3 = new QString;
+    *center_of_box3 = third->center_of_box3->displayText();
+
+    edge_of_box1 = new QString;
+    *edge_of_box1 = third->edge_of_box1->displayText();
+
+    edge_of_box2 = new QString;
+    *edge_of_box2 = third->edge_of_box2->displayText();
+
+    edge_of_box3 = new QString;
+    *edge_of_box3 = third->edge_of_box3->displayText();
+
+    //***********************************************************//
+
+    //HUMAN
+    human_vtk_directory = new QString;
+    *human_vtk_directory = third->human_vtk_directory->displayText();
+
+    center_of_human1 = new QString;
+    *center_of_human1 = third->center_of_human1->displayText();
+
+    center_of_human2 = new QString;
+    *center_of_human2 = third->center_of_human2->displayText();
+
+    center_of_human3 = new QString;
+    *center_of_human3 = third->center_of_human3->displayText();
+
+    enlargement_coeff = new QString;
+    *enlargement_coeff = third->enlargement_coeff->displayText();
+
+    //***********************************************************//
+
+    //GIVE DIRECTORY
+    init_save_directory = new QString;
+    *init_save_directory = intro->init_directory_name->displayText();
+
+    //***********************************************************//
+
+    //PARACHUTE TYPES OTHER THAN C9
+
+    //***********************************************************//
+
+    //DGB
+
+    complex_connection_DGB = new QString;
+    *complex_connection_DGB = fourth->complex_connection_DGB->currentText();
+
+    canopy_surf_type_DGB = new QString;
+    *canopy_surf_type_DGB = fourth->canopy_surf_type_DGB->currentText();
+
+    canopy_boundary_DGB = new QString;
+    *canopy_boundary_DGB = fourth->canopy_boundary_DGB->currentText();
+
+    height_of_plane_DGB = new QString;
+    *height_of_plane_DGB = fourth->height_of_plane_DGB->displayText();
+
+    circle_center1_DGB = new QString;
+    *circle_center1_DGB = fourth->circle_center1_DGB->displayText();
+
+    circle_center2_DGB = new QString;
+    *circle_center2_DGB = fourth->circle_center2_DGB->displayText();
+
+    circle_radius_DGB = new QString;
+    *circle_radius_DGB = fourth->circle_radius_DGB->displayText();
+
+    attach_gores_DGB = new QString;
+    *attach_gores_DGB = fourth->attach_gores_DGB->currentText();
+
+    cut_vent_DGB = new QString;
+    *cut_vent_DGB = fourth->cut_vent_DGB->currentText();
+
+    radius_of_vent_DGB = new QString;
+    *radius_of_vent_DGB = fourth->radius_vent_DGB->displayText();
+
+    attach_strings_DGB = new QString;
+    *attach_strings_DGB = fourth->attach_strings_DGB->currentText();
+
+    num_chords_DGB = new QString;
+    *num_chords_DGB = fourth->num_chords_DGB->displayText();
+
+    length_of_drape_DGB = new QString;
+    *length_of_drape_DGB = fourth->length_drape_DGB->displayText();
+
+    gap_btn_canopy_and_drape_DGB = new QString;
+    *gap_btn_canopy_and_drape_DGB = fourth->gap_canopy_drape_DGB->displayText();
+
+    init_pos_load_1_DGB = new QString;
+    *init_pos_load_1_DGB = fourth->init_pos_load1_DGB->displayText();
+
+    init_pos_load_2_DGB = new QString;
+    *init_pos_load_2_DGB = fourth->init_pos_load2_DGB->displayText();
+
+    init_pos_load_3_DGB = new QString;
+    *init_pos_load_3_DGB = fourth->init_pos_load3_DGB->displayText();
+
+    fix_load_node_DGB = new QString;
+    *fix_load_node_DGB = fourth->fix_load_node_DGB->currentText();
+
+    install_strings_toRGB_DGB = new QString;
+    *install_strings_toRGB_DGB = fourth->install_strings_toRGB_DGB->currentText();
+
+    modify_initialization_DGB = new QString;
+    *modify_initialization_DGB = fourth->modify_initialization_DGB->currentText();
+
+    canopy_rotation_DGB = new QString;
+    *canopy_rotation_DGB = fourth->rotate_canopy_DGB->currentText();
+
+    new_load_pos1_DGB = new QString;
+    *new_load_pos1_DGB = fourth->new_pos_load1_DGB->displayText();
+
+    new_load_pos2_DGB = new QString;
+    *new_load_pos2_DGB = fourth->new_pos_load2_DGB->displayText();
+
+    new_load_pos3_DGB = new QString;
+    *new_load_pos3_DGB = fourth->new_pos_load3_DGB->displayText();
+
+    connection_pos1_DGB = new QString;
+    *connection_pos1_DGB = fourth->connect_pos1_DGB->displayText();
+
+    connection_pos2_DGB = new QString;
+    *connection_pos2_DGB = fourth->connect_pos2_DGB->displayText();
+
+    connection_pos3_DGB = new QString;
+    *connection_pos3_DGB = fourth->connect_pos3_DGB->displayText();
+
+    multi_parachute_DGB = new QString;
+    *multi_parachute_DGB = fourth->multi_parachute_to_RGB_DGB->currentText();
+
+    body_index_DGB = new QString;
+    *body_index_DGB = fourth->body_index_DGB->displayText();
+
+
+    //***********************************************************//
+
+    //G11
+
+    canopy_surf_type_G11 = new QString;
+    *canopy_surf_type_G11 = fourth->canopy_surf_type_G11->currentText();
+
+    canopy_boundary_G11 = new QString;
+    *canopy_boundary_G11 = fourth->canopy_boundary_G11->currentText();
+
+    height_of_plane_G11 = new QString;
+    *height_of_plane_G11 = fourth->height_of_plane_G11->displayText();
+
+    circle_center_1_G11 = new QString;
+    *circle_center_1_G11 = fourth->circle_center1_G11->displayText();
+
+    circle_center_2_G11 = new QString;
+    *circle_center_2_G11 = fourth->circle_center2_G11->displayText();
+
+    circle_radius_G11 = new QString;
+    *circle_radius_G11 = fourth->circle_radius_G11->displayText();
+
+    attach_gores_G11 = new QString;
+    *attach_gores_G11 = fourth->attach_gores_G11->currentText();
+
+    cut_vent_G11 = new QString;
+    *cut_vent_G11 = fourth->cut_vent_G11->currentText();
+
+    attach_strings_G11 = new QString;
+    *attach_strings_G11 = fourth->attach_strings_G11->currentText();
+
+    num_chords_G11 = new QString;
+    *num_chords_G11 = fourth->num_chords_G11->displayText();
+
+    init_pos_load_1_G11 = new QString;
+    *init_pos_load_1_G11 = fourth->init_pos_load1_G11->displayText();
+
+    init_pos_load_2_G11 = new QString;
+    *init_pos_load_2_G11 = fourth->init_pos_load2_G11->displayText();
+
+    init_pos_load_3_G11 = new QString;
+    *init_pos_load_3_G11 = fourth->init_pos_load3_G11->displayText();
+
+    install_strings_toRGB_G11 = new QString;
+    *install_strings_toRGB_G11 = fourth->install_strings_toRGB_G11->currentText();
+
+    body_index_G11 = new QString;
+    *body_index_G11 = fourth->body_index_G11->displayText();
+
+
+    //***********************************************************//
+
+    //INTRUDER
+
+    canopy_surf_type_intruder = new QString;
+    *canopy_surf_type_intruder = fourth->canopy_surf_type_intruder->currentText();
+
+    canopy_boundary_intruder = new QString;
+    *canopy_boundary_intruder = fourth->canopy_boundary_intruder->currentText();
+
+    height_of_plane_intruder = new QString;
+    *height_of_plane_intruder = fourth->height_of_plane_intruder->displayText();
+
+    ellipse_center1_intruder = new QString;
+    *ellipse_center1_intruder = fourth->ellipse_center1_intruder->displayText();
+
+    ellipse_center2_intruder = new QString;
+    *ellipse_center2_intruder = fourth->ellipse_center2_intruder->displayText();
+
+    ellipse_center3_intruder = new QString;
+    *ellipse_center3_intruder = fourth->ellipse_center3_intruder->displayText();
+
+    ellipse_radius1_intruder = new QString;
+    *ellipse_radius1_intruder = fourth->ellipse_radius1_intruder->displayText();
+
+    ellipse_radius2_intruder = new QString;
+    *ellipse_radius2_intruder = fourth->ellipse_radius2_intruder->displayText();
+
+    ellipse_xrange1_intruder = new QString;
+    *ellipse_xrange1_intruder = fourth->ellipse_xrange1_intruder->displayText();
+
+    ellipse_xrange2_intruder = new QString;
+    *ellipse_xrange2_intruder = fourth->ellipse_xrange2_intruder->displayText();
+
+    attach_gores_intruder = new QString;
+    *attach_gores_intruder = fourth->attach_gores_intruder->currentText();
+
+    num_vert_gores_intruder = new QString;
+    *num_vert_gores_intruder = fourth->num_vert_gores_intruder->displayText();
+
+    start_xcoord_gore_intruder = new QString;
+    *start_xcoord_gore_intruder = fourth->start_xcoord_gore_intruder->displayText();
+
+    dist_btn_gores_intruder = new QString;
+    *dist_btn_gores_intruder = fourth->dist_btn_gores_intruder->displayText();
+
+    attach_strings_intruder = new QString;
+    *attach_strings_intruder = fourth->attach_strings_intruder->currentText();
+
+    vertex_coord_paraboloid1_intruder = new QString;
+    *vertex_coord_paraboloid1_intruder = fourth->vertex_coord_paraboloid1_intruder->displayText();
+
+    vertex_coord_paraboloid2_intruder = new QString;
+    *vertex_coord_paraboloid2_intruder = fourth->vertex_coord_paraboloid2_intruder->displayText();
+
+    vertex_coord_paraboloid3_intruder = new QString;
+    *vertex_coord_paraboloid3_intruder = fourth->vertex_coord_paraboloid3_intruder->displayText();
+
+    coeff_paraboloid_intruder = new QString;
+    *coeff_paraboloid_intruder = fourth->coeff_paraboloid_intruder->displayText();
+
+    init_pos_load1_intruder = new QString;
+    *init_pos_load1_intruder = fourth->init_pos_load1_intruder->displayText();
+
+    init_pos_load2_intruder = new QString;
+    *init_pos_load2_intruder = fourth->init_pos_load2_intruder->displayText();
+
+    init_pos_load3_intruder = new QString;
+    *init_pos_load3_intruder = fourth->init_pos_load3_intruder->displayText();
+
+
+    //***********************************************************//
+    //EXTRA INITIALIZATION FILE PARAMS
+
+    velocity_function = new QString;
+    *velocity_function = Turb_Init->velocity_function->currentText();
+
+    shape_fixed_area = new QString;
+    *shape_fixed_area = Turb_Init->shape_fixed_area->currentText();
+
+    interior_propagator = new QString;
+    *interior_propagator = Turb_Init->interior_propagator->currentText();
+
+    center_ellipse_1 = new QString;
+    *center_ellipse_1 = Turb_Init->center_ellipse_1->displayText();
+
+    center_ellipse_2 = new QString;
+    *center_ellipse_2 = Turb_Init->center_ellipse_2->displayText();
+
+    radii_ellipse_1 = new QString;
+    *radii_ellipse_1 = Turb_Init->radii_ellipse_1->displayText();
+
+    radii_ellipse_2 = new QString;
+    *radii_ellipse_2 = Turb_Init->radii_ellipse_2->displayText();
+
+    area_velocity_1 = new QString;
+    *area_velocity_1 = Turb_Init->area_velocity_1->displayText();
+
+    area_velocity_2 = new QString;
+    *area_velocity_2 = Turb_Init->area_velocity_2->displayText();
+
+    area_velocity_3 = new QString;
+    *area_velocity_3 = Turb_Init->area_velocity_3->displayText();
+
+    init_gravity = new QString;
+    *init_gravity = Turb_Init->gravity->displayText();
+
+    //TURBULENCE
+
+    use_eddy_viscosity = new QString;
+    *use_eddy_viscosity = Turb_Init->use_eddy_viscosity->currentText();
+
+    turbulence_model = new QString;
+    *turbulence_model = Turb_Init->turbulence_model->currentText();
+
+    k_eps_model = new QString;
+    *k_eps_model = Turb_Init->k_eps_model->currentText();
+
+    prandtl_number_for_k = new QString;
+    *prandtl_number_for_k = Turb_Init->prandtl_number_for_k->displayText();
+
+    prandtl_number_for_eps = new QString;
+    *prandtl_number_for_eps = Turb_Init->prandtl_number_for_eps->displayText();
+
+    C1 = new QString;
+    *C1 = Turb_Init->C1->displayText();
+
+    C2 = new QString;
+    *C2 = Turb_Init->C2->displayText();
+
+    Cmu = new QString;
+    *Cmu = Turb_Init->Cmu->displayText();
+
+    Cbc = new QString;
+    *Cbc = Turb_Init->Cbc->displayText();
+
+    l0 = new QString;
+    *l0 = Turb_Init->l0->displayText();
+
+    mu0 = new QString;
+    *mu0 = Turb_Init->mu0->displayText();
+
+    y_plus = new QString;
+    *y_plus = Turb_Init->y_plus->displayText();
+
+    time_to_activate_turb = new QString;
+    *time_to_activate_turb = Turb_Init->time_to_activate_turb->displayText();
+
+
+
+
+    //*********************************************************************************************************************//
+
+
+    QFile Output_init_txt_file(*init_save_directory);
+    //QFile Output_txt_file("/Users/Kyle/Parachute_GUIs/Output_Files/input-file.txt"); //kyle's mac
+    //QFile iFluidtext("./iFluid.txt"); //lambda
+
+    if (!Output_init_txt_file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        qDebug() << "Could not open input-file.txt\n";
+        return;
+    }
+
+
+    //Output all
+    QTextStream out(&Output_init_txt_file);
+
+
+    out << "Domain limit in 0-th dimension: " << *dom_lim_0_first << " " << *dom_lim_0_last << "\n";
+    out << "Domain limit in 1-th dimension: " << *dom_lim_1_first << " " << *dom_lim_1_last << "\n";
+    out << "Domain limit in 2-th dimension: " << *dom_lim_2_first << " " << *dom_lim_2_last << "\n";
+    out << "Computational grid: " << *compgrid_1 << " " << *compgrid_2 << " " << *compgrid_3 << "\n";
+    out << "Lower boundary in 0-th dimension: " << *lowerbound_0 << "\n";
+    out << "Upper boundary in 0-th dimension: " << *upperbound_0 << "\n";
+    out << "Lower boundary in 1-th dimension: " << *lowerbound_1 << "\n";
+    out << "Upper boundary in 1-th dimension: " << *upperbound_1 << "\n";
+    out << "Lower boundary in 2-th dimension: " << *lowerbound_2 << "\n";
+    out << "Upper boundary in 2-th dimension: " << *upperbound_2 << "\n";
+
+    out << "\n";
+
+    out << "Max time: " << *max_time_ << "\n";
+    out << "Max step: " << *max_step_ << "\n";
+    out << "Print interval: " << *print_interval_ << "\n";
+    out << "Movie frame interval: " << *mv_frame_interval_ << "\n";
+    out << "CFL factor: " << *CFL_factor_ << "\n";
+    out << "Redistribution interval: " << *redistribution_interval_ << "\n";
+    out << "Type yes to turn off auto-redistribution: " << *turn_onoff_redist_int_ << "\n";
+
+    out << "\n";
+
+    out <<"**************Fluid Parameters**************" << "\n";
+    out << "Enter projection type: " << *projection_ << "\n";
+    out << "Enter advection order: " << *advection_order_ << "\n";
+    out << "Enter density and viscosity of the fluid: " << *density_and_visc_1 << " " << *density_and_visc_2 << "\n";
+    out << "Enter gravity: " << "0" << " " << "0" << " " << *gravity_ << "\n";
+    if (fourth->intruder_parachute->isChecked()) {
+    out << "Enter fluid ambient velocity: " << "0" << " " << "0" << " " << "4" << "\n";
+    }
+
+    out << "\n";
+
+    if (third->rigid_body_check->isChecked()) {
+    out <<"**************Rigid Body Parameters**************" << "\n";
+    //CHECKBOX TO ADD RIGID BODY
+
+
+    out << "Enter yes to add rigid body: " << "Yes" << "\n";
+    out << "Enter the number of rigid bodies: " << "1" << "\n";
+    out << "For rigid body 1: " << "\n";
+
+    }
+
+    //CHECKBOXES FOR RIGID BODY TYPE AND PARAMETERS
+
+    if (third->rigid_body_sphere->isChecked()) {
+        out << "Enter type of rigid body: " << "Sphere" << "\n";
+        out << "Enter center of the sphere: " << *center_of_sphere1 << " " << *center_of_sphere2 << " " << *center_of_sphere3 << "\n";
+        out << "Enter radius of the sphere: " << *radius_of_sphere_1 << " " << *radius_of_sphere_2 << " " << *radius_of_sphere_3 << "\n";
+
+    }
+
+    if (third->rigid_body_box->isChecked()) {
+
+        out << "Enter type of rigid body: " << "Box" << "\n";
+        out << "Enter center of the box: " << *center_of_box1 << " " << *center_of_box2 << " " << *center_of_box3 << "\n";
+        out << "Enter edges of the box: " << *edge_of_box1 << " " << *edge_of_box2 << " " << *edge_of_box3 << "\n";
+
+    }
+
+    if (third->rigid_body_human->isChecked()) {
+
+        out << "Enter type of rigid body: " << "Human" << "\n";
+        out << "Enter the vtk file name for human body: " << *human_vtk_directory << "\n";
+        out << "Enter center of the human body: " << *center_of_human1 << " " << *center_of_human2 << " " << *center_of_human3 << "\n";
+        out << "Enter enlargement coefficient: " << *enlargement_coeff << "\n";
+
+    }
+
+    if (third->rigid_body_check->isChecked()) {
+    out << "Type yes if motion is preset: " << *preset_motion_ << "\n";
+    out << "Enter type of dynamic motion: " << *dynamic_motion_ << "\n";
+    out << "Enter the direction of motion: " << *direction_of_motion_1 << " " << *direction_of_motion_2 << " " << *direction_of_motion_3 << "\n";
+    out << "Enter the total mass for rigid body: " << *total_mass_ << "\n";
+    out << "Enter the initial center of mass for rigid body: " << *init_center_mass_1 << " " << *init_center_mass_2 << " " << *init_center_mass_3 << "\n";
+    out << "Enter the initial center of mass velocity: " << *init_center_mass_vel_1 << " " << *init_center_mass_vel_2 << " " << *init_center_mass_vel_3 << "\n";
+
+
+    out << "\n";
+
+    }
+
+    //PUT IN CONDITIONS FOR DIFFERENT PARACHUTE TYPES
+
+    out <<"**************Parachute Parameters**************" << "\n";
+
+    if (fourth->C9_parachute->isChecked()) {
+
+    out << "Enter number of canopy surfaces: " << *num_canopy_surfaces_ << "\n";
+    out << "Enter canopy surface type: " << *canopy_surf_type_ << "\n";
+    out << "Enter type of canopy boundary: " << *canopy_boundary_ << "\n";
+    out << "Enter the height of the plane: " << *height_of_plane_ << "\n";
+    out << "Enter circle center: " << *circle_center_1 << " " << *circle_center_2 << "\n";
+    out << "Enter circle radius: " << *circle_radius_ << "\n";
+    out << "Enter yes to attach gores to canopy: " << *attach_gores_ << "\n";
+    out << "Enter yes to cut a vent on canopy: " << *cut_vent_ << "\n";
+    out << "Enter yes to attach strings to canopy: " << *attach_strings_ << "\n";
+    out << "Enter number of chords: " << *num_chords_ << "\n";
+    out << "Enter initial position of load: " << *init_pos_load_1 << " " << *init_pos_load_2 << " " << *init_pos_load_3 << "\n";
+    out << "Enter yes to install the strings to RGB: " << *install_strings_toRGB_ << "\n";
+    out << "Enter the body index of the target RGB: " << *body_index_ << "\n";
+
+    }
+
+    if (fourth->DGB_parachute->isChecked()) {
+
+    out << "Enter number of canopy surfaces: " << "1" << "\n";
+    out << "Enter yes for complex connection: " << *complex_connection_DGB << "\n";
+    out << "\n";
+    out << "For module 1" << "\n";
+    out << "Enter canopy surface type: " << *canopy_surf_type_DGB << "\n";
+    out << "Enter type of canopy boundary: " << *canopy_boundary_DGB << "\n";
+    out << "Enter the height of the plane: " << *height_of_plane_DGB << "\n";
+    out << "Enter circle center: " << *circle_center1_DGB << " " << *circle_center2_DGB << "\n";
+    out << "Enter circle radius: " << *circle_radius_DGB << "\n";
+    out << "Enter yes to attach gores to canopy: " << *attach_gores_DGB << "\n";
+    out << "Enter yes to cut a vent on canopy: " << *cut_vent_DGB << "\n";
+    out << "Enter yes to attach strings to canopy: " << *attach_strings_DGB << "\n";
+    out << "Enter number of chords: " << *num_chords_DGB << "\n";
+    out << "Enter the length of the drape: " << *length_of_drape_DGB << "\n";
+    out << "Enter the gap between canopy and drape: " << *gap_btn_canopy_and_drape_DGB << "\n";
+    out << "Enter initial position of load: " << *init_pos_load_1_DGB << " " << *init_pos_load_2_DGB << " " << *init_pos_load_3_DGB << "\n";
+    out << "Enter yes to fix the load node: " << *fix_load_node_DGB << "\n";
+    out << "Enter yes to install the strings to RGB: " << *install_strings_toRGB_DGB << "\n";
+    out << "Entering yes to modify initialization: " << *modify_initialization_DGB << "\n";
+    out << "Enter yes for rotation of canopy: " << *canopy_rotation_DGB << "\n";
+    out << "\n";
+    out << "Enter new load position: " << *new_load_pos1_DGB << " " << *new_load_pos2_DGB << " " << *new_load_pos3_DGB << "\n";
+    out << "Enter connection position: " << *connection_pos1_DGB << " " << *connection_pos2_DGB << " " << *connection_pos3_DGB << "\n";
+    out << "\n";
+    out << "Enter yes to install the multi-parachute to RGB: " << *multi_parachute_DGB << "\n";
+    out << "Enter the body index of the target RGB: " << *body_index_DGB << "\n";
+
+    }
+
+
+    if (fourth->G11_parachute->isChecked()) {
+
+    out << "Enter number of canopy surfaces: " << "1" << "\n";
+    out << "Enter canopy surface type: " << *canopy_surf_type_G11 << "\n";
+    out << "Enter type of canopy boundary: " << *canopy_boundary_G11 << "\n";
+    out << "Enter the height of the plane: " << *height_of_plane_G11 << "\n";
+    out << "Enter circle center: " << *circle_center_1_G11 << " " << *circle_center_2_G11 << "\n";
+    out << "Enter circle radius: " << *circle_radius_G11 << "\n";
+    out << "Enter yes to attach gores to canopy: " << *attach_gores_G11 << "\n";
+    out << "Enter yes to cut a vent on canopy: " << *cut_vent_G11 << "\n";
+    out << "Enter yes to attach strings to canopy: " << *attach_strings_G11 << "\n";
+    out << "Enter number of chords: " << *num_chords_G11 << "\n";
+    out << "Enter initial position of load: " << *init_pos_load_1_G11 << " " << *init_pos_load_2_G11 << " " << *init_pos_load_3_G11 << "\n";
+    out << "Enter yes to install the strings to RGB: " << *install_strings_toRGB_G11 << "\n";
+    out << "Enter the body index of the target RGB: " << *body_index_G11 << "\n";
+
+    }
+
+
+    if (fourth->intruder_parachute->isChecked()) {
+
+    out << "Enter number of canopy surfaces: " << "1" << "\n";
+    out << "Enter canopy surface type: " << *canopy_surf_type_intruder << "\n";
+    out << "Enter type of canopy boundary: " << *canopy_boundary_intruder << "\n";
+    out << "Enter the height of the plane: " << *height_of_plane_intruder << "\n";
+    out << "Enter ellipse center: " << *ellipse_center1_intruder << " " << *ellipse_center2_intruder << " " << *ellipse_center3_intruder << "\n";
+    out << "Enter ellipse radius: " << *ellipse_radius1_intruder << " " << *ellipse_radius2_intruder << "\n";
+    out << "Enter x range of ellipse: " << *ellipse_xrange1_intruder << " " << *ellipse_xrange2_intruder << "\n";
+    out << "Enter yes to attach gores to canopy: " << *attach_gores_intruder << "\n";
+    out << "Enter number of vertical gores: " << *num_vert_gores_intruder << "\n";
+    out << "Enter start x-coordinate of gore: " << *start_xcoord_gore_intruder << "\n";
+    out << "Enter distance between gores: " << *dist_btn_gores_intruder << "\n";
+    out << "Enter yes to attach strings to canopy: " << *attach_strings_intruder << "\n";
+    out << "Enter vertex coordinate of the paraboloid: " << *vertex_coord_paraboloid1_intruder << " " << *vertex_coord_paraboloid2_intruder << " " << *vertex_coord_paraboloid3_intruder << "\n";
+    out << "Enter coefficient of the paraboloid: " << *coeff_paraboloid_intruder << "\n";
+    out << "Enter initial position of load: " << *init_pos_load1_intruder << " " << *init_pos_load2_intruder << " " << *init_pos_load3_intruder << "\n";
+    // NO RGB WITH INTRUDER     out << "Enter yes to install the strings to RGB: " << *install_strings_toRGB_G11 << "\n";
+    // NO RGB WITH INTRUDER     out << "Enter the body index of the target RGB: " << *body_index_G11 << "\n";
+
+    }
+
+
+    out << "\n";
+
+    out <<"**************Airfoil Parameters**************" << "\n";
+    out << "Enter yes to use GPU solver: " << *gpu_solver_ << "\n";
+    out << "Entering yes to turn off fluid solver: " << *fluid_solver_ << "\n";
+    out << "\n";
+    out << "Enter velocity function: " << *velocity_function << "\n";
+    out << "Enter initial shape of fixed area: " << *shape_fixed_area << "\n";
+    out << "Enter center of ellipse: " << *center_ellipse_1 << " " << *center_ellipse_2 << "\n";
+    out << "Enter radii of ellipse: " << *radii_ellipse_1 << " " << *radii_ellipse_1 << "\n";
+    out << "Enter area velocity: " << *area_velocity_1 << " " << *area_velocity_2 << " " << *area_velocity_3 << "\n";
+    out << "Enter gravity: " << "0" << " " << "0" << " " << *init_gravity << "\n";
+    out << "\n";
+    out << "Enter yes to use porosity: " << *use_porosity_ << "\n";
+    out << "Enter viscous parameter: " << *viscous_param_ << "\n";
+    out << "Enter inertial parameter: " << *inertial_param_ << "\n";
+    out << "Enter factor of smoothing radius: " << *smooth_radius_ << "\n";
+    out << "\n";
+    out << "Enter interior propagator: " << *interior_propagator << "\n";
+    out << "Enter payload: " << *payload_ << "\n";
+    out << "Enter interior sub step number: " << *sub_step_num_ << "\n";
+    out << "Enter area density of canopy: " << *area_density_ << "\n";
+    out << "\n";
+    out << "Enter fabric spring constant: " << *fab_spring_const_ << "\n";
+    out << "Enter fabric damping constant: " << *fab_damping_const_ << "\n";
+    out << "Enter fabric friction constant: " << *fab_friction_const_ << "\n";
+    out << "Enter fabric point mass: " << *fab_point_mass_ << "\n";
+    out << "Enter fabric thickness: " << *fab_thickness_ << "\n";
+    out << "Enter fabric rounding tolerance: " << *fab_rounding_tol_ << "\n";
+    out << "\n";
+    out << "Enter string spring constant: " << *str_spring_const_ << "\n";
+    out << "Enter string damping constant: " << *str_damping_const_ << "\n";
+    out << "Enter string friction constant: " << *str_friction_const_ << "\n";
+    out << "Enter string point mass: " << *str_point_mass_ << "\n";
+    out << "Enter string thickness: " << *str_thickness_ << "\n";
+    out << "Enter string rounding tolerance: " << *str_rounding_tol_ << "\n";
+
+    out << "\n";
+
+    out << "Enter strain limit: " << "0.3" << "\n";
+    out << "Enter strain rate limit: " << "0.1" << "\n";
+
+    if (fourth->intruder_parachute->isChecked()) {
+    out << "\n";
+    out << "Enter gore spring constant: " << "8000" << "\n";
+    out << "Enter gore friction constant: " << "0.1" << "\n";
+    out << "Enter gore point mass: " << "0.002" << "\n";
+    }
+
+    out << "\n";
+
+    out <<"*************Turbulence Parameters*************" << "\n";
+    out << "Enter yes to use eddy viscosity: " << *use_eddy_viscosity << "\n";
+    out << "Enter turbulence model: " << *turbulence_model << "\n";
+    out << "Enter type of k-eps model: " << *k_eps_model << "\n";
+    out << "Enter turbulent Prandtl number for k: " << *prandtl_number_for_k << "\n";
+    out << "Enter turbulent Prandtl number for epsilon: " << *prandtl_number_for_eps << "\n";
+    out << "Enter C1: " << *C1 << "\n";
+    out << "Enter C2: " << *C2 << "\n";
+    out << "Enter Cmu: " << *Cmu << "\n";
+    out << "Enter Cbc: " << *Cbc << "\n";
+    out << "Enter l0: " << *l0 << "\n";
+    out << "Enter mu0: " << *mu0 << "\n";
+    out << "Enter y+: " << *y_plus << "\n";
+    out << "Enter time to active turbulence model: " << *time_to_activate_turb << "\n";
+
+    out << "\n";
+
+    out <<"**************Boundary Parameters**************" << "\n";
+    out << "For lower boundary in 2-th dimension" << "\n";
+    out << "Enter type of Dirichlet boundary: " << *lower_type_of_dirichlet_ << "\n";
+    out << "Enter velocity: " << *velocity_1 << " " << *velocity_2 << " " << *velocity_3 << "\n";
+    out << "Enter pressure: " << *pressure_ << "\n";
+    out << "For upper boundary in 2-th dimension" << "\n";
+    out << "Enter type of Dirichlet boundary: " << *upper_type_of_dirichlet_ << "\n";
+
+    out << "\n";
+
+    out <<"**************Movie Options**************" << "\n";
+    out << "Type y to make yz cross section movie: " << *yz_movie_ << "\n";
+    out << "Type y to make xz cross section movie: " << *xz_movie_ << "\n";
+    out << "Type y to make xy cross section movie: " << *xy_movie_ << "\n";
+    out << "Type y to make vector velocity field movie: " << *velocity_vector_ << "\n";
+    out << "Type y to plot surface stress: " << *surface_stress_ << "\n";
+
+    out << "\n";
+
+    out <<"**************Debugging Options**************" << "\n";
+    out << "Enter yes for debugging: " << *debug_ << "\n";
+    out << "Enter the debugging string: " << *debug_string_space1_ << "\n";
+    out << "Enter the debugging string: " << *debug_string_space2_ << "\n";
+    out << "Enter the debugging string: " << *debug_string_space3_ << "\n";
+    out << "Enter the debugging string: " << *debug_string_space4_ << "\n";
+    out << "\n";
+    out << "Enter the debugging string: " << *debug_string_space5_ << "\n";
+    out << "Enter the debugging string: " << *debug_string_space6_ << "\n";
+    out << "Enter the debugging string: " << *debug_string_space7_ << "\n";
+    out << "Enter the debugging string: " << *debug_string_space8_ << "\n";
+    out << "Enter the debugging string: " << *debug_string_space9_ << "\n";
+    out << "Enter the debugging string: " << *debug_string_space10_ << "\n";
+    out << "Enter the debugging string: " << *debug_string_space11_ << "\n";
+    out << "Enter the debugging string: " << *debug_string_space12_ << "\n";
+    out << "\n";
+    out << "Enter the debugging string: " << *debug_string_space13_ << "\n";
+    out << "Enter the sample line type: " << *sample_line_type_ << "\n";
+    out << "Enter the sample line coordinate: " << *sample_line_coord_1 << " " << *sample_line_coord_2 << "\n";
+    out << "Enter the start step for sample: " << *start_step_ << "\n";
+    out << "Enter the end step for sample: " << *end_step_ << "\n";
+    out << "Enter the step interval for sample: " << "1" << "\n";
 
 
 }
+
+
+
+
+
+
 
 
 
